@@ -1,4 +1,4 @@
-## multicompartmental CA1PyramidalCell model 
+### multicompartmental CA1PyramidalCell model by Poirazi et al.
 
 Arithmetic of subthreshold synaptic summation in a model CA1 pyramidal cell. Porazi P, Brannon T, Mel BW (2003a) [Neuron 37:977-987](http://www.ncbi.nlm.nih.gov/pubmed/12670426)
 
@@ -17,4 +17,6 @@ In addition we created a simplified NEURON version, with a single cell and curre
 ### NeuroML2/LEMS version of model
 
 This model will be converted to NeuroML2/LEMS ...
+
+[![Build Status](https://travis-ci.org/andrisecker/Poirazi2003-CA1Pyr.svg?branch=master)](https://travis-ci.org/andrisecker/Poirazi2003-CA1Pyr)
 
