@@ -6,5 +6,5 @@ To run the scripts, [install NEURON](https://www.neuron.yale.edu/neuron/download
 
     git clone https://github.com/andrisecker/Poirazi2003-CA1Pyr.git  # clone git repository
     cd Poirazi2003-CA1Pyr/NEURON/test
-    nrnivmodl ../mechanism/ # compile .mod files
+    nrnivmodl  # compile .mod files
     nrngui test_Poirazi2003.hoc  # runs a simulation (single cell, current clamp) and saves data
