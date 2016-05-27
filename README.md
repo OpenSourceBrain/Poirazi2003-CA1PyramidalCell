@@ -1,6 +1,7 @@
 ## multicompartmental CA1PyramidalCell model 
 
 Arithmetic of subthreshold synaptic summation in a model CA1 pyramidal cell. Porazi P, Brannon T, Mel BW (2003a) [Neuron 37:977-987](http://www.ncbi.nlm.nih.gov/pubmed/12670426)
+
 Pyramidal Neuron as Two-Layer Neural Network. Porazi P, Brannon T, Mel BW (2003b) [Neuron 37:989-999](http://www.ncbi.nlm.nih.gov/pubmed/12670427)
 
 ### NEURON version of model:
