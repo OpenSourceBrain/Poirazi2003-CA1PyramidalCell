@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" id="Golgi_KC">
+
+    <notes>ChannelML file containing a single D-type K+ channel description (from Borg-Graham 1998 - modeled by Lazarewicz 2002)</notes>
+
+    <ionChannel id="kdBG" conductance="1pS" type="ionChannelHH" species="k">  <!-- erev="-95mV"-->
+        
+        <gateHHtauInf id="x" instances="4">
+            <timeCourse type="fixedTimeCourse" tau="1ms"/>
+            <steadyState type="Poirazi_kdBG_ssx"/>
+        </gateHHtauInf>
+        
+        <gateHHrates id="y" instances="4">
+            <q10Settings type="q10ExpTemp" q10Factor="1" experimentalTemp="35degC"/>
+            <forwardRate type="Poirazi_kdBG_alphay"/>
+            <reverseRate type="Poirazi_kdBG_betay"/>
+        </gateHHrates>
+          
+    </ionChannel>
+    
+    
+    <ComponentType name="Poirazi_kdBG_ssx"
+                   extends="baseVoltageDepVariable"
+                   description="steadyState parameter to describe kdBG in Poirazi 2003">
+        
+        <Constant name="VOLT_SCALE" dimension="voltage" value="1 mV"/>
+        <Constant name="TEMP_SCALE" dimension="temperature" value="1 K"/>
+        <Constant name="R" dimension="none" value="8.314"/>
+                
+        <Requirement name="temperature" dimension="temperature"/>
+
+        <Dynamics>
+            <DerivedVariable name="V" dimension="none" value="v / VOLT_SCALE"/>
+            <DerivedVariable name="T" dimension="none" value="temperature / TEMP_SCALE"/>
+            
+            <DerivedVariable name="alpha" dimension="none" value="exp((1e-3*3*(V+63)*9.652e4) / (R*T))"/> <!-- NEURON's Faraday...-->
+            <DerivedVariable name="beta" dimension="none" value="exp(-(1e-3*3*(V+63)*9.652e4) / (R*T))"/> <!-- NEURON's Faraday...-->
+            <DerivedVariable name="x" exposure="x" dimension="none" value="alpha / (alpha + beta)"/>
+        </Dynamics>
+
+    </ComponentType>
+    
+    
+    <ComponentType name="Poirazi_kdBG_alphay"
+            extends="baseVoltageDepRate"
+            description="forward rate to describe kdBG in Poirazi 2003">
+        
+        <Constant name="TIME_SCALE" dimension="time" value="1 ms"/>
+       
+        <Dynamics>                  
+            <DerivedVariable name="r" dimension="per_time" value="2.e-4 / TIME_SCALE" exposure="r"/>          
+        </Dynamics>
+        
+    </ComponentType>
+    
+    
+    <ComponentType name="Poirazi_kdBG_betay"
+            extends="baseVoltageDepRate"
+            description="reverse rate to describe kdBG in Poirazi 2003">
+        
+        <Constant name="VOLT_SCALE" dimension="voltage" value="1 mV"/>
+        <Constant name="TIME_SCALE" dimension="time" value="1 ms"/>
+        <Constant name="TEMP_SCALE" dimension="temperature" value="1 K"/>
+        <Constant name="R" dimension="none" value="8.314"/>
+                
+        <Requirement name="temperature" dimension="temperature"/>
+       
+        <Dynamics>   
+            <DerivedVariable name="V" dimension="none" value="v / VOLT_SCALE"/>
+            <DerivedVariable name="T" dimension="none" value="temperature / TEMP_SCALE"/>
+             
+            <DerivedVariable name="r" dimension="per_time" value="( 2e-4 * exp((1e-3*2.5*(V+73)*9.652e4) / (R*T)) ) / TIME_SCALE" exposure="r"/>          
+        </Dynamics>
+        
+    </ComponentType>
+    
+</neuroml>

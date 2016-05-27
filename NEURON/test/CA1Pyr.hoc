@@ -1,0 +1,2304 @@
+begintemplate CA1Pyr
+
+create soma[5]
+create dendrite[59]
+create apical_dendrite[119]
+
+objref soma_list
+objref RP, POI, APEX
+objref rt_proximal, rt_medial, rt_distal, lm_thick, thin_radiatum, oriens_pro, oriens_dist, lm_thin, addendum_tips
+objref axon_sec_list
+objref basal_tree_list
+objref apical_tip_list
+objref apical_tip_list_addendum
+objref apical_trunk_list
+objref peri_trunk_list
+objref peri_trunk_addl 
+objref apical_non_trunk_list
+objref pl[150],opl[150]
+objref bl[150],obl[150]
+objref vRP, vAPEX
+objref SLM, RT
+strdef sectype
+
+
+public rt_proximal, rt_medial, rt_distal, lm_thick, thin_radiatum, oriens_pro, oriens_dist, lm_thin, addendum_tips, soma, dendrite, apical_dendrite, choose_secs_branchwise, choose_secs, soma_list, apical_trunk_list, SLM, RT, apical_tip_list, apical_tip_list_addendum, apical_trunk_list, peri_trunk_list
+
+proc init() {
+	create soma[5]
+	create dendrite[59]
+	create apical_dendrite[119]
+
+	xopen("../morphology/n123/cell.hoc")            
+
+	adjustment = 41.1 // This adjustment factor is supplied to the vector distance function so that distance calculations are measured at the cell body.
+
+	cell_analysis($o1) 
+	maximum_segment_length=75            
+	cut_sections(maximum_segment_length)
+	map_segments_to_3d()
+	layers2($o1) 
+	cell_lists()
+	parameters()
+	cell_setup($o1)
+	current_balance(v_init)
+}
+
+
+
+proc cell_lists() {
+
+	SLM = new SectionList()
+	forsec lm_thin { SLM.append()}
+	forsec lm_thick { SLM.append()}
+
+
+	RT  = new SectionList()
+	forsec rt_proximal{ RT.append()}
+	forsec rt_medial { RT.append()}
+}
+
+
+
+
+proc cell_analysis() {  // cell_analysis (econ)
+
+	vRP=new Vector()
+	vAPEX=new Vector()
+
+	access  apical_dendrite[4]   // set point of reference (if adjustment=0). With adjustment factor = 41.1
+	vcreate(vRP)                 // the point of reference is the soma
+
+	access apical_dendrite[92]  // set the apex point
+	vcreate2(vAPEX,0.5)
+
+	soma_list=new SectionList()
+
+	forsec "soma" {
+		soma_list.append()
+	} 
+
+
+	// This function makes a list with all sections on the axon
+	axon_sec_list = new SectionList()
+
+	for i = 30,34 dendrite[i] {
+		axon_sec_list.append()
+	}
+
+	
+	for i = 18,22 dendrite[i] {
+		axon_sec_list.append()
+	}
+
+	
+
+
+	// This function makes a list with all dendritic sections in the basal tree
+	// written by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
+
+	basal_tree_list=new SectionList()
+
+	forall {
+		if (issection("dendrite.*"))  {
+			skip=0
+				ifsec axon_sec_list { skip=1 }
+			if (!skip) {
+				basal_tree_list.append()
+			} 
+		}
+	}
+
+	/* Make a shape graph showing all basal sections
+
+	   objref basal_tree_list_shape
+	   basal_tree_list_shape=new Shape()
+	   color_index=3
+	   basal_tree_list_shape.color_list(basal_tree_list,color_index)
+	   basal_tree_list_shape.printfile("basal-tree-list.eps")
+	 */
+
+
+	// This function makes a list with primary oblique dendrites
+	// written by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
+
+	apical_tip_list=new SectionList()
+	fill_apical_tip_list()
+
+
+	// List of obliques located at distances approximatelly less than 300 microns from the soma
+
+	// This function makes a list with oblique branches in addition to 
+	// the primary list in apical-tip-list.hoc 
+	// written by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
+
+	apical_tip_list_addendum=new SectionList()
+	fill_apical_tip_list_addendum()
+
+
+	// This function makes a list with all dendritic sections in the apical trunk
+	// written by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
+
+	apical_trunk_list=new SectionList()
+	fill_apical_trunk_list()
+
+
+
+		// This function makes a list with all dendritic sections directly attached to the apical trunk
+		// written by Terrence Brannon, modified by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
+
+		peri_trunk_list=new SectionList()
+
+		apical_dendrite[1] peri_trunk_list.append()
+		apical_dendrite[5] peri_trunk_list.append()
+		apical_dendrite[7] peri_trunk_list.append()
+		apical_dendrite[17] peri_trunk_list.append()
+		apical_dendrite[24] peri_trunk_list.append()
+		apical_dendrite[28] peri_trunk_list.append()
+		apical_dendrite[29] peri_trunk_list.append()
+		apical_dendrite[30] peri_trunk_list.append()
+		apical_dendrite[40] peri_trunk_list.append()
+		apical_dendrite[43] peri_trunk_list.append()
+		apical_dendrite[47] peri_trunk_list.append()
+		apical_dendrite[49] peri_trunk_list.append()
+		apical_dendrite[57] peri_trunk_list.append()
+		apical_dendrite[59] peri_trunk_list.append()
+		apical_dendrite[61] peri_trunk_list.append()
+		apical_dendrite[63] peri_trunk_list.append()
+		apical_dendrite[66] peri_trunk_list.append()
+		apical_dendrite[70] peri_trunk_list.append()
+		apical_dendrite[72] peri_trunk_list.append()
+		apical_dendrite[96] peri_trunk_list.append()
+		apical_dendrite[104] peri_trunk_list.append()
+
+		peri_trunk_addl=new SectionList()
+		apical_dendrite[8]   peri_trunk_addl.append()
+		apical_dendrite[18]  peri_trunk_addl.append()
+		apical_dendrite[44]  peri_trunk_addl.append()
+		apical_dendrite[73]  peri_trunk_addl.append()
+		apical_dendrite[105] peri_trunk_addl.append()
+
+
+
+		// This function makes a list with all sections NOT on the apical trunk 
+		// written by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
+
+		apical_non_trunk_list=new SectionList()
+
+		forsec "apical" {
+			skip = 0
+				ifsec apical_trunk_list { skip=1 }
+			if (!skip) {
+				apical_non_trunk_list.append()
+			}
+		}
+
+
+		/* This is tragic. Neuron can't handle large procedures */
+		fill_opl_1()
+		fill_opl_2()
+
+		fill_obl()
+
+
+}
+
+// Make a set of lists, each containing the oblique sections
+// that form a continuous path: starting from the section attached 
+// to the trunk and ending at the apical tip section. 
+proc fill_opl_1() {
+		plcount=0
+		pl[plcount]=new SectionList()
+
+		apical_dendrite[0] pl[plcount].append()
+		apical_dendrite[1] pl[plcount].append()
+		apical_dendrite[2] pl[plcount].append()
+		//apical_dendrite[2] apical_tip_list.
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[0] pl[plcount].append()
+		apical_dendrite[1] pl[plcount].append()
+		apical_dendrite[3] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[4] pl[plcount].append()
+		apical_dendrite[5] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[6] pl[plcount].append()
+		apical_dendrite[7] pl[plcount].append()
+		apical_dendrite[8] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[6] pl[plcount].append()
+		apical_dendrite[7] pl[plcount].append()
+		apical_dendrite[9] pl[plcount].append()
+		apical_dendrite[10] pl[plcount].append()
+		apical_dendrite[11] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[6] pl[plcount].append()
+		apical_dendrite[7] pl[plcount].append()
+		apical_dendrite[9] pl[plcount].append()
+		apical_dendrite[10] pl[plcount].append()
+		apical_dendrite[12] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[6] pl[plcount].append()
+		apical_dendrite[7] pl[plcount].append()
+		apical_dendrite[9] pl[plcount].append()
+		apical_dendrite[13] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[14] pl[plcount].append()
+		apical_dendrite[116] pl[plcount].append()
+		apical_dendrite[117] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[14] pl[plcount].append()
+		apical_dendrite[116] pl[plcount].append()
+		apical_dendrite[118] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[16] pl[plcount].append()
+		apical_dendrite[17] pl[plcount].append()
+		apical_dendrite[18] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[16] pl[plcount].append()
+		apical_dendrite[17] pl[plcount].append()
+		apical_dendrite[19] pl[plcount].append()
+		apical_dendrite[20] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[16] pl[plcount].append()
+		apical_dendrite[17] pl[plcount].append()
+		apical_dendrite[19] pl[plcount].append()
+		apical_dendrite[21] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[23] pl[plcount].append()
+		apical_dendrite[24] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[27] pl[plcount].append()
+		apical_dendrite[28] pl[plcount].append()
+		apical_dendrite[29] pl[plcount].append()
+		apical_dendrite[30] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[27] pl[plcount].append()
+		apical_dendrite[28] pl[plcount].append()
+		apical_dendrite[29] pl[plcount].append()
+		apical_dendrite[31] pl[plcount].append()
+		apical_dendrite[32] pl[plcount].append()
+		apical_dendrite[33] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[27] pl[plcount].append()
+		apical_dendrite[28] pl[plcount].append()
+		apical_dendrite[29] pl[plcount].append()
+		apical_dendrite[31] pl[plcount].append()
+		apical_dendrite[32] pl[plcount].append()
+		apical_dendrite[34] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[27] pl[plcount].append()
+		apical_dendrite[28] pl[plcount].append()
+		apical_dendrite[29] pl[plcount].append()
+		apical_dendrite[31] pl[plcount].append()
+		apical_dendrite[35] pl[plcount].append()
+		apical_dendrite[36] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[27] pl[plcount].append()
+		apical_dendrite[28] pl[plcount].append()
+		apical_dendrite[29] pl[plcount].append()
+		apical_dendrite[31] pl[plcount].append()
+		apical_dendrite[35] pl[plcount].append()
+		apical_dendrite[37] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[27] pl[plcount].append()
+		apical_dendrite[28] pl[plcount].append()
+		apical_dendrite[38] pl[plcount].append()
+		apical_dendrite[39] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[27] pl[plcount].append()
+		apical_dendrite[28] pl[plcount].append()
+		apical_dendrite[38] pl[plcount].append()
+		apical_dendrite[40] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[42] pl[plcount].append()
+		apical_dendrite[43] pl[plcount].append()
+		apical_dendrite[44] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[42] pl[plcount].append()
+		apical_dendrite[43] pl[plcount].append()
+		apical_dendrite[45] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[46] pl[plcount].append()
+		apical_dendrite[47] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[48] pl[plcount].append()
+		apical_dendrite[49] pl[plcount].append()
+		apical_dendrite[50] pl[plcount].append()
+		apical_dendrite[51] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[48] pl[plcount].append()
+		apical_dendrite[49] pl[plcount].append()
+		apical_dendrite[50] pl[plcount].append()
+		apical_dendrite[52] pl[plcount].append()
+		apical_dendrite[53] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[48] pl[plcount].append()
+		apical_dendrite[49] pl[plcount].append()
+		apical_dendrite[50] pl[plcount].append()
+		apical_dendrite[52] pl[plcount].append()
+		apical_dendrite[54] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[48] pl[plcount].append()
+		apical_dendrite[49] pl[plcount].append()
+		apical_dendrite[55] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[56] pl[plcount].append()
+		apical_dendrite[57] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[58] pl[plcount].append()
+		apical_dendrite[59] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[60] pl[plcount].append()
+		apical_dendrite[61] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[62] pl[plcount].append()
+		apical_dendrite[63] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[62] pl[plcount].append()
+		apical_dendrite[63] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[65] pl[plcount].append()
+		apical_dendrite[66] pl[plcount].append()
+		apical_dendrite[67] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+}
+
+proc fill_opl_2() { 
+
+	plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[65] pl[plcount].append()
+		apical_dendrite[66] pl[plcount].append()
+		apical_dendrite[68] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[69] pl[plcount].append()
+		apical_dendrite[70] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[71] pl[plcount].append()
+		apical_dendrite[72] pl[plcount].append()
+		apical_dendrite[73] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[71] pl[plcount].append()
+		apical_dendrite[72] pl[plcount].append()
+		apical_dendrite[74] pl[plcount].append()
+		apical_dendrite[75] pl[plcount].append()
+		apical_dendrite[76] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[71] pl[plcount].append()
+		apical_dendrite[72] pl[plcount].append()
+		apical_dendrite[74] pl[plcount].append()
+		apical_dendrite[75] pl[plcount].append()
+		apical_dendrite[77] pl[plcount].append()
+		apical_dendrite[78] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[71] pl[plcount].append()
+		apical_dendrite[72] pl[plcount].append()
+		apical_dendrite[74] pl[plcount].append()
+		apical_dendrite[75] pl[plcount].append()
+		apical_dendrite[77] pl[plcount].append()
+		apical_dendrite[79] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[71] pl[plcount].append()
+		apical_dendrite[72] pl[plcount].append()
+		apical_dendrite[74] pl[plcount].append()
+		apical_dendrite[80] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[81] pl[plcount].append()
+		apical_dendrite[82] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[83] pl[plcount].append()
+		apical_dendrite[84] pl[plcount].append()
+		apical_dendrite[85] pl[plcount].append()
+		apical_dendrite[86] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[83] pl[plcount].append()
+		apical_dendrite[84] pl[plcount].append()
+		apical_dendrite[85] pl[plcount].append()
+		apical_dendrite[87] pl[plcount].append()
+		apical_dendrite[88] pl[plcount].append()
+		apical_dendrite[89] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[83] pl[plcount].append()
+		apical_dendrite[84] pl[plcount].append()
+		apical_dendrite[85] pl[plcount].append()
+		apical_dendrite[87] pl[plcount].append()
+		apical_dendrite[88] pl[plcount].append()
+		apical_dendrite[90] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[83] pl[plcount].append()
+		apical_dendrite[84] pl[plcount].append()
+		apical_dendrite[85] pl[plcount].append()
+		apical_dendrite[87] pl[plcount].append()
+		apical_dendrite[91] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[83] pl[plcount].append()
+		apical_dendrite[84] pl[plcount].append()
+		apical_dendrite[92] pl[plcount].append()
+		apical_dendrite[93] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[83] pl[plcount].append()
+		apical_dendrite[84] pl[plcount].append()
+		apical_dendrite[92] pl[plcount].append()
+		apical_dendrite[94] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[95] pl[plcount].append()
+		apical_dendrite[96] pl[plcount].append()
+		apical_dendrite[97] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[95] pl[plcount].append()
+		apical_dendrite[96] pl[plcount].append()
+		apical_dendrite[98] pl[plcount].append()
+		apical_dendrite[99] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[95] pl[plcount].append()
+		apical_dendrite[96] pl[plcount].append()
+		apical_dendrite[98] pl[plcount].append()
+		apical_dendrite[100] pl[plcount].append()
+		apical_dendrite[101] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[95] pl[plcount].append()
+		apical_dendrite[96] pl[plcount].append()
+		apical_dendrite[98] pl[plcount].append()
+		apical_dendrite[100] pl[plcount].append()
+		apical_dendrite[102] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[103] pl[plcount].append()   //it was 104
+		apical_dendrite[105] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[41] pl[plcount].append()
+		apical_dendrite[107] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[26] pl[plcount].append()
+		apical_dendrite[108] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[25] pl[plcount].append()   //it was 26 Jose s corrections at 14/04/06
+		apical_dendrite[109] pl[plcount].append()
+		apical_dendrite[110] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[25] pl[plcount].append()  //it was 26 Jose s corrections at 14/04/06
+		apical_dendrite[109] pl[plcount].append()
+		apical_dendrite[111] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[22] pl[plcount].append()
+		apical_dendrite[112] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[15] pl[plcount].append()
+		apical_dendrite[113] pl[plcount].append()
+		apical_dendrite[114] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[15] pl[plcount].append()
+		apical_dendrite[113] pl[plcount].append()
+		apical_dendrite[115] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+
+		plcount=plcount+1
+		pl[plcount]=new SectionList()
+		apical_dendrite[64] pl[plcount].append()
+		apical_dendrite[106] pl[plcount].append()
+		opl[plcount]=new ObliquePath(pl[plcount])
+}
+
+
+proc fill_obl() {
+
+	// This function makes a set of lists, each containing the basal sections
+	// that form a continuous path: starting from the section attached 
+	// to the trunk and ending at the basal tip section. 
+	// written by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
+
+
+	blcount=0
+		bl[blcount]=new SectionList()
+		dendrite[0] bl[blcount].append()
+		dendrite[16] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[0] bl[blcount].append()
+		dendrite[1] bl[blcount].append()
+		dendrite[2] bl[blcount].append()
+		dendrite[3] bl[blcount].append()
+		dendrite[4] bl[blcount].append()
+		dendrite[5] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[0] bl[blcount].append()
+		dendrite[1] bl[blcount].append()
+		dendrite[2] bl[blcount].append()
+		dendrite[3] bl[blcount].append()
+		dendrite[4] bl[blcount].append()
+		dendrite[6] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[0] bl[blcount].append()
+		dendrite[1] bl[blcount].append()
+		dendrite[2] bl[blcount].append()
+		dendrite[3] bl[blcount].append()
+		dendrite[7] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[0] bl[blcount].append()
+		dendrite[1] bl[blcount].append()
+		dendrite[2] bl[blcount].append()
+		dendrite[8] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[0] bl[blcount].append()
+		dendrite[1] bl[blcount].append()
+		dendrite[2] bl[blcount].append()
+		dendrite[9] bl[blcount].append()
+		dendrite[10] bl[blcount].append()
+		dendrite[11] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[0] bl[blcount].append()
+		dendrite[1] bl[blcount].append()
+		dendrite[2] bl[blcount].append()
+		dendrite[9] bl[blcount].append()
+		dendrite[10] bl[blcount].append()
+		dendrite[12] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[13] bl[blcount].append()
+		dendrite[14] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[54] bl[blcount].append()
+		dendrite[55] bl[blcount].append()
+		dendrite[57] bl[blcount].append()
+		dendrite[13] bl[blcount].append()
+		dendrite[15] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[15] bl[blcount].append()
+		dendrite[17] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[23] bl[blcount].append()
+		dendrite[24] bl[blcount].append()
+		dendrite[25] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[23] bl[blcount].append()
+		dendrite[24] bl[blcount].append()
+		dendrite[26] bl[blcount].append()
+		dendrite[27] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[23] bl[blcount].append()
+		dendrite[24] bl[blcount].append()
+		dendrite[26] bl[blcount].append()
+		dendrite[28] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[23] bl[blcount].append()
+		dendrite[29] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[36] bl[blcount].append()
+		dendrite[37] bl[blcount].append()
+		dendrite[38] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[36] bl[blcount].append()
+		dendrite[37] bl[blcount].append()
+		dendrite[39] bl[blcount].append()
+		dendrite[40] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[36] bl[blcount].append()
+		dendrite[37] bl[blcount].append()
+		dendrite[39] bl[blcount].append()
+		dendrite[41] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[36] bl[blcount].append()
+		dendrite[42] bl[blcount].append()
+		dendrite[43] bl[blcount].append()
+		dendrite[44] bl[blcount].append()
+		dendrite[45] bl[blcount].append()
+		dendrite[46] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[36] bl[blcount].append()
+		dendrite[42] bl[blcount].append()
+		dendrite[43] bl[blcount].append()
+		dendrite[44] bl[blcount].append()
+		dendrite[45] bl[blcount].append()
+		dendrite[47] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[36] bl[blcount].append()
+		dendrite[49] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[36] bl[blcount].append()
+		dendrite[50] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[51] bl[blcount].append()
+		dendrite[52] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[35] bl[blcount].append()
+		dendrite[51] bl[blcount].append()
+		dendrite[53] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[54] bl[blcount].append()
+		dendrite[56] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[54] bl[blcount].append()
+		dendrite[55] bl[blcount].append()
+		dendrite[57] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+		blcount=blcount + 1
+		bl[blcount]=new SectionList()
+		dendrite[54] bl[blcount].append()
+		dendrite[58] bl[blcount].append()
+		obl[blcount]=new BasalPath(bl[blcount])
+
+}
+
+
+proc fill_apical_tip_list() { 
+
+	apical_dendrite[3]    apical_tip_list.append()   // 1 degree                 74.4  microns from soma
+		apical_dendrite[5]    apical_tip_list.append()   // 0 degree                 57.46 (vertical distance)
+		apical_dendrite[8]    apical_tip_list.append()   //                          68.9269    added on 01/05/06
+		apical_dendrite[11]   apical_tip_list.append()   //                          97.7677 	  added on 01/05/06
+		apical_dendrite[12]   apical_tip_list.append()   //                          83.3373    added on 01/05/06
+		apical_dendrite[13]   apical_tip_list.append()   //                          65.1991    added on 01/05/06 
+		apical_dendrite[18]   apical_tip_list.append()   //                          98.6117    added on 01/05/06
+		apical_dendrite[20]   apical_tip_list.append()   //                          71.426     added on 01/05/06  
+		apical_dendrite[21]   apical_tip_list.append()   //                          79.1083    added on 01/05/06  
+		apical_dendrite[55]   apical_tip_list.append()   //                         191.955     added on 01/05/06 
+		apical_dendrite[57]   apical_tip_list.append()   //                         202.131     added on 01/05/06 
+		apical_dendrite[108]  apical_tip_list.append()   //                         104.501     added on 01/05/06
+		apical_dendrite[24]   apical_tip_list.append()   // 0 degree                 92.05
+		apical_dendrite[30]   apical_tip_list.append()   // 0 degree  (essentially) 153.44
+		apical_dendrite[34]   apical_tip_list.append()   // 2 degrees (ignore 3rd)  215.06
+		apical_dendrite[45]   apical_tip_list.append()   // 0 degree. (essentially) 170.32
+		apical_dendrite[51]   apical_tip_list.append()   // 2 degrees               210.93
+		apical_dendrite[59]   apical_tip_list.append()   //                         189.34
+		apical_dendrite[61]   apical_tip_list.append()   //                         221.55
+		apical_dendrite[63]   apical_tip_list.append()   //                         231.58
+		apical_dendrite[68]   apical_tip_list.append()   // 2 degrees               277.48
+		apical_dendrite[70]   apical_tip_list.append()   // 0 degree                300.94
+		apical_dendrite[106]  apical_tip_list.append()   // 0 degree                258.05
+		apical_dendrite[107]  apical_tip_list.append()   // 0 degree                159.55      
+		apical_dendrite[111]  apical_tip_list.append()   // 1 degree                106.30
+		apical_dendrite[112]  apical_tip_list.append()   // 0 degree                 88.52
+		apical_dendrite[115]  apical_tip_list.append()   // 1 degree                117.79
+		apical_dendrite[118]  apical_tip_list.append()   // 0 degree                 81.66
+
+		// List of obliques located beyond 300 microns from the soma
+
+		apical_dendrite[73]   apical_tip_list.append()   // 0 degree                334.84 
+		apical_dendrite[82]   apical_tip_list.append()   // 0 degree                360.28
+		apical_dendrite[86]   apical_tip_list.append()   // 0 degree                419.68
+		apical_dendrite[93]   apical_tip_list.append()   // 0 degree                468.60
+		apical_dendrite[97]   apical_tip_list.append()   // 0 degree                445.90
+		apical_dendrite[105]  apical_tip_list.append()   // 0 degree                425.58
+		apical_dendrite[76]   apical_tip_list.append()   //                         438.983    added on 01/05/06
+		apical_dendrite[78]   apical_tip_list.append()   //                         435.992    added on 01/05/06 
+		apical_dendrite[79]   apical_tip_list.append()   //                         439.307    added on 01/05/06
+		apical_dendrite[80]   apical_tip_list.append()   //                         426.245    added on 01/05/06
+		apical_dendrite[89]   apical_tip_list.append()   //                         465.294    added on 01/05/06 
+		apical_dendrite[90]   apical_tip_list.append()   //                         472.128    added on 01/05/06
+		apical_dendrite[91]   apical_tip_list.append()   //                         458.094    added on 01/05/06
+		apical_dendrite[94]   apical_tip_list.append()   //                         432.042    added on 01/05/06 
+		apical_dendrite[99]   apical_tip_list.append()   //                         425.754    added on 01/05/06  
+		apical_dendrite[101]   apical_tip_list.append()   //                        443.937    added on 01/05/06 
+		apical_dendrite[102]   apical_tip_list.append()   //                        450.003    added on 01/05/06  
+
+
+}
+
+proc fill_apical_tip_list_addendum() { 
+	//    SISTER of apical_dendrite[3]   is apical_dendrite[2]    
+	//    SISTER of apical_dendrite[34]  is apical_dendrite[33]   
+	//    SISTER of apical_dendrite[37]  is apical_dendrite[36]   
+	//    SISTER of apical_dendrite[40]  is apical_dendrite[39]
+	//    SISTER of apical_dendrite[45]  is apical_dendrite[44]
+	//    SISTER of apical_dendrite[54]  is apical_dendrite[53] 
+	//    SISTER of apical_dendrite[68]  is apical_dendrite[67] 
+	//    SISTER of apical_dendrite[111] is apical_dendrite[110] 
+	//    SISTER of apical_dendrite[115] is apical_dendrite[114] 
+	//    SISTER of apical_dendrite[118] is apical_dendrite[117] 
+
+	apical_dendrite[2]    apical_tip_list_addendum.append()  // 1 degree      69.9821  microns from soma
+		apical_dendrite[33]   apical_tip_list_addendum.append()  // 2 degrees    177.4831 (vertical distance)
+		apical_dendrite[36]   apical_tip_list_addendum.append()  // 2 degree     189.0447 
+		apical_dendrite[37]   apical_tip_list_addendum.append()  // 2 degrees    180.5792 
+		apical_dendrite[39]   apical_tip_list_addendum.append()  // 1 degree      83.7030
+		apical_dendrite[40]   apical_tip_list_addendum.append()  // 1 degreee    102.6654
+		apical_dendrite[44]   apical_tip_list_addendum.append()  // 0 degree     172.7760 
+		apical_dendrite[47]   apical_tip_list_addendum.append()  // 0 degree.    177.4980
+		apical_dendrite[53]   apical_tip_list_addendum.append()  // 3 degrees    202.8910
+		apical_dendrite[54]   apical_tip_list_addendum.append()  // 3 degrees    190.3009
+		apical_dendrite[67]   apical_tip_list_addendum.append()  // 2 degrees    289.5367   
+		apical_dendrite[110]  apical_tip_list_addendum.append()  // 1 degree      98.7392
+		apical_dendrite[114]  apical_tip_list_addendum.append()  // 1 degree     123.9962
+		apical_dendrite[117]  apical_tip_list_addendum.append()  // 0 degree      67.6363
+
+}
+
+
+proc fill_apical_trunk_list() {
+	apical_dendrite[0]  apical_trunk_list.append() // 13.40  microns from soma 
+		apical_dendrite[4]  apical_trunk_list.append() // 46.03 (vertical distance)
+		apical_dendrite[6]  apical_trunk_list.append() // 45.75
+		apical_dendrite[14] apical_trunk_list.append() // 52.53
+		apical_dendrite[15] apical_trunk_list.append() // 58.97
+		apical_dendrite[16] apical_trunk_list.append() // 70.89
+		apical_dendrite[22] apical_trunk_list.append() // 72.93
+		apical_dendrite[23] apical_trunk_list.append() // 74.48
+		apical_dendrite[25] apical_trunk_list.append() // 93.56
+		apical_dendrite[26] apical_trunk_list.append() // 98.55
+		apical_dendrite[27] apical_trunk_list.append() // 121.89
+		apical_dendrite[41] apical_trunk_list.append() // 144.46
+		apical_dendrite[42] apical_trunk_list.append() // 142.81
+		apical_dendrite[46] apical_trunk_list.append() // 156.96
+		apical_dendrite[48] apical_trunk_list.append() // 162.99
+		apical_dendrite[56] apical_trunk_list.append() // 179.58
+		apical_dendrite[58] apical_trunk_list.append() // 180.11
+		apical_dendrite[60] apical_trunk_list.append() // 210.33
+		apical_dendrite[62] apical_trunk_list.append() // 222.80
+		apical_dendrite[64] apical_trunk_list.append() // 233.67
+		apical_dendrite[65] apical_trunk_list.append() // 252.71
+		apical_dendrite[69] apical_trunk_list.append() // 292.06
+		apical_dendrite[71] apical_trunk_list.append() // 324.53 
+		apical_dendrite[81] apical_trunk_list.append() // 346.84
+		apical_dendrite[83] apical_trunk_list.append() // 387.00
+		apical_dendrite[95] apical_trunk_list.append() // 413.05
+		apical_dendrite[103] apical_trunk_list.append() // 417.73
+		apical_dendrite[104] apical_trunk_list.append() // 423.75
+}
+
+
+
+
+proc cell_setup() {  // cell_setup(econ) 
+
+	// Set initial conductance values 
+
+	soma_caN = 0.5*0.0002   //init
+	//   soma_caN = 10*0.5*0.0002
+	//   soma_caL =  1.2825*0.0003  //init
+	soma_caL =  1.08*1.2825*0.0003
+	soma_kca =  2.1*0.005   //init
+	// soma_kca =  2*2.1*0.005
+	soma_km = 10*0.00022
+	mykca_init =  0.0003    //init
+	// mykca_init = 100*20* 0.0003
+	// soma_caL = 0.014     //appeared in comm    
+	// soma_car = 0.0003              //initial
+	//soma_car = 0.55*0.0003
+	soma_car = 0.5*0.0003
+	gsomacar = 0*0.003 
+	// soma_caLH =1.4*0.000333 //initial
+	soma_caLH =1.07*0.000333 
+	soma_caT = 0.5*0.0001   //init
+	// soma_caT = 0.5*0.0001
+	// soma_kca = 0.0001         //appeared in comm          
+	// soma_km = 0.06            //appeared in comm 
+	//mykca_init = 1.1*0.015     //appeared in comm
+	//    soma_hbar = 1.872e-5       //init
+	//  soma_hbar = 1.872e-5
+	soma_hbar =1.872e-5
+	soma_kap = 0.0075 //init
+	//soma_kap = 0*1.2*0.0075
+	kad_init = 1.0*0.0072           //init
+	//  kad_init = 0*0.8*0.0072
+	soma_kdBG = 0.00012 //test
+	kdBG_init = 0.00035
+
+	// Start inserting mechanisms in cell
+	sectype ="soma"
+	forsec "soma" {
+		print secname()
+
+		nseg = 5
+		//insert hha2    // HH mechanism with low threshold for Na spikes (-57 mV)
+		//	gnabar_hha2 = gna_soma
+		//	gkbar_hha2  = gkdrbar_soma
+
+		insert pas    // leak conductance
+			g_pas =  1/Rm_soma
+			e_pas = v_init
+			Ra    = Ra_soma
+
+		insert h     // h current 
+			gbar_h  = soma_hbar
+			K_h     = 8.8
+			vhalf_h = -82
+
+		insert kap  // proximal A current
+			gkabar_kap = soma_kap
+
+		insert km  // m-type potassium current
+			gbar_km    = soma_km
+
+
+		insert cal // HVAl Ca++-L type current
+		insert can
+		insert kca
+		insert mykca 
+		insert cad
+
+		//  gcalbar_cal(x) = soma_caL
+		//  gbar_kca(x) = 5*soma_kca
+		//  gcalbar_can(x) = soma_caN
+		//  gkbar_mykca(x) = 4*mykca_init
+
+
+		for (x) {
+				gcalbar_can = soma_caN/30
+				gkbar_mykca = mykca_init/30
+				gcalbar_cal = soma_caL/30
+				gbar_kca = soma_kca/30
+
+				if (x ==0.3) {
+
+					gcalbar_cal(x) = soma_caL
+					gbar_kca(x) = 5*soma_kca
+					gcalbar_can(x) = soma_caN/30
+					gkbar_mykca(x) = mykca_init/30
+
+				} 
+
+				if (x ==0.7) {	
+					gcalbar_can(x) = soma_caN
+					gkbar_mykca(x) = 4*mykca_init
+					gcalbar_cal(x) = soma_caL/30
+					gbar_kca(x) = soma_kca/30
+				}
+		}
+
+
+		insert cat // LVA Ca++-T type current
+			gcatbar_cat = soma_caT/2
+
+		insert somacar // HVAm Ca++-R type current
+			gcabar_somacar = 0.1*gsomacar
+
+
+	}
+
+	//  Configure Axon
+
+	sectype="axon"
+		forsec axon_sec_list {
+
+			insert hha2  // HH mechanism with low threshold for Na spikes (-57 mV)
+				gnabar_hha2 = gna_axon
+				gkbar_hha2  = gkdrbar_axon
+
+
+				insert pas  // leak conductance
+				g_pas       = 1/Rm_axon
+				e_pas       = v_init
+				Ra          = Ra_axon
+				cm          = Cm_axon
+
+				insert km  // m-type potassium current
+				gbar_km     = 0.5*soma_km
+
+				//$o1.tmpo2.color(1)
+		}
+
+	//  Configure apical trunk
+	forsec apical_trunk_list {
+
+		apical_h_insert_sig($o1)    // Inserting h-current
+			apical_caR_caLH_insert($o1) // Inserting Ca++ R-type and Ca++ L-type currents
+			apical_caT_insert($o1)      // Inserting Ca++ T-type current
+			apical_caL_caN_insert($o1) // Inserting HVAl Ca++  L-type current
+			apical_kca_insert($o1)      // Inserting K(Ca) sAHP and mAHP potassium currents
+			apical_km_insert($o1)       // Inserting m-type potassium current
+			A_insert($o1)               // Inserting A-current
+
+			insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
+			gnabar_hha_old = gna_trunk
+			gkbar_hha_old  = gkdrbar_trunk
+
+
+			insert pas // leak conductance
+			e_pas          = v_init
+			Ra             = Ra_trunk
+			cm             = Cm_trunk
+
+			Rm_sigmoid($o1)   // configure Rm along apical trunk
+			Ra_sigmoid($o1)   // configure Ra along apical trunk
+			//$o1.tmpo2.color(4)
+			// Set the Na+ spike attenuation variable (linearly decreasing from soma to 300 um)
+
+			max_ar2 = 0.95 // "Somatic value of ar2"
+			min_ar2 = 0.30 // "Minimum value of ar2"
+			decay_end = 300.0  // "Distance beyond which all values are min_ar2")
+			decay_start = 50.0 // "Distance at which ar2 starts to decrease")
+			m_ar2 = (max_ar2 - min_ar2)/(decay_start - decay_end)
+			for (x) {
+				xdist = find_vector_distance_precise(secname(),x)
+					if (xdist < decay_start) { 
+						ar2_hha_old(x) = max_ar2 
+					} else if (xdist > decay_end) {               
+						ar2_hha_old(x) = min_ar2 
+					} else {
+						ar2_hha_old(x) = max_ar2 + m_ar2*xdist
+					}
+			}
+		//ar2_log("linear", "min_ar2*max_ar2*m_ar2*decay_start*decay_end",$o1)
+	}
+
+
+	// Configure the apical-non-trunk section: insert basic mechanisms  
+
+	sectype = "apical non-trunk"
+
+		forsec apical_non_trunk_list {
+
+			insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
+				gnabar_hha_old = gna_non_trunk
+				gkbar_hha_old  = gkdrbar_non_trunk
+
+
+				insert pas // passive properties
+				g_pas     = 1/Rm_non_trunk
+				e_pas     = v_init                     
+				Ra        = Ra_non_trunk
+				cm        = Cm_non_trunk
+
+				//$o1.tmpo2.color(3)
+		}
+
+	khoblique_peri_decay($o1)  // Configure the apical oblique dendrites
+
+		// Configure the basal dendrites
+
+		sectype = "basal tree"
+		forsec basal_tree_list {
+			insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
+				gnabar_hha_old = gna_basal
+				gkbar_hha_old  = gkdrbar_basal
+
+
+				insert pas // passive properties
+				g_pas          = 1/Rm_basal
+				e_pas          = v_init
+				Ra             = Ra_basal
+				cm             = Cm_basal
+
+				insert kap // Insert proximal A current
+				gkabar_kap       = 2.5*soma_kap
+
+				Ra_sigmoid($o1) // configure Ra
+				//$o1.tmpo2.color(5)
+		}
+	khbasal_fixed($o1) // Configure basal dendrites         
+	forsec "soma" { g_pas=1/Rm_soma } // force Rm at all soma sections
+
+	forall {
+
+		if (ismembrane("hha_old")) {  // zero out gl (leak conductance) since g_pass is taking its place
+			gl_hha_old = 0 
+				el_hha_old     = v_init  
+				ena            = 50
+		}
+		if (ismembrane("hha2")) {  // zero out gl (leak conductance) since g_pass is taking its place
+			gl_hha2 = 0
+				el_hha2 = v_init  
+				ena = 50  
+		}
+
+		if (ismembrane("k_ion")) {  
+			ek         = -77 
+		}
+
+		if(ismembrane("ca_ion")) {
+			eca = 140
+				// cai0_ca_ion =  2.4e-4 // for pump  
+				// cao = 2
+				//ion_style("ca_ion",0,1,0,0,0)
+				ion_style("ca_ion",3,2,1,1,1)
+				vshift_ca = 0
+		}
+
+	}
+
+	// Account for spines (obsolete in this case) 
+
+	forall {
+		for (x) {
+			if (x > 0 && x < 1) {
+				diam(x)=diam(x)*1.0
+			}
+		}
+	}
+}
+
+
+
+proc Rm_sigmoid() { local rm
+		Rm_soma  = Rm_default
+		Rm_end = 12e3
+		dhalf = 200 
+		steep = 50
+
+		for (x) {  
+			xdist = find_vector_distance_precise(secname(),x)    // calc. perpedicular distance      
+				rm = Rm_soma + (Rm_end - Rm_soma)/(1.0 + exp((dhalf-xdist)/steep))
+				g_pas(x) = 1.0/rm
+		}
+
+}
+
+/* Changing Ra sigmoidally along the apical trunk (obsolete in this case)*/
+
+proc Ra_sigmoid() {  
+	Ra_soma = Ra_default
+	Ra_end= 35
+	dhalf = 210
+	steep = 50
+
+	for (x) {  
+		xdist = find_vector_distance_precise(secname(),x)  //calc. perpedicular distance
+		Ra = Ra_soma + (Ra_end - Ra_soma)/(1.0 + exp((dhalf-xdist)/steep))
+	}
+}
+
+/* To make the distal trunk h-current conductance, g_h, about 7
+   times higher (at 300 um) than the somatic value vis-a-vis Magee
+   J., J. of Neuroscience 18(19) 7613-7624, 1998, we vary I_h
+   conductance sigmoidally along the apical trunk.
+ */
+
+proc apical_h_insert_sig() {
+	gh_soma = soma_hbar
+	gh_end = soma_hbar*9
+	dhalf = 280
+	steep = 50
+
+	for (x) {  
+		xdist = find_vector_distance_precise(secname(),x)  //calc. perpedicular distance
+		insert h
+		gbar_h(x) = gh_soma + (gh_end - gh_soma)/(1.0 + exp((dhalf-xdist)/steep))
+
+	}  
+}
+
+/* Inserting proximal (kap) and distal(kad) A-type channels
+   along the apical trunk. Proximal I_A is distributed in a fixed
+   conductance over the first 100 um from the cell
+   body. Distal-type I_A is distributed in a linearly increasing
+   manner for distances 100 < xdist < 350. For xdist < 100,
+   g_A_distal(x) = 0 and for xdist > 350 g_A_distal(x) = constant =
+   g_A_distal(350) 
+ */
+
+proc A_insert() {
+	kap_distal_maxfactor = 1   //  "maximum cond. factor in dendrites"
+	kap_distal_distance = 100  //"distance in dendrites for maximum cond.")
+	kad_distal_maxfactor = 6.5 // "maximum cond. factor in dendrites")
+	kad_distal_distance = 350  //  "distance in dendrites for maximum cond.")
+
+	for (x) {  
+		xdist=find_vector_distance_precise(secname(),x)
+		fr= xdist/kad_distal_distance
+		insert kap
+		insert kad
+		insert kdBG
+		//insert pump //i inserted this mechanism for checking the mail question      
+
+			if (xdist < kap_distal_distance ) {
+				gkabar_kad(x) = 0
+					gkabar_kap(x) = soma_kap
+					gbar_kdBG(x) = soma_kdBG
+
+			} else if (xdist < kad_distal_distance ) {
+				gkabar_kap(x) = 0
+					gkabar_kad(x) = kad_distal_maxfactor*kad_init*fr
+					gbar_kdBG(x) = kdBG_init
+
+			} else {
+				gkabar_kap(x) = 0
+					gkabar_kad(x) = kad_distal_maxfactor*kad_init
+					gbar_kdBG(x) = kdBG_init
+					/*	if (x==0.3)  {
+						gkabar_kad(x) = 3* kad_distal_maxfactor*kad_init
+						if (x==0.7) {
+						gkabar_kad(x) = 0.5* kad_distal_maxfactor*kad_init
+						}
+						} */
+			}
+	}
+}
+
+
+/* Inserting m-type potassium current with a fixed conductance along the apical trunk */
+
+proc apical_km_insert() {
+	km_distal_maxfactor = 1  //, "maximum cond. factor in dendrites"
+	km_distal_distance = 350 // "distance in dendrites for maximum cond."
+
+	for (x) {  
+		xdist = find_vector_distance_precise(secname(),x)
+		fr = xdist/km_distal_distance
+		insert km
+		gbar_km(x)=soma_km
+	}
+}
+
+
+/* Inserting K(Ca++)-type channels and calsium pumps along the
+   apical trunk with maximum conductances in 50 < xdist < 200 
+ */
+
+proc apical_kca_insert() {
+	kca_distal_maxfactor =1 // "maximum cond. factor in dendrites"
+	kca_distal_distance =100  // "distance in dendrites for maximum cond."
+
+	nseg = 5
+	for (x) {  
+		xdist = find_vector_distance_precise(secname(),x)
+			fr = xdist/kca_distal_distance 
+			insert cad    // calsium pump/buffering mechanism
+			insert kca    // slow AHP K++ current
+			insert mykca  // medium AHP K++ current
+			// insert kca2 
+
+			if (xdist < kca_distal_distance) { 
+
+				gkbar_mykca(x) = mykca_init/30
+					gbar_kca(x) = soma_kca/30 
+					//gbar_kca2(x) = 0
+
+					if (x == 0.3) {	           
+						gbar_kca(x) = 5*soma_kca
+							gkbar_mykca(x) = mykca_init/30
+					} 
+				if (x == 0.7) {	
+					gkbar_mykca(x) = 5*mykca_init*(kca_distal_distance - xdist)/kca_distal_distance
+						gbar_kca(x) = soma_kca/30    
+				}
+
+
+				//          gkbar_mykca(x) = 5*mykca_init*(kca_distal_distance - xdist)/kca_distal_distance
+				//          gbar_kca(x) = 5*soma_kca
+				//          gbar_kca2(x) = 0
+
+			} else {
+				//  gbar_kca2(x) = 0*soma_kca
+				gbar_kca(x) = 0*soma_kca/30
+					gkbar_mykca(x) = mykca_init
+			}
+
+	}
+}
+
+
+/* Inserting LVA Ca++ T-type channels along the apical trunk in
+   a linearly increasing manner, for xdist > 100 um 
+ */
+
+proc apical_caT_insert() {
+	caT_distal_maxfactor = 4  //, "maximum cond. factor in dendrites"
+	caT_distal_distance = 350 // "distance in dendrites for maximum cond.")
+
+		for (x) {  
+			xdist = find_vector_distance_precise(secname(),x)
+				fr = xdist/caT_distal_distance
+				insert cat  
+				if (xdist < 100) {
+					gcatbar_cat(x) = 0
+				} else {
+					gcatbar_cat(x) = caT_distal_maxfactor*soma_caT*fr
+				} 
+		}
+}
+
+
+/* Inserting HVAm Ca++ R-type and HVA L-type channesls along
+   the apical trunk. The R-type current is distributed in a fixed
+   conductance while the L-type current is distributed in a
+   maximum fixed conductance for distances xdist > 50 um and in a very
+   small conductance for xdist < 50 um
+ */
+
+proc apical_caR_caLH_insert() {
+	for (x) {  
+		xdist = find_vector_distance_precise(secname(),x)
+			insert car
+			gcabar_car(x) = soma_car
+
+			insert calH
+			if (xdist > 50) {            
+				gcalbar_calH(x) = 4.6*soma_caLH
+			} else {
+				gcalbar_calH(x) = 0.1*soma_caLH
+			}
+	}
+}
+
+proc apical_caL_caN_insert() {
+	caL_distal_distance = 100 // "distance in dendrites for maximum cond."
+		nseg = 5
+		for (x) {  
+			xdist = find_vector_distance_precise(secname(),x)
+				fr = xdist/caL_distal_distance
+				insert cal
+				insert can
+				insert cad
+
+				if (xdist < caL_distal_distance) {
+
+					gcalbar_can(x) = soma_caN/30
+						gcalbar_cal(x) = soma_caL/30 
+
+						if (x == 0.3) {	           
+							gcalbar_cal(x) = soma_caL*(1-2.*fr/3.)
+								gcalbar_can(x) = soma_caN/30
+						}
+					if (x ==0.7) {	
+						gcalbar_can(x) = soma_caN*(1-2.*fr/3.)
+							gcalbar_cal(x) = soma_caL/30
+					}  
+
+					//  gcalbar_can(x) = soma_caN*(1-2.*fr/3.)
+					//  gcalbar_cal(x) = soma_caL*(1-2.*fr/3.)
+
+				} else {
+					//     gcalbar_cal(x) = soma_caL/6.
+					//gcalbar_can(x) = soma_caN/4.
+					gcalbar_cal(x) = soma_caL/10.
+						gcalbar_can(x) = soma_caN/10.
+
+				}
+		}
+}
+
+/* Seting conductances in all apical oblique dendrites so that the values of all dedrites after an initial section
+   are the same (or a multiple) as the values in apical_dendrite[46]. The values in the initial section of 50 um from 
+   the parent trunk are set equal to the parent trunk conductances. For dendrites located beyond  300 (or/and 350) um, 
+   we increase the Na+-persistent current, the A current, the Ca++ and K(Ca++) conductances and reduce the spike 
+   attenuation coefficent. */
+
+strdef khsection
+proc khoblique_peri_decay() { local i,x,d
+
+	khsection = "apical_dendrite[46]" // "Trunk section used for oblique conductance values"
+	peri_trunkl = 50.0 // "Length of the peri-trunk region")
+
+		// Holding the conductance values from apical_dendrite[46] 
+
+	apical_dendrite[46] { 
+		hold_cat=gcatbar_cat(1) 
+		hold_car=soma_car
+		hold_calH=soma_caLH 
+		hold_nap=0.0004*gnabar_hha_old
+
+		hold_h=gbar_h(1) 
+		hold_ar2_hha_old=ar2_hha_old(1) 
+		hold_kdr=gkbar_hha_old(1) 
+
+		hold_g_pas=g_pas(1)
+		hold_Ra=Ra 
+		hold_kap=gkabar_kap(1)
+		hold_kad=gkabar_kad(1) 
+
+		hold_kdBG = gbar_kdBG(1) 
+		hold_mykca=gkbar_mykca(1) 
+		hold_km=gbar_km(1)
+	}
+
+		for i=0,plcount {
+				// set the origin to the currently accessed section 
+				access opl[i].trunk_section.sec
+				xdist = find_vector_distance_precise(secname(),0)
+				distance(0,1)
+
+				trunk_kap = gkabar_kap(1)  // holding the parent trunk values
+				trunk_kad = gkabar_kad(1)
+				trunk_kdBG =  gbar_kdBG(1)
+				trunk_h  = gbar_h(1)
+				trunk_pas = g_pas(1)
+				trunk_Ra = Ra 
+				trunk_car  = gcabar_car(1)
+				trunk_calH  = gcalbar_calH(1)
+				trunk_cat  = gcatbar_cat(1)
+				//trunk_kca2  = gbar_kca2(1)
+				trunk_mykca  = gkbar_mykca(1)
+				trunk_km  = gbar_km(1)
+				trunk_nap  = 0.2*hold_nap // No persistent I_Na at the trunk => hold a small persent of hold_nap value
+				trunk_ar2_hha_old  = ar2_hha_old(1) // spike attenuation variable
+
+				sec_count=0
+
+				forsec pl[i] {
+					//           printf("\t-- %s --\n", secname()) access all oblique paths from parent trunk to root oblique
+
+					if (!sec_count) {              // skip all trunk sections
+						sec_count=sec_count+1
+							continue
+					}         
+					insert kap 
+						insert kad
+						insert kdBG
+						insert h     
+						insert pas         
+						insert car
+						insert calH
+						insert cat
+						//insert kca2
+						insert mykca
+						insert km
+						insert nap
+						insert cad
+
+						e_pas = v_init
+
+						for (x) {
+							if (x > 0 && x < 1) {
+								d = distance(1,x)
+									if (d < peri_trunkl) {   // for distances close to the parent trunk section keep trunk values
+										Ra = Ra_default  
+											gkabar_kap(x) = trunk_kap  
+											gkabar_kad(x) = trunk_kad  
+											gbar_kdBG(x) = trunk_kdBG
+											gbar_h(x) = trunk_h  
+											g_pas(x) = trunk_pas
+											gcabar_car(x) = trunk_car
+											gcalbar_calH(x) = trunk_calH
+											gcatbar_cat(x) = trunk_cat  
+											//gbar_kca2(x) = trunk_kca2  
+											gkbar_mykca = mykca_init 
+											gbar_km(x) = trunk_km
+											gnabar_nap(x) = trunk_nap
+											ar2_hha_old(x) = trunk_ar2_hha_old         
+
+									} else {          // for further distances set conductances to apical_dendrite[46] values (or a multiple)            
+										gkabar_kap(x) = hold_kap  
+											//gkabar_kad(x) = 1.25*hold_kad
+											gkabar_kad(x) = 1.25*hold_kad
+											gbar_kdBG(x) = hold_kdBG   
+											gbar_h(x) = hold_h  
+											g_pas(x) = hold_g_pas
+											//g_pas(x) = 10*hold_g_pas
+
+											Ra = Ra_default
+											gcabar_car(x) = hold_car
+											gcalbar_calH(x) = hold_calH 
+											gcatbar_cat(x) = hold_cat  
+											ar2_hha_old(x) = 0.8*hold_ar2_hha_old  // set to 80% of dend. 46 value  
+											//gbar_kca2(x) = hold_kca2
+											gkbar_mykca = mykca_init 
+											gnabar_nap(x) = hold_nap  
+											gbar_km(x) = hold_km             // set to 2 times the dend 46 value
+
+											if (xdist > 300 ) {                // for xdist > 300 um increase:
+												gkabar_kad(x) = 2.65*hold_kad      // A-current,
+													gcabar_car(x) = 13*hold_car       // Ca++-R current,  original
+														gcalbar_calH(x) = 13*hold_calH     // Ca++-L current,
+													gkbar_hha_old(x) = 1.1*hold_kdr // delayed rectifier
+														gkbar_mykca = 0.35*mykca_init 
+
+											}
+
+										if (xdist > 350) {               // for xdist > 350 um increase even more:
+											gcalbar_calH(x)=15*hold_calH  // Ca++-L current,   
+												ar2_hha_old(x) = 0.9         // less spike attenuation 
+												gnabar_nap(x)=3*hold_nap      // Na+ persistent                   
+
+										}                           
+									} 
+							}
+						}
+
+					sec_count=sec_count+1
+				}
+		}
+}
+
+
+/* Seting conductance values in all basal dendrites to be the
+   same as the values in apical_dendrite[14], except for the A
+   current conductance which is 0.6 times higher.  
+ */
+
+proc khbasal_fixed() { local i,x,d
+	khsection = "apical_dendrite[14]" // "Trunk section used for basal conductance values"
+
+	apical_dendrite[14] { 
+		hold_g_pas=g_pas(1)
+		hold_kap=gkabar_kap(1)
+		hold_kad=gkabar_kad(1) 
+		hold_h=gbar_h(1)
+	}
+
+
+		forsec basal_tree_list {
+
+			insert kap 
+				insert kad
+				insert h                
+				insert pas
+
+				for (x) {
+					gkabar_kap(x) = 1.6*hold_kap
+						gkabar_kad(x) = 1.6*hold_kad
+						gbar_h(x) = soma_hbar
+						g_pas(x) =  hold_g_pas
+						Ra = Ra_default
+						e_pas = v_init
+				}
+		}
+}
+
+/* The Na channels developed Mel and modified by Brannon,
+   Poirazi (hha2 and hha_old) both reduce activation as function
+   of voltage. In other words, they show actvity-dependent
+   attenuation of conductance.  Within both of these mechanisms,
+   ar2 ([0..1]) is used to inversely describe the intensity of
+   voltage-dependent attenuation. 0 is maximum attenuation, 1 is
+   no attenuation.
+
+   Within the cell model, we vary the amount of attenuation along
+   the apical trunk as a function of distance from the cell body
+   such that proximal sections show little attenuation and distal
+   sections show comparably more (with the exception of distal
+   obliques).
+
+   We typically decay ar2 linearly from proximal to distal with
+   the maximum and minimum values of decay as
+   parameters. Initialize these parameters: 
+ */
+
+max_ar2=0
+min_ar2=0
+decay_start=0 /* The distance at which decay starts. 
+		 The distance at which decay ends.
+	       */
+decay_end=0
+
+strdef ar24_tmp_str
+	objref  strobj, ar24_f
+strobj=new StringFunctions()
+	ar2_firsttime=1
+
+	proc ar2_log() {
+
+		if (!ar2_firsttime) { return }
+
+		ar24_f=new File() 
+			sprint($o3.tmp_str3, "%s/ar2_log", $o3.generic_dir)
+			ar24_f.wopen($o3.tmp_str3)
+			ar24_f.printf("%s:",$s1)
+
+			while (strobj.substr($s2, "*") > -1) {
+				//printf("substr:%d\n", strobj.substr($s2, "*"))
+
+				index=strobj.head($s2, "\\*", ar24_tmp_str)
+					//printf("index:%d\n", index)
+
+					strobj.right($s2, 1+index)
+					//printf("%s ... %s \n", ar24_tmp_str, $s2)
+
+					$o3.create_variable("ar24_val", ar24_tmp_str)
+					ar24_f.printf("%s:%g:", ar24_tmp_str, ar24_val)
+					//printf("%s:%g", ar24_tmp_str, ar24_val)
+			}
+
+		$o3.create_variable("ar24_val", $s2)
+			ar24_f.printf("%s:%g\n", $s2, ar24_val)
+			//printf("%s:%g\n", $s2, ar24_val)
+
+			ar24_f.close()
+			ar2_firsttime=0
+	}
+
+
+proc layers2() {
+		rt_proximal = new SectionList()
+		rt_medial = new SectionList()
+		rt_distal = new SectionList()
+		lm_thick = new SectionList()
+		thin_radiatum = new SectionList()
+		oriens_pro = new SectionList()
+		oriens_dist = new SectionList()
+		lm_thin = new SectionList()
+		addendum_tips = new SectionList()
+		forsec apical_tip_list { apical_tip_list addendum_tips.append()}
+		forsec apical_tip_list_addendum {apical_tip_list_addendum addendum_tips.append()}
+
+		forsec apical_trunk_list {  
+			xdist = find_vector_distance_precise(secname(),0)
+			//radiatum thick proximal,, 98% inhibitory input  
+			if (xdist>=13.40 && xdist<=121.89) {
+				rt = rt_proximal.unique()
+				rt_proximal.append()
+				//	  print secname(), xdist   
+			}
+
+			//radiatum thick medial, 18% inhibitory input  			
+			if (xdist>=144.46 && xdist<=292.06)  {
+				rt2 = rt_medial.unique()
+				rt_medial.append()
+				//	print secname(), xdist 
+			}
+
+			//radiatum thick distal, 2%inhibitory
+			if (xdist>=324.53 && xdist<=346.84)  {
+				rt3 = rt_distal.unique()
+				rt_distal.append()
+				//	print secname(), xdist
+			}
+			//thick lacunosum moleculare, 14% inhibitory input 
+			//	if (xdist>=387.00 && xdist<=423.75) 
+			if (xdist>386.00 && xdist<=424.75) {
+				//      if (xdist>0 && xdist<387.00) 
+				lm = lm_thick.unique()
+				lm_thick.append()
+				//	print secname(), xdist
+			}
+		}
+
+
+		//thin radiatum, 3% inhibitory
+		forsec addendum_tips {                      // apical_tip_list           
+			xdist = find_vector_distance_precise(secname(),0)
+				//	if (xdist>0 && xdist<387.00) 
+				if (xdist>0 && xdist<=300.94) {
+					radiatum = thin_radiatum.unique()
+					thin_radiatum.append()
+					//print secname(), xdist	
+				}
+
+			//thin laconosum moleculare
+			//	if (xdist>=387.00)   en xrhsei
+			//	if (xdist>300.94) 
+			if (xdist>419.00) {
+				lm2 = lm_thin.unique()
+				lm_thin.append()
+				// print secname(), xdist
+			}
+
+		}
+		//oriens proximal, 48% inhibitory input
+		forsec basal_tree_list {
+			xdist = find_vector_distance_precise(secname(),0)
+			if (xdist>0 && xdist<20) {
+				oriens1 = oriens_pro.unique()
+				oriens_pro.append()
+				//	print secname(), xdist
+			} else {
+				//oriens_distal, 3% inhibitory
+				oriens2 = oriens_dist.unique()
+				oriens_dist.append()
+				//print secname(), xdist
+			}
+		}
+}
+
+
+
+proc cut_sections() {  
+	forall {
+		nseg=1+int(L/$1)
+	}
+}
+
+
+proc endpt() {
+	P=(n3d()-1)*$1
+
+		x_d3($1)=x3d(P)
+		y_d3($1)=y3d(P)
+		z_d3($1)=z3d(P)
+
+}
+
+proc fracpt() { local posn, A
+	A=$1
+		posn=$2
+		x_d3(posn)=x3d(i-1) + (x3d(i) - x3d(i-1))*A
+		y_d3(posn)=y3d(i-1) + (y3d(i) - y3d(i-1))*A
+		z_d3(posn)=z3d(i-1) + (z3d(i) - z3d(i-1))*A
+
+}
+
+proc map_segments_to_3d() {
+	forall { 
+		insert d3
+	}
+
+	forall {
+			i=0
+			endpt(0)
+
+			for (x) if (x > 0 && x < 1) {
+
+				while (arc3d(i)/L < x) {
+					i += 1
+				}
+				D=arc3d(i) - arc3d(i-1)
+					if (D <= 0) {
+						printf("\t\t * %s had a D < 0\n", secname())
+					}
+				alpha = (x*L - arc3d(i-1))/D
+					fracpt(alpha,x)
+
+			}
+		endpt(1)
+
+	}
+}
+
+
+
+	proc vcreate() {
+		$o1.append(x3d(0))
+			$o1.append(y3d(0))
+			$o1.append(z3d(0))
+	}
+
+	proc vcreate2() {
+		$o1.append(x3d($2))
+			$o1.append(y3d($2))
+			$o1.append(z3d($2))
+	}
+
+	proc vcreate3() {
+		$o1.append(x_d3($2))
+			$o1.append(y_d3($2))
+			$o1.append(z_d3($2))
+	}
+
+
+proc pvec() {
+	printf("%s: \t", $s1)
+		$o2.printf("%f ")
+}
+
+proc pvecs() {
+	pvec("RP", RP)
+		pvec("APEX",APEX)
+		pvec("POI",POI)
+}
+
+proc clear_vecs() {
+	RP=new Vector()
+		APEX=new Vector()
+		POI=new Vector()
+}
+
+objref vhold
+vhold=new Vector()
+
+	func vector_distance() { local adjustment
+		//  print "func vector_distance() {"
+
+		clear_vecs()
+
+			RP=$o1.c
+			APEX=$o2.c
+			POI=$o3.c
+			adjustment = $4
+
+			//  pvecs()
+
+			// Subtract Psoma: Qapex = Papex - Psoma. Therefore Qsoma=0,0,0
+
+			APEX.sub(RP)
+			POI.sub(RP)
+			RP.sub(RP)
+
+			//    pvecs()
+
+			// Normalize Qapex, Creating Uapex
+
+			vhold=APEX.c
+			vhold.mul(vhold)
+			APEX_BAR=sqrt(vhold.sum())
+
+			//  printf("APEX_BAR: %f\n", APEX_BAR)
+
+			APEX.div(APEX_BAR)
+
+			//  pvec("UAPEX", APEX)
+
+			// Find length of projection of Qdend onto Uapex
+
+			H = POI.dot(APEX) + adjustment
+
+			H=abs(H)
+
+			return(H)
+	}
+
+objref fvd_vec
+strdef fvd_str
+func find_vector_distance() {
+
+	fvd_vec=new Vector()
+		sprint(fvd_str, "access %s", $s1)
+		execute1(fvd_str)
+
+		vcreate2(fvd_vec,0)
+
+		return(vector_distance(vRP,vAPEX,fvd_vec,adjustment))
+}
+
+func find_vector_distance_precise() {
+
+	fvd_vec=new Vector()
+	sprint(fvd_str, "access %s", $s1)
+	execute1(fvd_str)
+
+	vcreate3(fvd_vec,$2)
+
+	return(vector_distance(vRP,vAPEX,fvd_vec,adjustment))
+}
+
+
+
+proc parameters() { 
+		Rm_default = 200000 // "Specific membrane resistance. 
+		Rm_trunk = Rm_default // Non-oblique dendritic specific membrane resistance.
+		Rm_non_trunk = Rm_default //"Apical oblique specific membrane resistance.
+		Rm_basal  = Rm_default //"Basal specific membrane resistance.
+		Rm_tip  = Rm_default // Tip specific membrane resistance.
+		Rm_soma = Rm_default // Somatic specific membrane resistance.
+		Rm_axon = Rm_default //Axonal specific membrane resistance. 
+		Ra_default = 50 //Specific axial resistance. 
+		Ra_basal = Ra_default //Basal specific axial resistance.")
+		Ra_trunk = Ra_default //Somatic specific axial resistance.")
+		Ra_non_trunk = Ra_default //Somatic specific axial resistance.")
+		Ra_soma = Ra_default //Somatic specific axial resistance.")
+		Ra_tip = Ra_default //Apical tip specific axial resistance.")
+		Ra_axon =Ra_default //Axonal specific axial resistance. ")
+		Cm_default = 1 //Default specific capacitance.")
+		Cm_axon = Cm_default //Axonal specific capacitance. ")
+		Cm_soma = Cm_default //Somatic specific capacitance. ")
+		Cm_trunk = Cm_default //Trunk specific capacitance.")
+		Cm_non_trunk = Cm_default //Oblique specific capacitance.")
+		Cm_basal = Cm_default //Basal specific capacitance.")
+		Cm_tip= Cm_default //Apical tip specific capacitance.")
+
+		v_init = -70 // Initial voltage of sections.
+		celsius = 34 //Temperature of slice.
+
+		// Set HH Sodium - Potassium properties
+
+		gna_default = 0.007  // Default Na conductance.)
+		gna_trunk = gna_default  // Trunk Na conductance. )
+		trunk_non_trunk_ratio = 1.0  // Non-trunk Na conductance ratio)
+		gna_non_trunk = trunk_non_trunk_ratio*gna_default  // Non-trunk Na conductance)
+		gna_tip = gna_non_trunk  // Oblique Tip Na conductance.)
+		gna_basal = gna_default  // Basal Na conductance.)
+		gna_axon = 0.1  // Axonal Na conductance. )
+		gna_soma = gna_default  // Somatic Na conductance. )
+
+		// Set delayed rectifier properties as a percent of Na conductances
+
+		kdr_div = 10.0/1.24  // Default ratio of Na to kdr conductances)
+		kdr_div_soma = 10.0/2.0  //  Soma Na-kdr divider)
+		kdr_div_axon = kdr_div_soma  //  Axon Na-kdr divider
+		kdr_div_trunk = kdr_div //  Trunk Na-kdr divider
+		kdr_div_non_trunk = kdr_div  // Non-trunk Na-kdr divider
+		kdr_div_tip = kdr_div  // Oblique Tips Na-kdr divider
+		kdr_div_basal = kdr_div  // Basal Na-kdr divider
+
+		// Set delayed rectifie conductances
+
+		gkdrbar_default = gna_default/kdr_div  // Default KDR conductance. )
+		gkdrbar_axon = gna_axon/kdr_div_axon  // Axonal  KDR conductance. )
+		gkdrbar_basal = gna_basal/kdr_div_basal  // Basal  KDR conductance. )
+		gkdrbar_soma = gna_soma/kdr_div_soma  // Somatic  KDR conductance. )
+		gkdrbar_trunk = gna_trunk/kdr_div_trunk  // Trunk KDR conductance. )
+		gkdrbar_non_trunk = gna_non_trunk/kdr_div_non_trunk  // Non-Trunk KDR conductance. )
+		gkdrbar_tip = gna_tip/kdr_div_tip  // Oblique Tip KDR conductance. )
+		gkdrbar_basal = gna_basal/kdr_div_basal  // Basal KDR conductance. )
+
+}
+
+proc current_balance() { // current_balance(v_init)
+  finitialize($1)
+  fcurrent()
+  printf("Balancing each compartment to %d mV\n", $1)
+  forall {
+    for (x) {
+    	if (ismembrane("na_ion")) {e_pas(x)=v(x)+ina(x)/g_pas(x)} 
+   	if (ismembrane("k_ion")) {e_pas(x)=e_pas(x)+ik(x)/g_pas(x)} 
+    	// if (ismembrane("hha2") || ismembrane("hha_old") || ismembrane("h") ) {e_pas(x)=v(x)+ina(x)/g_pas(x)} 
+    	// if (ismembrane("kdr") || ismembrane("kdr2")) {e_pas(x)=e_pas(x)+ik(x)/g_pas(x)} 
+    	if (ismembrane("ca_ion")) {e_pas(x)=e_pas(x)+ica(x)/g_pas(x)}
+        if (ismembrane("Ca_ion")) {e_pas(x)=e_pas(x)+iCa(x)/g_pas(x)}
+	if (ismembrane("cal_ion")) {e_pas(x)=e_pas(x)+ical(x)/g_pas(x)}
+	if (ismembrane("can_ion")) {e_pas(x)=e_pas(x)+ican(x)/g_pas(x)}
+        // if (ismembrane("h")) {e_pas(x)=e_pas(x)+i_h(x)/g_pas(x)}
+
+        d = distance(1,x)
+	xdist = find_vector_distance_precise(secname(),x)    // calc. perpedicular distance      
+//  	printf("x = %e, xdist = %e, d = %e, e_pas = %e mV, rm = %e mA/(mVcm2)\n", x,  xdist, d, e_pas(x), 1./g_pas(x))
+    }
+  }
+  fcurrent()
+}
+
+
+objref vtmp,tmpo
+objref tipl,cand_tipl
+func choose_secs() {  local i, range_posn, copies, resolution, lo, hi
+
+  tipl = $o1    // neuron part (list) from which to select sections  
+  lo = $3       // lowest distance from soma for selected sections
+  hi = $4       // highest distance from soma for selected sections
+  actual_resolution = $5  // obsolete. Used only if more than one synapses are to be placed at a specific location
+  desired_resolution = $6 // obsolete. Used only if more than one synapses are to be placed at a specific location
+  section_count = 0       
+
+   forsec tipl {
+     for (range_posn) {
+ 
+        vtmp=new Vector()
+        vcreate2(vtmp,range_posn)
+        dist=vector_distance(vRP,vAPEX,vtmp,adjustment,1)
+//        print "The vertical distance for ", secname(), " is ", dist
+        if ((dist > lo) && (dist < hi)) {
+          section_count=section_count+1
+//        copies = int( L / (actual_resolution/desired_resolution) ) non used in the present experiments
+          copies = 1
+//          printf("Adding %d copies of synapse candidate at %s(%g)\n", copies, secname(),range_posn)
+          for i=1,copies {
+             tmpo = new RangeRef(range_posn,0)
+             $o2.append(tmpo)
+          } 
+        }
+     }
+   }
+  return(section_count) 
+}
+
+
+// Same as the above function, with an additional restriction: sections selected
+// are such that their middle (x=0.5) is within [lo high] microns from soma and 
+// synapses are allocated only at x=0.5  ==> choosing branches
+
+func choose_secs_branchwise() {  local i, range_posn, copies, resolution, lo, hi
+
+  tipl=$o1      
+  lo=$3
+  hi=$4
+  actual_resolution=$5  
+  desired_resolution=$6
+  section_count=0       
+
+  forsec tipl {
+
+        range_posn=0.5
+        vtmp=new Vector()
+        vcreate2(vtmp,range_posn)
+        dist=vector_distance(vRP,vAPEX,vtmp,adjustment,1)
+//        print "The vector distance for ", secname(), " is ", dist
+        if ((dist > lo) && (dist < hi)) {
+          section_count=section_count+1
+          //      copies = int( L / (actual_resolution/desired_resolution) )
+          copies = 1
+//          printf("Adding %d copies of synapse candidate at %s(%g)\n", copies, secname(),range_posn)
+          for i=1,copies {
+             tmpo = new RangeRef(range_posn,0)
+             $o2.append(tmpo)
+          } 
+     }
+  }
+  return(section_count) 
+}
+
+
+
+objref vtmp,tmpo
+objref tipl,cand_tipl
+func choose_secs() {  local i, range_posn, copies, resolution, lo, hi
+
+  tipl = $o1    // neuron part (list) from which to select sections  
+  lo = $3       // lowest distance from soma for selected sections
+  hi = $4       // highest distance from soma for selected sections
+  actual_resolution = $5  // obsolete. Used only if more than one synapses are to be placed at a specific location
+  desired_resolution = $6 // obsolete. Used only if more than one synapses are to be placed at a specific location
+  section_count = 0       
+
+   forsec tipl {
+     for (range_posn) {
+ 
+        vtmp=new Vector()
+        vcreate2(vtmp,range_posn)
+        dist=vector_distance(vRP,vAPEX,vtmp,adjustment,1)
+//        print "The vertical distance for ", secname(), " is ", dist
+        if ((dist > lo) && (dist < hi)) {
+          section_count=section_count+1
+//        copies = int( L / (actual_resolution/desired_resolution) ) non used in the present experiments
+          copies = 1
+//          printf("Adding %d copies of synapse candidate at %s(%g)\n", copies, secname(),range_posn)
+          for i=1,copies {
+             tmpo = new RangeRef(range_posn,0)
+             $o2.append(tmpo)
+          } 
+        }
+     }
+   }
+  return(section_count) 
+}
+
+
+// Same as the above function, with an additional restriction: sections selected
+// are such that their middle (x=0.5) is within [lo high] microns from soma and 
+// synapses are allocated only at x=0.5  ==> choosing branches
+
+func choose_secs_branchwise() {  local i, range_posn, copies, resolution, lo, hi
+
+  tipl=$o1      
+  lo=$3
+  hi=$4
+  actual_resolution=$5  
+  desired_resolution=$6
+  section_count=0       
+
+  forsec tipl {
+
+        range_posn=0.5
+        vtmp=new Vector()
+        vcreate2(vtmp,range_posn)
+        dist=vector_distance(vRP,vAPEX,vtmp,adjustment,1)
+//        print "The vector distance for ", secname(), " is ", dist
+        if ((dist > lo) && (dist < hi)) {
+          section_count=section_count+1
+          //      copies = int( L / (actual_resolution/desired_resolution) )
+          copies = 1
+//          printf("Adding %d copies of synapse candidate at %s(%g)\n", copies, secname(),range_posn)
+          for i=1,copies {
+             tmpo = new RangeRef(range_posn,0)
+             $o2.append(tmpo)
+          } 
+
+     } else {
+
+     	print "Reject section", secname(), " because dist=", dist
+     }
+   }
+  return(section_count) 
+}
+
+
+
+
+
+objref vtmp,tmpo
+objref tipl,cand_tipl
+
+func choose_secs() {  local i, range_posn, copies, resolution, lo, hi
+
+  tipl = $o1    // neuron part (list) from which to select sections  
+  lo = $3       // lowest distance from soma for selected sections
+  hi = $4       // highest distance from soma for selected sections
+  actual_resolution = $5  // obsolete. Used only if more than one synapses are to be placed at a specific location
+  desired_resolution = $6 // obsolete. Used only if more than one synapses are to be placed at a specific location
+  section_count = 0       
+
+   forsec tipl {
+     for (range_posn) {
+ 
+        vtmp=new Vector()
+        vcreate2(vtmp,range_posn)
+        dist=vector_distance(vRP,vAPEX,vtmp,adjustment,1)
+//        print "The vertical distance for ", secname(), " is ", dist
+        if ((dist > lo) && (dist < hi)) {
+          section_count=section_count+1
+//        copies = int( L / (actual_resolution/desired_resolution) ) non used in the present experiments
+          copies = 1
+//          printf("Adding %d copies of synapse candidate at %s(%g)\n", copies, secname(),range_posn)
+          for i=1,copies {
+             tmpo = new RangeRef(range_posn,0)
+             $o2.append(tmpo)
+          } 
+        }
+     }
+   }
+  return(section_count) 
+}
+
+
+// Same as the above function, with an additional restriction: sections selected
+// are such that their middle (x=0.5) is within [lo high] microns from soma and 
+// synapses are allocated only at x=0.5  ==> choosing branches
+
+func choose_secs_branchwise() {  local i, range_posn, copies, resolution, lo, hi
+
+  tipl=$o1      
+  lo=$3
+  hi=$4
+  actual_resolution=$5  
+  desired_resolution=$6
+  section_count=0       
+
+  forsec tipl {
+
+        range_posn=0.5
+        vtmp=new Vector()
+        vcreate2(vtmp,range_posn)
+        dist=vector_distance(vRP,vAPEX,vtmp,adjustment,1)
+//        print "The vector distance for ", secname(), " is ", dist
+        if ((dist > lo) && (dist < hi)) {
+          section_count=section_count+1
+          //      copies = int( L / (actual_resolution/desired_resolution) )
+          copies = 1
+//          printf("Adding %d copies of synapse candidate at %s(%g)\n", copies, secname(),range_posn)
+          for i=1,copies {
+             tmpo = new RangeRef(range_posn,0)
+             $o2.append(tmpo)
+          } 
+     }
+   }
+  return(section_count) 
+}
+
+
+
+endtemplate CA1Pyr
+
