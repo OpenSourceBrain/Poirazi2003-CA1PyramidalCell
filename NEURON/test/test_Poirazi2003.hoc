@@ -1,8 +1,6 @@
 {load_file("nrngui.hoc")}
 {load_file("nCtools.hoc")}	
 {load_file("cellCheck.hoc")}
-
-xopen("../template/ExperimentControl.hoc")
 xopen("../template/RangeRef.hoc")  
 xopen("../template/BasalPath.hoc")       
 xopen("../template/ObliquePath.hoc")
@@ -20,14 +18,8 @@ cvode_active(0)
 print "##### CA1 Pyr. cell #####"
 
 
-objref econ 
-show_errs = 1
-debug_lev = 1
-econ = new ExperimentControl(show_errs, debug_lev)
-
-
 xopen("CA1Pyr.hoc")
-CELL = new CA1Pyr(econ)
+CELL = new CA1Pyr()
 
 objectvar stim
 CELL.soma {

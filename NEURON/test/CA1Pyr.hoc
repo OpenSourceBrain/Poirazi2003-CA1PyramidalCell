@@ -33,14 +33,14 @@ proc init() {
 
 	adjustment = 41.1 // This adjustment factor is supplied to the vector distance function so that distance calculations are measured at the cell body.
 
-	cell_analysis($o1) 
+	cell_analysis() 
 	maximum_segment_length=75            
 	cut_sections(maximum_segment_length)
 	map_segments_to_3d()
-	layers2($o1) 
+	layers2() 
 	cell_lists()
 	parameters()
-	cell_setup($o1)
+	cell_setup()
 	current_balance(v_init)
 }
 
@@ -1147,13 +1147,13 @@ proc cell_setup() {  // cell_setup(econ)
 	//  Configure apical trunk
 	forsec apical_trunk_list {
 
-		apical_h_insert_sig($o1)    // Inserting h-current
-			apical_caR_caLH_insert($o1) // Inserting Ca++ R-type and Ca++ L-type currents
-			apical_caT_insert($o1)      // Inserting Ca++ T-type current
-			apical_caL_caN_insert($o1) // Inserting HVAl Ca++  L-type current
-			apical_kca_insert($o1)      // Inserting K(Ca) sAHP and mAHP potassium currents
-			apical_km_insert($o1)       // Inserting m-type potassium current
-			A_insert($o1)               // Inserting A-current
+		apical_h_insert_sig()    // Inserting h-current
+			apical_caR_caLH_insert() // Inserting Ca++ R-type and Ca++ L-type currents
+			apical_caT_insert()      // Inserting Ca++ T-type current
+			apical_caL_caN_insert() // Inserting HVAl Ca++  L-type current
+			apical_kca_insert()      // Inserting K(Ca) sAHP and mAHP potassium currents
+			apical_km_insert()       // Inserting m-type potassium current
+			A_insert()               // Inserting A-current
 
 			insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
 			gnabar_hha_old = gna_trunk
@@ -1165,8 +1165,8 @@ proc cell_setup() {  // cell_setup(econ)
 			Ra             = Ra_trunk
 			cm             = Cm_trunk
 
-			Rm_sigmoid($o1)   // configure Rm along apical trunk
-			Ra_sigmoid($o1)   // configure Ra along apical trunk
+			Rm_sigmoid()   // configure Rm along apical trunk
+			Ra_sigmoid()   // configure Ra along apical trunk
 			//$o1.tmpo2.color(4)
 			// Set the Na+ spike attenuation variable (linearly decreasing from soma to 300 um)
 
@@ -1209,7 +1209,7 @@ proc cell_setup() {  // cell_setup(econ)
 				//$o1.tmpo2.color(3)
 		}
 
-	khoblique_peri_decay($o1)  // Configure the apical oblique dendrites
+	khoblique_peri_decay()  // Configure the apical oblique dendrites
 
 		// Configure the basal dendrites
 
@@ -1229,10 +1229,10 @@ proc cell_setup() {  // cell_setup(econ)
 				insert kap // Insert proximal A current
 				gkabar_kap       = 2.5*soma_kap
 
-				Ra_sigmoid($o1) // configure Ra
+				Ra_sigmoid() // configure Ra
 				//$o1.tmpo2.color(5)
 		}
-	khbasal_fixed($o1) // Configure basal dendrites         
+	khbasal_fixed() // Configure basal dendrites         
 	forsec "soma" { g_pas=1/Rm_soma } // force Rm at all soma sections
 
 	forall {
@@ -1894,20 +1894,20 @@ proc map_segments_to_3d() {
 
 	proc vcreate() {
 		$o1.append(x3d(0))
-			$o1.append(y3d(0))
-			$o1.append(z3d(0))
+	    $o1.append(y3d(0))
+		$o1.append(z3d(0))
 	}
 
 	proc vcreate2() {
 		$o1.append(x3d($2))
-			$o1.append(y3d($2))
-			$o1.append(z3d($2))
+		$o1.append(y3d($2))
+		$o1.append(z3d($2))
 	}
 
 	proc vcreate3() {
 		$o1.append(x_d3($2))
-			$o1.append(y_d3($2))
-			$o1.append(z_d3($2))
+		$o1.append(y_d3($2))
+		$o1.append(z_d3($2))
 	}
 
 
