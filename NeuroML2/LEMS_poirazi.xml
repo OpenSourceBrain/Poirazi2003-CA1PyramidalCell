@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Lems>
+
+  <!-- CA1Pyr cell -->
+
+    <Target component="sim1"/>
+
+    <Include file="Cells.xml"/>
+    <Include file="Networks.xml"/>
+    <Include file="Simulation.xml"/>
+
+    <Include file="poirazi.net.nml"/>
+    <Include file="poirazi.cell.nml"/>
+    
+    <Include file="/channels/cagk.channel.nml"/>
+    <Include file="/channels/cal.channel.nml"/> 
+    <Include file="/channels/calH.channel.nml"/> 
+    <Include file="/channels/car.channel.nml"/> 
+    <Include file="/channels/cardend.channel.nml"/> 
+    <Include file="/channels/cat.channel.nml"/> 
+    <Include file="/channels/h.channel.nml"/> 
+    <Include file="/channels/kadist.channel.nml"/> 
+    <Include file="/channels/kaprox.channel.nml"/> 
+    <Include file="/channels/kca.channel.nml"/> 
+    <Include file="/channels/kdr.channel.nml"/> 
+    <Include file="/channels/kdrdend.channel.nml"/> 
+    <Include file="/channels/km.channel.nml"/> 
+    <Include file="/channels/leak_chan.channel.nml"/> 
+    <Include file="/channels/na.channel.nml"/> 
+    <Include file="/channels/nadend.channel.nml"/> 
+    <Include file="/channels/nap.channel.nml"/> 
+    <Include file="/channels/capool.nml"/> 
+ 
+<!-- Simulation specifications -->
+
+    <Simulation id="sim1" length="300ms" step="0.001ms" target="network">
+
+        <Display id="d1" title="CA1 pyramidal cell with 0.5nA input" timeScale="1ms" xmin="-10" xmax="310" ymin="-85" ymax="55">
+            <Line id="pyr V(mV)" quantity="Pop_CA1Pyr/0/ivycell/v" scale="1mV" color="#0000FF" timeScale="1ms"/>
+        </Display>
+    
+        <OutputFile id="of0" fileName="ivy.dat">
+            <OutputColumn id="v" quantity="Pop_CA1Pyr/0/CA1Pyr/v"/>
+        </OutputFile>
+      
+    </Simulation>
+  
+</Lems>

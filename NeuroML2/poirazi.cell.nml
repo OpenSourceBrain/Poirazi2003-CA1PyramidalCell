@@ -4,7 +4,27 @@
     xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd"
     id = "NeuroML2_file_exported_from_NEURON">
 
-
+    
+  <include href="/channels/cagk.channel.nml"/>
+  <include href="/channels/cal.channel.nml"/> 
+  <include href="/channels/calH.channel.nml"/> 
+  <include href="/channels/car.channel.nml"/> 
+  <include href="/channels/cardend.channel.nml"/> 
+  <include href="/channels/cat.channel.nml"/> 
+  <include href="/channels/h.channel.nml"/> 
+  <include href="/channels/kadist.channel.nml"/> 
+  <include href="/channels/kaprox.channel.nml"/> 
+  <include href="/channels/kca.channel.nml"/> 
+  <include href="/channels/kdr.channel.nml"/> 
+  <include href="/channels/kdrdend.channel.nml"/> 
+  <include href="/channels/km.channel.nml"/> 
+  <include href="/channels/leak_chan.channel.nml"/> 
+  <include href="/channels/na.channel.nml"/> 
+  <include href="/channels/nadend.channel.nml"/> 
+  <include href="/channels/nap.channel.nml"/> 
+  <include href="/channels/capool.nml"/> 
+    
+  
   <cell id="CA1Pyr">
     <notes>Cell: CA1Pyr exported from NEURON ModelView</notes>
     <morphology id="morphology">
@@ -29336,7 +29356,7 @@
       </segmentGroup> 
       
       
-          
+    </morphology>          
       
       
 <!-- ***************************************************************************************************************************** -->
@@ -29348,23 +29368,23 @@
           
         <!-- ********** SOMA ********** -->
         
-        <channelDensity ionChannel="na" id="na_soma" condDensty="7mS_per_cm2" segmentGroup="soma_group" erev="50mV" ion="na"/>
-        <channelDensity ionChannel="kdr" id="kdr_soma" condDensty="1.4mS_per_cm2" segmentGroup="soma_group" erev="-77" ion="k"/>
+        <channelDensity ionChannel="na" id="na_soma" condDensity="7mS_per_cm2" segmentGroup="soma_group" erev="50mV" ion="na"/>
+        <channelDensity ionChannel="kdr" id="kdr_soma" condDensity="1.4mS_per_cm2" segmentGroup="soma_group" erev="-77mV" ion="k"/>
         <channelDensity ionChannel="leak_chan" id="leak_soma" condDensity="5e-3mS_per_cm2" segmentGroup="soma_group" erev="-70mV" ion="non_specific"/>
         <channelDensity ionChannel="hs" id="hs_soma" condDensity="1.872e-2mS_per_cm2" segmentGroup="soma_group" erev="-10mV" ion="na"/>
         <channelDensity ionChannel="kaprox" id="kaprox_soma" condDensity="7.5mS_per_cm2" segmentGroup="soma_group" erev="-80mV" ion="k"/>
-        <channelDensity ionChannel="km" id="km_soma" condDensity="60mS_per_cm2" segmentGroup="soma_group" erev="-80mV" ion="k"/>
-        <channelDensityGHK2 ionChannel="cal" id="cal_soma" condDensity="7mS_per_cm2" segmentGroup="soma_group" ion="ca"/>
-        <channelDensityGHK2 ionChannel="cat" id="cat_soma" condDensity="0.1mS_per_cm2" segmentGroup="soma_group" ion="ca"/> <!-- TODO: dummy Ca...-->
-        <channelDensity ionChannel="car" id="car_soma" condDensity="0.3mS_per_cm2" segmentGroup="soma_group" erev="140" ion="ca"/>
+        <channelDensity ionChannel="km" id="km_soma" condDensity="60mS_per_cm2" segmentGroup="soma_group" erev="-80mV" ion="k"/>      
+        <!--<channelDensityGHK2 ionChannel="cal" id="cal_soma" condDensity="7mS_per_cm2" segmentGroup="soma_group" ion="ca"/>
+        <channelDensityGHK2 ionChannel="cat" id="cat_soma" condDensity="0.1mS_per_cm2" segmentGroup="soma_group" ion="ca"/> --> <!-- TODO: dummy Ca...-->        
+        <channelDensity ionChannel="car" id="car_soma" condDensity="0.3mS_per_cm2" segmentGroup="soma_group" erev="140mV" ion="ca"/>
         <channelDensity ionChannel="kca" id="kca_soma" condDensity="0.5mS_per_cm2" segmentGroup="soma_group" erev="-80mV" ion="k"/>
         <channelDensity ionChannel="cagk" id="cagk_soma" condDensity="90.75mS_per_cm2" segmentGroup="soma_group" erev="-77mV" ion="k"/> <!-- TODO: check erev...-->
         
         
         <!-- ********** AXON ********** -->
         
-        <channelDensity ionChannel="na" id="na_axon" condDensty="100mS_per_cm2" segmentGroup="axon_group" erev="50mV" ion="na"/>
-        <channelDensity ionChannel="kdr" id="kdr_axon" condDensty="20mS_per_cm2" segmentGroup="axon_group" erev="-77" ion="k"/>
+        <channelDensity ionChannel="na" id="na_axon" condDensity="100mS_per_cm2" segmentGroup="axon_group" erev="50mV" ion="na"/>
+        <channelDensity ionChannel="kdr" id="kdr_axon" condDensity="20mS_per_cm2" segmentGroup="axon_group" erev="-77mV" ion="k"/>
         <channelDensity ionChannel="leak_chan" id="leak_axon" condDensity="5e-3mS_per_cm2" segmentGroup="axon_group" erev="-70mV" ion="non_specific"/>
         
         
@@ -29376,7 +29396,7 @@
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * (1.872e-5 + (8*1.872e-5)/(1 + exp((280-p_apical_trunk)/50)))"/> 
             </variableParameter>
         </channelDensityNonUniform>
-        <channelDensity ionChannel="cardend" id="car_apical_trunk_group" condDensity="0.3mS_per_cm2" segmentGroup="apical_trunk_group" erev="140" ion="ca"/>
+        <channelDensity ionChannel="cardend" id="car_apical_trunk_group" condDensity="0.3mS_per_cm2" segmentGroup="apical_trunk_group" erev="140mV" ion="ca"/>
         <!-- calH (H(50-p_apical_trunk)) with param: gmax = f(p) = H(50-p) * 3.1635e-5 S/cm2 -->
         <channelDensityNonUniform ionChannel="calH" id="calHprox_apical_trunk" erev="140mV" ion="ca">
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
@@ -29390,11 +29410,11 @@
             </variableParameter>
         </channelDensityNonUniform>
         <!-- cat (H(p_apical_trunk-100)) with param: gmax = f(p) = H(p_apical_trunk-100) * 4 * 0.1 * p_apical_trunk/350 S/cm2 -->
-        <channelDensityGHK2NonUniform ionChannel="cat" id="cat_apical_trunk" ion="ca">
+        <!--<channelDensityGHK2NonUniform ionChannel="cat" id="cat_apical_trunk" ion="ca">
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-100) * 4 * 0.1 * p_apical_trunk/350."/> 
             </variableParameter>
-        </channelDensityGHK2NonUniform>
+        </channelDensityGHK2NonUniform>-->
         <!-- kca (H(50-p_apical_trunk)) with param: gmax = f(p) = H(50-p_apical_trunk) * 5e-5 S/cm2 -->
         <channelDensityNonUniform ionChannel="kca" id="kcaprox_apical_trunk" erev="-80mV" ion="k">
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
@@ -29458,9 +29478,10 @@
         </channelDensityNonUniform>
         <!-- nadend (H(p_apical_trunk-50)*H(300-p_apical_trunk)) with param: gmax = f(p) = H(p_apical_trunk-50)*H(300-p_apical_trunk) * 7e-3 S/cm2 -->
         <channelDensityNonUniform ionChannel="nadendprox" id="nadend_apical_trunk" erev="50mV" ion="na"> 
-            <variableParameter parameter="s_steadyState_no_inact" segmentGroup="apical_trunk_group">  <!-- TODO: check if this works ... --> 
+            <!-- TODO: check if this works ... -->
+            <!--<variableParameter parameter="s_steadyState_no_inact" segmentGroup="apical_trunk_group">  
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="0.95 - (0.65/250)*p_apical_trunk"/>  
-            </variableParameter>
+            </variableParameter>-->
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-50)*H(300-p_apical_trunk) * 7e-3"/> 
             </variableParameter>
@@ -29471,7 +29492,7 @@
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-300) * 7e-3"/> 
             </variableParameter>
         </channelDensityNonUniform>
-        <channelDensity ionChannel="kdrdend" id="kdr_apical_trunk" condDensty="0.868mS_per_cm2" segmentGroup="apical_trunk_group" erev="-77" ion="k"/>
+        <channelDensity ionChannel="kdrdend" id="kdr_apical_trunk" condDensity="0.868mS_per_cm2" segmentGroup="apical_trunk_group" erev="-77mV" ion="k"/>
         <!-- leak_chan (sigmoid) with param: gmax = f(p) = 1 / (200000 - (188000/(1 + exp((200-p_apical_trunk)/50)))) S/cm2 -->
         <channelDensityNonUniform ionChannel="leak_chan" id="leak_apical_trunk" erev="-70mV" ion="k"> 
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
@@ -29482,8 +29503,8 @@
         
         <!-- ********** APICAL NON TRUNK ********** -->
 
-        <channelDensity ionChannel="nadend" id="nadend_apical_non_trunk" condDensty="7mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="50mV" ion="na"/>
-        <channelDensity ionChannel="kdrdend" id="nadend_apical_non_trunk" condDensty="0.868mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="-77" ion="k"/>
+        <channelDensity ionChannel="nadend" id="nadend_apical_non_trunk" condDensity="7mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="50mV" ion="na"/>
+        <channelDensity ionChannel="kdrdend" id="kdrdend_apical_non_trunk" condDensity="0.868mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="-77mV" ion="k"/>
         <channelDensity ionChannel="leak_chan" id="leak_apical_non_trunk" condDensity="5e-3mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="-70mV" ion="non_specific"/>
         
         
@@ -29492,11 +29513,11 @@
         
         <!-- ********** BASAL ********** -->
         
-        <channelDensity ionChannel="nadend" id="nadend_basal" condDensty="7mS_per_cm2" segmentGroup="basal_group" erev="60mV" ion="na"/>
-        <channelDensity ionChannel="kdrdend" id="nadend_basal" condDensty="0.868mS_per_cm2" segmentGroup="basal_group" erev="-77" ion="k"/>
+        <channelDensity ionChannel="nadend" id="nadend_basal" condDensity="7mS_per_cm2" segmentGroup="basal_group" erev="60mV" ion="na"/>
+        <channelDensity ionChannel="kdrdend" id="kdrdend_basal" condDensity="0.868mS_per_cm2" segmentGroup="basal_group" erev="-77mV" ion="k"/>
         <!-- same values as in apical_dendrite_14 -->
         <channelDensity ionChannel="hdend" id="hdend_basal" condDensity="2.0287e-2mS_per_cm2" segmentGroup="basal_group" erev="-10mV" ion="na"/>
-        <channelDensity ionChannel="kaprox" id="kaprox_basal" condDensty="7.5mS_per_cm2" segmentGroup="basal_group" erev="-77" ion="k"/>
+        <channelDensity ionChannel="kaprox" id="kaprox_basal" condDensity="7.5mS_per_cm2" segmentGroup="basal_group" erev="-77mV" ion="k"/>
         <channelDensity ionChannel="leak_chan" id="leak_basal" condDensity="5.2453e-3mS_per_cm2" segmentGroup="basal_group" erev="-70mV" ion="non_specific"/>
         
         
@@ -29516,16 +29537,13 @@
                  initialConcentration="1e-4mM" initialExtConcentration="2mM"/>
         <species id="ca" ion="ca" concentrationModel="capool" segmentGroup="apical_trunk_group"
                  initialConcentration="1e-4mM" initialExtConcentration="2mM"/>
-
-        <resistivity value="0.05kohm_cm" segmentGroup="soma_group"/>
-        <resistivity value="0.05kohm_cm" segmentGroup="axon_group"/>
-        <!-- TODO: apical_trunk resistivity is a sigmoid function (of distance) -->
-        <resistivity value="0.05kohm_cm" segmentGroup="apical_non_trunk_group"/>
-        <!-- TODO: basal resistivity is a sigmoid function (of distance) -->
-        <resistivity value="0.05kohm_cm" segmentGroup="basal_group"/>
+            
+        <resistivity value="0.05kohm_cm"/>         
         
       </intracellularProperties>
 
     </biophysicalProperties>
+    
+  </cell>
  
 </neuroml>
