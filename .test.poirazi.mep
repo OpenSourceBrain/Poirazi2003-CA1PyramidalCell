@@ -3,5 +3,5 @@ system: Testing Poirazi et al 2003a,b CA1 pyr cell model
 experiments:
   current clamp:
     expected:
-      spike times: [110.56, 121.98, 128.75, 135.3, 141.85, 148.5, 155.25, 162.15, 169.24, 176.48, 183.79, 191.22, 198.77, 224.72]
+      spike times: [108.9, 118.97, 130.39, 142.35, 154.42, 166.44, 178.42, 190.32]
 
