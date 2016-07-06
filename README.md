@@ -16,7 +16,11 @@ In addition we created a simplified NEURON version, with a single cell and curre
 
 ### NeuroML2/LEMS version of model
 
-This model will be converted to NeuroML2/LEMS ...
+This model will be converted to NeuroML2/LEMS ... see more [here](/NeuroML2)
+
+Issues:
+- T-type Ca++ channel (see more [here](https://github.com/OpenSourceBrain/Poirazi2003-CA1PyramidalCell/tree/master/NeuroML2/channels/test_Cadynamics))
+- the setup of the NEURON model uses a custom distance measurement (perpendicular distance), which is not reproducable in NeuroML2  -> we suggest to keep the morphology and the channels, but reoptimise the model 
 
 [![Build Status](https://travis-ci.org/OpenSourceBrain/Poirazi2003-CA1PyramidalCell.svg?branch=master)](https://travis-ci.org/OpenSourceBrain/Poirazi2003-CA1PyramidalCell)
 
