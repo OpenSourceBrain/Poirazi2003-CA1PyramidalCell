@@ -8,7 +8,7 @@ Pyramidal Neuron as Two-Layer Neural Network. Porazi P, Brannon T, Mel BW (2003b
 
 This model was originally developed in [NEURON](https://www.neuron.yale.edu/neuron/)
 
-More details on the original NEURON version of this model [here](https://github.com/andrisecker/Poirazi2003-CA1Pyr/tree/master/ModelDB_NEURON) ([as submitted to ModelDB](https://senselab.med.yale.edu/modeldb/showModel.cshtml?model=20212)) 
+More details on the original NEURON version of this model [here](/ModelDB_NEURON)
 
 In addition we created a simplified NEURON version, with a single cell and current clamp (in order to create a .mep file, which against LEMS/NeuroML2 implementation could be tested). More detailes on this NEURON version [here](/NEURON)
 
