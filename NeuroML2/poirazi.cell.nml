@@ -28451,189 +28451,10 @@
       </segmentGroup>
 
       <segmentGroup id="all"> <!-- Replacing subset name ModelViewParmSubset_0 with all, as it contains all sections -->
-        <include segmentGroup = "soma_0"/>
-        <include segmentGroup = "soma_1"/>
-        <include segmentGroup = "soma_2"/>
-        <include segmentGroup = "soma_3"/>
-        <include segmentGroup = "soma_4"/>
-        <include segmentGroup = "dendrite_0"/>
-        <include segmentGroup = "dendrite_1"/>
-        <include segmentGroup = "dendrite_2"/>
-        <include segmentGroup = "dendrite_3"/>
-        <include segmentGroup = "dendrite_4"/>
-        <include segmentGroup = "dendrite_5"/>
-        <include segmentGroup = "dendrite_6"/>
-        <include segmentGroup = "dendrite_7"/>
-        <include segmentGroup = "dendrite_8"/>
-        <include segmentGroup = "dendrite_9"/>
-        <include segmentGroup = "dendrite_10"/>
-        <include segmentGroup = "dendrite_11"/>
-        <include segmentGroup = "dendrite_12"/>
-        <include segmentGroup = "dendrite_13"/>
-        <include segmentGroup = "dendrite_14"/>
-        <include segmentGroup = "dendrite_15"/>
-        <include segmentGroup = "dendrite_16"/>
-        <include segmentGroup = "dendrite_17"/>
-        <include segmentGroup = "dendrite_18"/>
-        <include segmentGroup = "dendrite_19"/>
-        <include segmentGroup = "dendrite_20"/>
-        <include segmentGroup = "dendrite_21"/>
-        <include segmentGroup = "dendrite_22"/>
-        <include segmentGroup = "dendrite_23"/>
-        <include segmentGroup = "dendrite_24"/>
-        <include segmentGroup = "dendrite_25"/>
-        <include segmentGroup = "dendrite_26"/>
-        <include segmentGroup = "dendrite_27"/>
-        <include segmentGroup = "dendrite_28"/>
-        <include segmentGroup = "dendrite_29"/>
-        <include segmentGroup = "dendrite_30"/>
-        <include segmentGroup = "dendrite_31"/>
-        <include segmentGroup = "dendrite_32"/>
-        <include segmentGroup = "dendrite_33"/>
-        <include segmentGroup = "dendrite_34"/>
-        <include segmentGroup = "dendrite_35"/>
-        <include segmentGroup = "dendrite_36"/>
-        <include segmentGroup = "dendrite_37"/>
-        <include segmentGroup = "dendrite_38"/>
-        <include segmentGroup = "dendrite_39"/>
-        <include segmentGroup = "dendrite_40"/>
-        <include segmentGroup = "dendrite_41"/>
-        <include segmentGroup = "dendrite_42"/>
-        <include segmentGroup = "dendrite_43"/>
-        <include segmentGroup = "dendrite_44"/>
-        <include segmentGroup = "dendrite_45"/>
-        <include segmentGroup = "dendrite_46"/>
-        <include segmentGroup = "dendrite_47"/>
-        <include segmentGroup = "dendrite_48"/>
-        <include segmentGroup = "dendrite_49"/>
-        <include segmentGroup = "dendrite_50"/>
-        <include segmentGroup = "dendrite_51"/>
-        <include segmentGroup = "dendrite_52"/>
-        <include segmentGroup = "dendrite_53"/>
-        <include segmentGroup = "dendrite_54"/>
-        <include segmentGroup = "dendrite_55"/>
-        <include segmentGroup = "dendrite_56"/>
-        <include segmentGroup = "dendrite_57"/>
-        <include segmentGroup = "dendrite_58"/>
-        <include segmentGroup = "apical_dendrite_0"/>
-        <include segmentGroup = "apical_dendrite_1"/>
-        <include segmentGroup = "apical_dendrite_2"/>
-        <include segmentGroup = "apical_dendrite_3"/>
-        <include segmentGroup = "apical_dendrite_4"/>
-        <include segmentGroup = "apical_dendrite_5"/>
-        <include segmentGroup = "apical_dendrite_6"/>
-        <include segmentGroup = "apical_dendrite_7"/>
-        <include segmentGroup = "apical_dendrite_8"/>
-        <include segmentGroup = "apical_dendrite_9"/>
-        <include segmentGroup = "apical_dendrite_10"/>
-        <include segmentGroup = "apical_dendrite_11"/>
-        <include segmentGroup = "apical_dendrite_12"/>
-        <include segmentGroup = "apical_dendrite_13"/>
-        <include segmentGroup = "apical_dendrite_14"/>
-        <include segmentGroup = "apical_dendrite_15"/>
-        <include segmentGroup = "apical_dendrite_16"/>
-        <include segmentGroup = "apical_dendrite_17"/>
-        <include segmentGroup = "apical_dendrite_18"/>
-        <include segmentGroup = "apical_dendrite_19"/>
-        <include segmentGroup = "apical_dendrite_20"/>
-        <include segmentGroup = "apical_dendrite_21"/>
-        <include segmentGroup = "apical_dendrite_22"/>
-        <include segmentGroup = "apical_dendrite_23"/>
-        <include segmentGroup = "apical_dendrite_24"/>
-        <include segmentGroup = "apical_dendrite_25"/>
-        <include segmentGroup = "apical_dendrite_26"/>
-        <include segmentGroup = "apical_dendrite_27"/>
-        <include segmentGroup = "apical_dendrite_28"/>
-        <include segmentGroup = "apical_dendrite_29"/>
-        <include segmentGroup = "apical_dendrite_30"/>
-        <include segmentGroup = "apical_dendrite_31"/>
-        <include segmentGroup = "apical_dendrite_32"/>
-        <include segmentGroup = "apical_dendrite_33"/>
-        <include segmentGroup = "apical_dendrite_34"/>
-        <include segmentGroup = "apical_dendrite_35"/>
-        <include segmentGroup = "apical_dendrite_36"/>
-        <include segmentGroup = "apical_dendrite_37"/>
-        <include segmentGroup = "apical_dendrite_38"/>
-        <include segmentGroup = "apical_dendrite_39"/>
-        <include segmentGroup = "apical_dendrite_40"/>
-        <include segmentGroup = "apical_dendrite_41"/>
-        <include segmentGroup = "apical_dendrite_42"/>
-        <include segmentGroup = "apical_dendrite_43"/>
-        <include segmentGroup = "apical_dendrite_44"/>
-        <include segmentGroup = "apical_dendrite_45"/>
-        <include segmentGroup = "apical_dendrite_46"/>
-        <include segmentGroup = "apical_dendrite_47"/>
-        <include segmentGroup = "apical_dendrite_48"/>
-        <include segmentGroup = "apical_dendrite_49"/>
-        <include segmentGroup = "apical_dendrite_50"/>
-        <include segmentGroup = "apical_dendrite_51"/>
-        <include segmentGroup = "apical_dendrite_52"/>
-        <include segmentGroup = "apical_dendrite_53"/>
-        <include segmentGroup = "apical_dendrite_54"/>
-        <include segmentGroup = "apical_dendrite_55"/>
-        <include segmentGroup = "apical_dendrite_56"/>
-        <include segmentGroup = "apical_dendrite_57"/>
-        <include segmentGroup = "apical_dendrite_58"/>
-        <include segmentGroup = "apical_dendrite_59"/>
-        <include segmentGroup = "apical_dendrite_60"/>
-        <include segmentGroup = "apical_dendrite_61"/>
-        <include segmentGroup = "apical_dendrite_62"/>
-        <include segmentGroup = "apical_dendrite_63"/>
-        <include segmentGroup = "apical_dendrite_64"/>
-        <include segmentGroup = "apical_dendrite_65"/>
-        <include segmentGroup = "apical_dendrite_66"/>
-        <include segmentGroup = "apical_dendrite_67"/>
-        <include segmentGroup = "apical_dendrite_68"/>
-        <include segmentGroup = "apical_dendrite_69"/>
-        <include segmentGroup = "apical_dendrite_70"/>
-        <include segmentGroup = "apical_dendrite_71"/>
-        <include segmentGroup = "apical_dendrite_72"/>
-        <include segmentGroup = "apical_dendrite_73"/>
-        <include segmentGroup = "apical_dendrite_74"/>
-        <include segmentGroup = "apical_dendrite_75"/>
-        <include segmentGroup = "apical_dendrite_76"/>
-        <include segmentGroup = "apical_dendrite_77"/>
-        <include segmentGroup = "apical_dendrite_78"/>
-        <include segmentGroup = "apical_dendrite_79"/>
-        <include segmentGroup = "apical_dendrite_80"/>
-        <include segmentGroup = "apical_dendrite_81"/>
-        <include segmentGroup = "apical_dendrite_82"/>
-        <include segmentGroup = "apical_dendrite_83"/>
-        <include segmentGroup = "apical_dendrite_84"/>
-        <include segmentGroup = "apical_dendrite_85"/>
-        <include segmentGroup = "apical_dendrite_86"/>
-        <include segmentGroup = "apical_dendrite_87"/>
-        <include segmentGroup = "apical_dendrite_88"/>
-        <include segmentGroup = "apical_dendrite_89"/>
-        <include segmentGroup = "apical_dendrite_90"/>
-        <include segmentGroup = "apical_dendrite_91"/>
-        <include segmentGroup = "apical_dendrite_92"/>
-        <include segmentGroup = "apical_dendrite_93"/>
-        <include segmentGroup = "apical_dendrite_94"/>
-        <include segmentGroup = "apical_dendrite_95"/>
-        <include segmentGroup = "apical_dendrite_96"/>
-        <include segmentGroup = "apical_dendrite_97"/>
-        <include segmentGroup = "apical_dendrite_98"/>
-        <include segmentGroup = "apical_dendrite_99"/>
-        <include segmentGroup = "apical_dendrite_100"/>
-        <include segmentGroup = "apical_dendrite_101"/>
-        <include segmentGroup = "apical_dendrite_102"/>
-        <include segmentGroup = "apical_dendrite_103"/>
-        <include segmentGroup = "apical_dendrite_104"/>
-        <include segmentGroup = "apical_dendrite_105"/>
-        <include segmentGroup = "apical_dendrite_106"/>
-        <include segmentGroup = "apical_dendrite_107"/>
-        <include segmentGroup = "apical_dendrite_108"/>
-        <include segmentGroup = "apical_dendrite_109"/>
-        <include segmentGroup = "apical_dendrite_110"/>
-        <include segmentGroup = "apical_dendrite_111"/>
-        <include segmentGroup = "apical_dendrite_112"/>
-        <include segmentGroup = "apical_dendrite_113"/>
-        <include segmentGroup = "apical_dendrite_114"/>
-        <include segmentGroup = "apical_dendrite_115"/>
-        <include segmentGroup = "apical_dendrite_116"/>
-        <include segmentGroup = "apical_dendrite_117"/>
-        <include segmentGroup = "apical_dendrite_118"/>
+        <include segmentGroup = "soma_group"/>
+        <include segmentGroup = "basal_group"/>
+        <include segmentGroup = "apical_group"/> 
+        <include segmentGroup = "axon_group"/>
       </segmentGroup>
       
       <segmentGroup id="soma_group"> 
@@ -28695,129 +28516,6 @@
         <include segmentGroup = "dendrite_57"/>
         <include segmentGroup = "dendrite_58"/>
       </segmentGroup>
-
-      <segmentGroup id="apical_group"> 
-        <include segmentGroup = "apical_dendrite_0"/>
-        <include segmentGroup = "apical_dendrite_1"/>
-        <include segmentGroup = "apical_dendrite_2"/>
-        <include segmentGroup = "apical_dendrite_3"/>
-        <include segmentGroup = "apical_dendrite_4"/>
-        <include segmentGroup = "apical_dendrite_5"/>
-        <include segmentGroup = "apical_dendrite_6"/>
-        <include segmentGroup = "apical_dendrite_7"/>
-        <include segmentGroup = "apical_dendrite_8"/>
-        <include segmentGroup = "apical_dendrite_9"/>
-        <include segmentGroup = "apical_dendrite_10"/>
-        <include segmentGroup = "apical_dendrite_11"/>
-        <include segmentGroup = "apical_dendrite_12"/>
-        <include segmentGroup = "apical_dendrite_13"/>
-        <include segmentGroup = "apical_dendrite_14"/>
-        <include segmentGroup = "apical_dendrite_15"/>
-        <include segmentGroup = "apical_dendrite_16"/>
-        <include segmentGroup = "apical_dendrite_17"/>
-        <include segmentGroup = "apical_dendrite_18"/>
-        <include segmentGroup = "apical_dendrite_19"/>
-        <include segmentGroup = "apical_dendrite_20"/>
-        <include segmentGroup = "apical_dendrite_21"/>
-        <include segmentGroup = "apical_dendrite_22"/>
-        <include segmentGroup = "apical_dendrite_23"/>
-        <include segmentGroup = "apical_dendrite_24"/>
-        <include segmentGroup = "apical_dendrite_25"/>
-        <include segmentGroup = "apical_dendrite_26"/>
-        <include segmentGroup = "apical_dendrite_27"/>
-        <include segmentGroup = "apical_dendrite_28"/>
-        <include segmentGroup = "apical_dendrite_29"/>
-        <include segmentGroup = "apical_dendrite_30"/>
-        <include segmentGroup = "apical_dendrite_31"/>
-        <include segmentGroup = "apical_dendrite_32"/>
-        <include segmentGroup = "apical_dendrite_33"/>
-        <include segmentGroup = "apical_dendrite_34"/>
-        <include segmentGroup = "apical_dendrite_35"/>
-        <include segmentGroup = "apical_dendrite_36"/>
-        <include segmentGroup = "apical_dendrite_37"/>
-        <include segmentGroup = "apical_dendrite_38"/>
-        <include segmentGroup = "apical_dendrite_39"/>
-        <include segmentGroup = "apical_dendrite_40"/>
-        <include segmentGroup = "apical_dendrite_41"/>
-        <include segmentGroup = "apical_dendrite_42"/>
-        <include segmentGroup = "apical_dendrite_43"/>
-        <include segmentGroup = "apical_dendrite_44"/>
-        <include segmentGroup = "apical_dendrite_45"/>
-        <include segmentGroup = "apical_dendrite_46"/>
-        <include segmentGroup = "apical_dendrite_47"/>
-        <include segmentGroup = "apical_dendrite_48"/>
-        <include segmentGroup = "apical_dendrite_49"/>
-        <include segmentGroup = "apical_dendrite_50"/>
-        <include segmentGroup = "apical_dendrite_51"/>
-        <include segmentGroup = "apical_dendrite_52"/>
-        <include segmentGroup = "apical_dendrite_53"/>
-        <include segmentGroup = "apical_dendrite_54"/>
-        <include segmentGroup = "apical_dendrite_55"/>
-        <include segmentGroup = "apical_dendrite_56"/>
-        <include segmentGroup = "apical_dendrite_57"/>
-        <include segmentGroup = "apical_dendrite_58"/>
-        <include segmentGroup = "apical_dendrite_59"/>
-        <include segmentGroup = "apical_dendrite_60"/>
-        <include segmentGroup = "apical_dendrite_61"/>
-        <include segmentGroup = "apical_dendrite_62"/>
-        <include segmentGroup = "apical_dendrite_63"/>
-        <include segmentGroup = "apical_dendrite_64"/>
-        <include segmentGroup = "apical_dendrite_65"/>
-        <include segmentGroup = "apical_dendrite_66"/>
-        <include segmentGroup = "apical_dendrite_67"/>
-        <include segmentGroup = "apical_dendrite_68"/>
-        <include segmentGroup = "apical_dendrite_69"/>
-        <include segmentGroup = "apical_dendrite_70"/>
-        <include segmentGroup = "apical_dendrite_71"/>
-        <include segmentGroup = "apical_dendrite_72"/>
-        <include segmentGroup = "apical_dendrite_73"/>
-        <include segmentGroup = "apical_dendrite_74"/>
-        <include segmentGroup = "apical_dendrite_75"/>
-        <include segmentGroup = "apical_dendrite_76"/>
-        <include segmentGroup = "apical_dendrite_77"/>
-        <include segmentGroup = "apical_dendrite_78"/>
-        <include segmentGroup = "apical_dendrite_79"/>
-        <include segmentGroup = "apical_dendrite_80"/>
-        <include segmentGroup = "apical_dendrite_81"/>
-        <include segmentGroup = "apical_dendrite_82"/>
-        <include segmentGroup = "apical_dendrite_83"/>
-        <include segmentGroup = "apical_dendrite_84"/>
-        <include segmentGroup = "apical_dendrite_85"/>
-        <include segmentGroup = "apical_dendrite_86"/>
-        <include segmentGroup = "apical_dendrite_87"/>
-        <include segmentGroup = "apical_dendrite_88"/>
-        <include segmentGroup = "apical_dendrite_89"/>
-        <include segmentGroup = "apical_dendrite_90"/>
-        <include segmentGroup = "apical_dendrite_91"/>
-        <include segmentGroup = "apical_dendrite_92"/>
-        <include segmentGroup = "apical_dendrite_93"/>
-        <include segmentGroup = "apical_dendrite_94"/>
-        <include segmentGroup = "apical_dendrite_95"/>
-        <include segmentGroup = "apical_dendrite_96"/>
-        <include segmentGroup = "apical_dendrite_97"/>
-        <include segmentGroup = "apical_dendrite_98"/>
-        <include segmentGroup = "apical_dendrite_99"/>
-        <include segmentGroup = "apical_dendrite_100"/>
-        <include segmentGroup = "apical_dendrite_101"/>
-        <include segmentGroup = "apical_dendrite_102"/>
-        <include segmentGroup = "apical_dendrite_103"/>
-        <include segmentGroup = "apical_dendrite_104"/>
-        <include segmentGroup = "apical_dendrite_105"/>
-        <include segmentGroup = "apical_dendrite_106"/>
-        <include segmentGroup = "apical_dendrite_107"/>
-        <include segmentGroup = "apical_dendrite_108"/>
-        <include segmentGroup = "apical_dendrite_109"/>
-        <include segmentGroup = "apical_dendrite_110"/>
-        <include segmentGroup = "apical_dendrite_111"/>
-        <include segmentGroup = "apical_dendrite_112"/>
-        <include segmentGroup = "apical_dendrite_113"/>
-        <include segmentGroup = "apical_dendrite_114"/>
-        <include segmentGroup = "apical_dendrite_115"/>
-        <include segmentGroup = "apical_dendrite_116"/>
-        <include segmentGroup = "apical_dendrite_117"/>
-        <include segmentGroup = "apical_dendrite_118"/> 
-        
-      </segmentGroup>
       
       <segmentGroup id="axon_group"> 
         <include segmentGroup = "dendrite_18"/>
@@ -28830,6 +28528,11 @@
         <include segmentGroup = "dendrite_32"/>
         <include segmentGroup = "dendrite_33"/>
         <include segmentGroup = "dendrite_34"/>
+      </segmentGroup>
+      
+      <segmentGroup id="apical_group"> 
+        <include segmentGroup = "apical_trunk_group"/>
+        <include segmentGroup = "apical_non_trunk_group"/>
       </segmentGroup>
       
       <segmentGroup id="apical_trunk_group"> 
@@ -28862,12 +28565,18 @@
         <include segmentGroup = "apical_dendrite_103"/> <!-- 417.73 -->
         <include segmentGroup = "apical_dendrite_104"/> <!-- 423.75 -->
         
-        <inhomogeneousParameter id="PathLengthOverApicalDendrites" variable="p_apical_trunk" metric="Path Length from root">
+        <inhomogeneousParameter id="PathLengthOverApicalDendrites" variable="p_apical_dendrite" metric="Path Length from root">
         </inhomogeneousParameter>  <!-- TODO: implement perpendicular distance... -->
         
       </segmentGroup>
       
       <segmentGroup id="apical_non_trunk_group"> 
+        <include segmentGroup = "apical_non_trunk_proximal_group"/>
+        <include segmentGroup = "apical_non_trunk_distal_group"/>
+        <include segmentGroup = "apical_non_trunk_verydistal_group"/>
+      </segmentGroup>
+      
+      <segmentGroup id="apical_non_trunk_proximal_group">
         <include segmentGroup = "apical_dendrite_1"/>
         <include segmentGroup = "apical_dendrite_2"/>
         <include segmentGroup = "apical_dendrite_3"/>
@@ -28917,35 +28626,6 @@
         <include segmentGroup = "apical_dendrite_67"/>
         <include segmentGroup = "apical_dendrite_68"/>
         <include segmentGroup = "apical_dendrite_70"/>
-        <include segmentGroup = "apical_dendrite_72"/>
-        <include segmentGroup = "apical_dendrite_73"/>
-        <include segmentGroup = "apical_dendrite_74"/>
-        <include segmentGroup = "apical_dendrite_75"/>
-        <include segmentGroup = "apical_dendrite_76"/>
-        <include segmentGroup = "apical_dendrite_77"/>
-        <include segmentGroup = "apical_dendrite_78"/>
-        <include segmentGroup = "apical_dendrite_79"/>
-        <include segmentGroup = "apical_dendrite_80"/>
-        <include segmentGroup = "apical_dendrite_82"/>
-        <include segmentGroup = "apical_dendrite_84"/>
-        <include segmentGroup = "apical_dendrite_85"/>
-        <include segmentGroup = "apical_dendrite_86"/>
-        <include segmentGroup = "apical_dendrite_87"/>
-        <include segmentGroup = "apical_dendrite_88"/>
-        <include segmentGroup = "apical_dendrite_89"/>
-        <include segmentGroup = "apical_dendrite_90"/>
-        <include segmentGroup = "apical_dendrite_91"/>
-        <include segmentGroup = "apical_dendrite_92"/>
-        <include segmentGroup = "apical_dendrite_93"/>
-        <include segmentGroup = "apical_dendrite_94"/>
-        <include segmentGroup = "apical_dendrite_96"/>
-        <include segmentGroup = "apical_dendrite_97"/>
-        <include segmentGroup = "apical_dendrite_98"/>
-        <include segmentGroup = "apical_dendrite_99"/>
-        <include segmentGroup = "apical_dendrite_100"/>
-        <include segmentGroup = "apical_dendrite_101"/>
-        <include segmentGroup = "apical_dendrite_102"/>
-        <include segmentGroup = "apical_dendrite_105"/>
         <include segmentGroup = "apical_dendrite_106"/>
         <include segmentGroup = "apical_dendrite_107"/>
         <include segmentGroup = "apical_dendrite_108"/>
@@ -28961,31 +28641,66 @@
         <include segmentGroup = "apical_dendrite_118"/> 
       </segmentGroup>
       
+      <segmentGroup id="apical_non_trunk_dist_group"> <!-- see: oblique dendrites NEURON code -->
+          <include segmentGroup = "apical_dendrite_72"/> 
+          <include segmentGroup = "apical_dendrite_73"/> 
+          <include segmentGroup = "apical_dendrite_74"/> 
+          <include segmentGroup = "apical_dendrite_75"/> 
+          <include segmentGroup = "apical_dendrite_76"/> 
+          <include segmentGroup = "apical_dendrite_77"/> 
+          <include segmentGroup = "apical_dendrite_78"/> 
+          <include segmentGroup = "apical_dendrite_79"/> 
+          <include segmentGroup = "apical_dendrite_80"/> 
+          <include segmentGroup = "apical_dendrite_82"/> 
+      </segmentGroup>
+      
+      <segmentGroup id="apical_non_trunk_verydist_group"> <!-- see: oblique dendrites NEURON code -->
+        <include segmentGroup = "apical_dendrite_84"/>
+        <include segmentGroup = "apical_dendrite_85"/>
+        <include segmentGroup = "apical_dendrite_86"/>
+        <include segmentGroup = "apical_dendrite_87"/>
+        <include segmentGroup = "apical_dendrite_88"/>
+        <include segmentGroup = "apical_dendrite_89"/>
+        <include segmentGroup = "apical_dendrite_90"/>
+        <include segmentGroup = "apical_dendrite_91"/>
+        <include segmentGroup = "apical_dendrite_92"/>
+        <include segmentGroup = "apical_dendrite_93"/>
+        <include segmentGroup = "apical_dendrite_94"/>
+        <include segmentGroup = "apical_dendrite_96"/>
+        <include segmentGroup = "apical_dendrite_97"/>
+        <include segmentGroup = "apical_dendrite_98"/>
+        <include segmentGroup = "apical_dendrite_99"/>
+        <include segmentGroup = "apical_dendrite_100"/>
+        <include segmentGroup = "apical_dendrite_101"/>
+        <include segmentGroup = "apical_dendrite_102"/>
+        <include segmentGroup = "apical_dendrite_105"/>
+      </segmentGroup>
+      
       <segmentGroup id="obl_0_2"> <!-- xdist: 13.4067-->
-        <include segmentGroup = "apical_dendrite_0"/>
+        <!-- <include segmentGroup = "apical_dendrite_0"/> -->
         <include segmentGroup = "apical_dendrite_1"/>
         <include segmentGroup = "apical_dendrite_2"/>
       </segmentGroup>
       
        <segmentGroup id="obl_0_3"> <!-- xdist: 13.4067-->
-        <include segmentGroup = "apical_dendrite_0"/>
+        <!-- <include segmentGroup = "apical_dendrite_0"/> -->
         <include segmentGroup = "apical_dendrite_1"/>
         <include segmentGroup = "apical_dendrite_3"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_4_5"> <!-- xdist: 46.0365 -->
-        <include segmentGroup = "apical_dendrite_4"/>
+        <!-- <include segmentGroup = "apical_dendrite_4"/> -->
         <include segmentGroup = "apical_dendrite_5"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_6_8"> <!-- xdist: 45.7505 -->
-        <include segmentGroup = "apical_dendrite_6"/>
+        <!-- <include segmentGroup = "apical_dendrite_6"/> -->
         <include segmentGroup = "apical_dendrite_7"/>
         <include segmentGroup = "apical_dendrite_8"/>
       </segmentGroup> 
       
        <segmentGroup id="obl_6_11"> <!-- xdist: 45.7505 -->
-        <include segmentGroup = "apical_dendrite_6"/>
+        <!-- <include segmentGroup = "apical_dendrite_6"/> -->
         <include segmentGroup = "apical_dendrite_7"/>
         <include segmentGroup = "apical_dendrite_9"/>
         <include segmentGroup = "apical_dendrite_10"/>
@@ -28993,7 +28708,7 @@
       </segmentGroup> 
           
       <segmentGroup id="obl_6_12"> <!-- xdist: 45.7505 -->
-        <include segmentGroup = "apical_dendrite_6"/>
+        <!-- <include segmentGroup = "apical_dendrite_6"/> -->
         <include segmentGroup = "apical_dendrite_7"/>
         <include segmentGroup = "apical_dendrite_9"/>
         <include segmentGroup = "apical_dendrite_10"/>
@@ -29001,58 +28716,58 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_6_13"> <!-- xdist: 45.7505 -->
-        <include segmentGroup = "apical_dendrite_6"/>
+        <!-- <include segmentGroup = "apical_dendrite_6"/> -->
         <include segmentGroup = "apical_dendrite_7"/>
         <include segmentGroup = "apical_dendrite_9"/>
         <include segmentGroup = "apical_dendrite_13"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_14_117"> <!-- xdist: 52.53115 -->
-        <include segmentGroup = "apical_dendrite_14"/>
+        <!-- <include segmentGroup = "apical_dendrite_14"/> -->
         <include segmentGroup = "apical_dendrite_116"/>
         <include segmentGroup = "apical_dendrite_117"/>
       </segmentGroup>       
       
       <segmentGroup id="obl_14_118"> <!-- xdist: 52.5311 -->
-        <include segmentGroup = "apical_dendrite_4"/>
+        <!-- <include segmentGroup = "apical_dendrite_4"/> -->
         <include segmentGroup = "apical_dendrite_116"/>
         <include segmentGroup = "apical_dendrite_118"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_16_18"> <!-- xdist: 70.8954 -->
-        <include segmentGroup = "apical_dendrite_16"/>
+        <!-- <include segmentGroup = "apical_dendrite_16"/> -->
         <include segmentGroup = "apical_dendrite_17"/>
         <include segmentGroup = "apical_dendrite_18"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_16_20"> <!-- xdist: 70.8954 -->
-        <include segmentGroup = "apical_dendrite_16"/>
+        <!-- <include segmentGroup = "apical_dendrite_16"/> -->
         <include segmentGroup = "apical_dendrite_17"/>
         <include segmentGroup = "apical_dendrite_19"/>
         <include segmentGroup = "apical_dendrite_20"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_16_21"> <!-- xdist: 70.8954 -->
-        <include segmentGroup = "apical_dendrite_16"/>
+        <!-- <include segmentGroup = "apical_dendrite_16"/> -->
         <include segmentGroup = "apical_dendrite_17"/>
         <include segmentGroup = "apical_dendrite_19"/>
         <include segmentGroup = "apical_dendrite_21"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_23_24"> <!-- xdist: 74.4843 -->
-        <include segmentGroup = "apical_dendrite_23"/>
+        <!-- <include segmentGroup = "apical_dendrite_23"/> -->
         <include segmentGroup = "apical_dendrite_24"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_27_30"> <!-- xdist: 121.891 -->
-        <include segmentGroup = "apical_dendrite_27"/>
+        <!-- <include segmentGroup = "apical_dendrite_27"/> -->
         <include segmentGroup = "apical_dendrite_28"/>
         <include segmentGroup = "apical_dendrite_29"/>
         <include segmentGroup = "apical_dendrite_30"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_27_33"> <!-- xdist: 121.891 -->
-        <include segmentGroup = "apical_dendrite_27"/>
+        <!-- <include segmentGroup = "apical_dendrite_27"/> -->
         <include segmentGroup = "apical_dendrite_28"/>
         <include segmentGroup = "apical_dendrite_29"/>
         <include segmentGroup = "apical_dendrite_31"/>
@@ -29061,7 +28776,7 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_27_34"> <!-- xdist: 121.891 -->
-        <include segmentGroup = "apical_dendrite_27"/>
+        <!-- <include segmentGroup = "apical_dendrite_27"/> -->
         <include segmentGroup = "apical_dendrite_28"/>
         <include segmentGroup = "apical_dendrite_29"/>
         <include segmentGroup = "apical_dendrite_31"/>
@@ -29070,7 +28785,7 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_27_36"> <!-- xdist: 121.891 -->
-        <include segmentGroup = "apical_dendrite_27"/>
+        <!-- <include segmentGroup = "apical_dendrite_27"/> -->
         <include segmentGroup = "apical_dendrite_28"/>
         <include segmentGroup = "apical_dendrite_29"/>
         <include segmentGroup = "apical_dendrite_31"/>
@@ -29079,7 +28794,7 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_27_37"> <!-- xdist: 121.891 -->
-        <include segmentGroup = "apical_dendrite_27"/>
+        <!-- <include segmentGroup = "apical_dendrite_27"/> -->
         <include segmentGroup = "apical_dendrite_28"/>
         <include segmentGroup = "apical_dendrite_29"/>
         <include segmentGroup = "apical_dendrite_31"/>
@@ -29088,45 +28803,45 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_27_39"> <!-- xdist: 121.891 -->
-        <include segmentGroup = "apical_dendrite_27"/>
+        <!-- <include segmentGroup = "apical_dendrite_27"/> -->
         <include segmentGroup = "apical_dendrite_28"/>
         <include segmentGroup = "apical_dendrite_38"/>
-        <include segmentGroup = "apical_dendrite_29"/>
+        <include segmentGroup = "apical_dendrite_39"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_27_40"> <!-- xdist: 121.891 -->
-        <include segmentGroup = "apical_dendrite_27"/>
+        <!-- <include segmentGroup = "apical_dendrite_27"/> -->
         <include segmentGroup = "apical_dendrite_28"/>
         <include segmentGroup = "apical_dendrite_38"/>
         <include segmentGroup = "apical_dendrite_40"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_42_44"> <!-- xdist: 142.815 -->
-        <include segmentGroup = "apical_dendrite_42"/>
+        <!-- <include segmentGroup = "apical_dendrite_42"/> -->
         <include segmentGroup = "apical_dendrite_43"/>
         <include segmentGroup = "apical_dendrite_44"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_42_45"> <!-- xdist: 142.815 -->
-        <include segmentGroup = "apical_dendrite_42"/>
+        <!-- <include segmentGroup = "apical_dendrite_42"/> -->
         <include segmentGroup = "apical_dendrite_43"/>
         <include segmentGroup = "apical_dendrite_45"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_46_47"> <!-- xdist: 156.964 -->
-        <include segmentGroup = "apical_dendrite_46"/>
+        <!-- <include segmentGroup = "apical_dendrite_46"/> -->
         <include segmentGroup = "apical_dendrite_47"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_48_51"> <!-- xdist: 162.996 -->
-        <include segmentGroup = "apical_dendrite_48"/>
+        <!-- <include segmentGroup = "apical_dendrite_48"/> -->
         <include segmentGroup = "apical_dendrite_49"/>
         <include segmentGroup = "apical_dendrite_50"/>
         <include segmentGroup = "apical_dendrite_51"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_48_53"> <!-- xdist: 162.996 -->
-        <include segmentGroup = "apical_dendrite_48"/>
+        <!-- <include segmentGroup = "apical_dendrite_48"/> -->
         <include segmentGroup = "apical_dendrite_49"/>
         <include segmentGroup = "apical_dendrite_50"/>
         <include segmentGroup = "apical_dendrite_52"/>
@@ -29134,7 +28849,7 @@
       </segmentGroup> 
            
       <segmentGroup id="obl_48_54"> <!-- xdist: 162.996 -->
-        <include segmentGroup = "apical_dendrite_48"/>
+        <!-- <include segmentGroup = "apical_dendrite_48"/> -->
         <include segmentGroup = "apical_dendrite_49"/>
         <include segmentGroup = "apical_dendrite_50"/>
         <include segmentGroup = "apical_dendrite_52"/>
@@ -29142,56 +28857,56 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_48_55"> <!-- xdist: 162.996 -->
-        <include segmentGroup = "apical_dendrite_48"/>
+        <!-- <include segmentGroup = "apical_dendrite_48"/> -->
         <include segmentGroup = "apical_dendrite_49"/>
         <include segmentGroup = "apical_dendrite_55"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_56_57"> <!-- xdist: 179.58 -->
-        <include segmentGroup = "apical_dendrite_56"/>
-        <include segmentGroup = "apical_dendrite_67"/>
+        <!-- <include segmentGroup = "apical_dendrite_56"/> -->
+        <include segmentGroup = "apical_dendrite_57"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_58_59"> <!-- xdist: 180.11 -->
-        <include segmentGroup = "apical_dendrite_56"/>
-        <include segmentGroup = "apical_dendrite_67"/>
+        <!-- <include segmentGroup = "apical_dendrite_58"/> -->
+        <include segmentGroup = "apical_dendrite_59"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_60_61"> <!-- xdist: 210.339 -->
-        <include segmentGroup = "apical_dendrite_60"/>
+        <!-- <include segmentGroup = "apical_dendrite_60"/> -->
         <include segmentGroup = "apical_dendrite_61"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_62_63"> <!-- xdist: 222.805 -->
-        <include segmentGroup = "apical_dendrite_62"/>
+        <!-- <include segmentGroup = "apical_dendrite_62"/> -->
         <include segmentGroup = "apical_dendrite_63"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_65_67"> <!-- xdist: 252.717 -->
-        <include segmentGroup = "apical_dendrite_65"/>
+        <!-- <include segmentGroup = "apical_dendrite_65"/> -->
         <include segmentGroup = "apical_dendrite_66"/>
         <include segmentGroup = "apical_dendrite_67"/>
       </segmentGroup>
       
       <segmentGroup id="obl_65_68"> <!-- xdist: 252.717 -->
-        <include segmentGroup = "apical_dendrite_65"/>
+        <!-- <include segmentGroup = "apical_dendrite_65"/> -->
         <include segmentGroup = "apical_dendrite_66"/>
         <include segmentGroup = "apical_dendrite_68"/>
       </segmentGroup>
            
       <segmentGroup id="obl_69_70"> <!-- xdist: 292.064 -->
-        <include segmentGroup = "apical_dendrite_69"/>
+        <!-- <include segmentGroup = "apical_dendrite_69"/> -->
         <include segmentGroup = "apical_dendrite_70"/>
       </segmentGroup>
       
       <segmentGroup id="obl_71_73"> <!-- xdist: 324.533 -->
-        <include segmentGroup = "apical_dendrite_71"/>
+        <!-- <include segmentGroup = "apical_dendrite_71"/> -->
         <include segmentGroup = "apical_dendrite_72"/>
         <include segmentGroup = "apical_dendrite_73"/>
       </segmentGroup>
       
       <segmentGroup id="obl_71_76"> <!-- xdist: 324.533 -->
-        <include segmentGroup = "apical_dendrite_71"/>
+        <!-- <include segmentGroup = "apical_dendrite_71"/> -->
         <include segmentGroup = "apical_dendrite_72"/>
         <include segmentGroup = "apical_dendrite_74"/>
         <include segmentGroup = "apical_dendrite_75"/>
@@ -29200,7 +28915,7 @@
       
       
       <segmentGroup id="obl_71_78"> <!-- xdist: 324.533 -->
-        <include segmentGroup = "apical_dendrite_71"/>
+        <!-- <include segmentGroup = "apical_dendrite_71"/> -->
         <include segmentGroup = "apical_dendrite_72"/>
         <include segmentGroup = "apical_dendrite_74"/>
         <include segmentGroup = "apical_dendrite_75"/>
@@ -29210,7 +28925,7 @@
     
     
       <segmentGroup id="obl_71_79"> <!-- xdist: 324.533 -->
-        <include segmentGroup = "apical_dendrite_71"/>
+        <!-- <include segmentGroup = "apical_dendrite_71"/> -->
         <include segmentGroup = "apical_dendrite_72"/>
         <include segmentGroup = "apical_dendrite_74"/>
         <include segmentGroup = "apical_dendrite_75"/>
@@ -29219,26 +28934,26 @@
       </segmentGroup>
     
       <segmentGroup id="obl_71_80"> <!-- xdist: 324.533 -->
-        <include segmentGroup = "apical_dendrite_71"/>
+        <!-- <include segmentGroup = "apical_dendrite_71"/> -->
         <include segmentGroup = "apical_dendrite_72"/>
         <include segmentGroup = "apical_dendrite_74"/>
         <include segmentGroup = "apical_dendrite_80"/>
       </segmentGroup>
       
       <segmentGroup id="obl_81_82"> <!-- xdist: 346.84 -->
-        <include segmentGroup = "apical_dendrite_81"/>
+        <!-- <include segmentGroup = "apical_dendrite_81"/> -->
         <include segmentGroup = "apical_dendrite_82"/>
       </segmentGroup>
     
       <segmentGroup id="obl_83_86"> <!-- xdist: 387.01 -->
-        <include segmentGroup = "apical_dendrite_83"/>
+        <!-- <include segmentGroup = "apical_dendrite_83"/> -->
         <include segmentGroup = "apical_dendrite_84"/>
         <include segmentGroup = "apical_dendrite_85"/>
         <include segmentGroup = "apical_dendrite_86"/>
       </segmentGroup>
       
       <segmentGroup id="obl_83_89"> <!-- xdist: 387.01 -->
-        <include segmentGroup = "apical_dendrite_83"/>
+        <!-- <include segmentGroup = "apical_dendrite_83"/> -->
         <include segmentGroup = "apical_dendrite_84"/>
         <include segmentGroup = "apical_dendrite_85"/>
         <include segmentGroup = "apical_dendrite_87"/>
@@ -29247,7 +28962,7 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_83_90"> <!-- xdist: 387.01 -->
-        <include segmentGroup = "apical_dendrite_83"/>
+        <!-- <include segmentGroup = "apical_dendrite_83"/> -->
         <include segmentGroup = "apical_dendrite_84"/>
         <include segmentGroup = "apical_dendrite_85"/>
         <include segmentGroup = "apical_dendrite_87"/>
@@ -29256,7 +28971,7 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_83_91"> <!-- xdist: 387.01 -->
-        <include segmentGroup = "apical_dendrite_83"/>
+        <!-- <include segmentGroup = "apical_dendrite_83"/> -->
         <include segmentGroup = "apical_dendrite_84"/>
         <include segmentGroup = "apical_dendrite_85"/>
         <include segmentGroup = "apical_dendrite_87"/>
@@ -29264,34 +28979,34 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_83_93"> <!-- xdist: 387.01 -->
-        <include segmentGroup = "apical_dendrite_83"/>
+        <!-- <include segmentGroup = "apical_dendrite_83"/> -->
         <include segmentGroup = "apical_dendrite_84"/>
         <include segmentGroup = "apical_dendrite_92"/>
         <include segmentGroup = "apical_dendrite_93"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_83_94"> <!-- xdist: 387.01 -->
-        <include segmentGroup = "apical_dendrite_83"/>
+        <!-- <include segmentGroup = "apical_dendrite_83"/> -->
         <include segmentGroup = "apical_dendrite_84"/>
         <include segmentGroup = "apical_dendrite_92"/>
         <include segmentGroup = "apical_dendrite_94"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_95_97"> <!-- xdist: 413.054 -->
-        <include segmentGroup = "apical_dendrite_95"/>
+        <!-- <include segmentGroup = "apical_dendrite_95"/> -->
         <include segmentGroup = "apical_dendrite_96"/>
         <include segmentGroup = "apical_dendrite_97"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_95_99"> <!-- xdist: 413.054 -->
-        <include segmentGroup = "apical_dendrite_95"/>
+        <!-- <include segmentGroup = "apical_dendrite_95"/> -->
         <include segmentGroup = "apical_dendrite_96"/>
         <include segmentGroup = "apical_dendrite_98"/>
         <include segmentGroup = "apical_dendrite_99"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_95_101"> <!-- xdist: 413.054 -->
-        <include segmentGroup = "apical_dendrite_95"/>
+        <!-- <include segmentGroup = "apical_dendrite_95"/> -->
         <include segmentGroup = "apical_dendrite_96"/>
         <include segmentGroup = "apical_dendrite_98"/>
         <include segmentGroup = "apical_dendrite_100"/>
@@ -29299,7 +29014,7 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_95_102"> <!-- xdist: 413.054 -->
-        <include segmentGroup = "apical_dendrite_95"/>
+        <!-- <include segmentGroup = "apical_dendrite_95"/> -->
         <include segmentGroup = "apical_dendrite_96"/>
         <include segmentGroup = "apical_dendrite_98"/>
         <include segmentGroup = "apical_dendrite_100"/>
@@ -29307,51 +29022,51 @@
       </segmentGroup> 
       
       <segmentGroup id="obl_103_105"> <!-- xdist: 417.73 -->
-        <include segmentGroup = "apical_dendrite_103"/>
+        <!-- <include segmentGroup = "apical_dendrite_103"/> -->
         <include segmentGroup = "apical_dendrite_105"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_41_107"> <!-- xdist: 144.463 -->
-        <include segmentGroup = "apical_dendrite_41"/>
+        <!-- <include segmentGroup = "apical_dendrite_41"/> -->
         <include segmentGroup = "apical_dendrite_107"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_26_108"> <!-- xdist: 98.5523 -->
-        <include segmentGroup = "apical_dendrite_26"/>
+        <!-- <include segmentGroup = "apical_dendrite_26"/> -->
         <include segmentGroup = "apical_dendrite_108"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_25_110"> <!-- xdist: 93.5649 -->
-        <include segmentGroup = "apical_dendrite_25"/>
+        <!-- <include segmentGroup = "apical_dendrite_25"/> -->
         <include segmentGroup = "apical_dendrite_109"/>
         <include segmentGroup = "apical_dendrite_110"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_25_111"> <!-- xdist: 93.5649 -->
-        <include segmentGroup = "apical_dendrite_25"/>
+        <!-- <include segmentGroup = "apical_dendrite_25"/> -->
         <include segmentGroup = "apical_dendrite_109"/>
         <include segmentGroup = "apical_dendrite_111"/>
       </segmentGroup>
       
       <segmentGroup id="obl_22_112"> <!-- xdist: 72.9347 -->
-        <include segmentGroup = "apical_dendrite_22"/>
+        <!-- <include segmentGroup = "apical_dendrite_22"/> -->
         <include segmentGroup = "apical_dendrite_112"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_15_114"> <!-- xdist: 58.9759 -->
-        <include segmentGroup = "apical_dendrite_15"/>
+        <!-- <include segmentGroup = "apical_dendrite_15"/> -->
         <include segmentGroup = "apical_dendrite_113"/>
         <include segmentGroup = "apical_dendrite_114"/>
       </segmentGroup> 
       
       <segmentGroup id="obl_15_115"> <!-- xdist: 58.9759 -->
-        <include segmentGroup = "apical_dendrite_15"/>
+        <!-- <include segmentGroup = "apical_dendrite_15"/> -->
         <include segmentGroup = "apical_dendrite_113"/>
         <include segmentGroup = "apical_dendrite_115"/>
       </segmentGroup>
       
       <segmentGroup id="obl_64_106"> <!-- xdist: 233.672 -->
-        <include segmentGroup = "apical_dendrite_64"/>
+        <!-- <include segmentGroup = "apical_dendrite_64"/> -->
         <include segmentGroup = "apical_dendrite_106"/>
       </segmentGroup> 
       
@@ -29374,7 +29089,7 @@
         <channelDensity ionChannel="hs" id="hs_soma" condDensity="1.872e-2mS_per_cm2" segmentGroup="soma_group" erev="-10mV" ion="na"/>
         <channelDensity ionChannel="kaprox" id="kaprox_soma" condDensity="7.5mS_per_cm2" segmentGroup="soma_group" erev="-80mV" ion="k"/>
         <channelDensity ionChannel="km" id="km_soma" condDensity="60mS_per_cm2" segmentGroup="soma_group" erev="-80mV" ion="k"/>      
-        <!--<channelDensityGHK2 ionChannel="cal" id="cal_soma" condDensity="7mS_per_cm2" segmentGroup="soma_group" ion="ca"/>
+        <channelDensityGHK2 ionChannel="cal" id="cal_soma" condDensity="7mS_per_cm2" segmentGroup="soma_group" ion="ca"/>
         <channelDensityGHK2 ionChannel="cat" id="cat_soma" condDensity="0.1mS_per_cm2" segmentGroup="soma_group" ion="ca"/> --> <!-- TODO: dummy Ca...-->        
         <channelDensity ionChannel="car" id="car_soma" condDensity="0.3mS_per_cm2" segmentGroup="soma_group" erev="140mV" ion="ca"/>
         <channelDensity ionChannel="kca" id="kca_soma" condDensity="0.5mS_per_cm2" segmentGroup="soma_group" erev="-80mV" ion="k"/>
@@ -29409,13 +29124,15 @@
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-50) * 1.45521e-3"/> 
             </variableParameter>
         </channelDensityNonUniform>
+        
         <!-- cat (H(p_apical_trunk-100)) with param: gmax = f(p) = H(p_apical_trunk-100) * 4 * 0.1 * p_apical_trunk/350 S/cm2 -->
         <!--<channelDensityGHK2NonUniform ionChannel="cat" id="cat_apical_trunk" ion="ca">
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-100) * 4 * 0.1 * p_apical_trunk/350."/> 
             </variableParameter>
         </channelDensityGHK2NonUniform>-->
-        <!-- kca (H(50-p_apical_trunk)) with param: gmax = f(p) = H(50-p_apical_trunk) * 5e-5 S/cm2 -->
+        
+        <!-- kca (H(50-p_apical_trunk)) with param: gmax = f(p) = H(50-p_apical_trunk) * 5e-5 S/cm2 -->  
         <channelDensityNonUniform ionChannel="kca" id="kcaprox_apical_trunk" erev="-80mV" ion="k">
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(50-p_apical_trunk) * 5e-5"/> 
@@ -29461,7 +29178,7 @@
         <!-- kadist (H(p_apical_trunk-100)*H(350-p_apical_trunk)) with param: gmax = f(p) = H(p_apical_trunk-100)*H(350-p_apical_trunk) * 6.5 * 7.488e-3 * p_apical_trunk/350 S/cm2 -->
         <channelDensityNonUniform ionChannel="kadist" id="kadist_apical_trunk" erev="-80mV" ion="k"> 
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
-                <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-100)*H(350-p_apical_trunk) * 6.5 * 7.488e-3 * p_apical_trank/350"/> 
+                <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-100)*H(350-p_apical_trunk) * 6.5 * 7.488e-3 * p_apical_trunk/350"/> 
             </variableParameter>
         </channelDensityNonUniform>
         <!-- kadist (H(p_apical_trunk-350)) with param: gmax = f(p) = H(p_apical_trunk-350) * 6.5 * 7.488e-3 S/cm2 -->
@@ -29471,14 +29188,15 @@
             </variableParameter>
         </channelDensityNonUniform>
         <!-- nadend (H(50-p_apical_trunk)) with param: gmax = f(p) = H(50-p_apical_trunk) * 7e-3 S/cm2 -->
-        <channelDensityNonUniform ionChannel="nadendprox" id="nadendprox_apical_trunk" erev="50mV" ion="na"> 
+        <channelDensityNonUniform ionChannel="nadend_0_95" id="nadendprox_apical_trunk" erev="50mV" ion="na"> 
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(50-p_apical_trunk) * 7e-3"/> 
             </variableParameter>
         </channelDensityNonUniform>
+        
         <!-- nadend (H(p_apical_trunk-50)*H(300-p_apical_trunk)) with param: gmax = f(p) = H(p_apical_trunk-50)*H(300-p_apical_trunk) * 7e-3 S/cm2 -->
-        <channelDensityNonUniform ionChannel="nadendprox" id="nadend_apical_trunk" erev="50mV" ion="na"> 
-            <!-- TODO: check if this works ... -->
+        <channelDensityNonUniform ionChannel="nadend_0_4335" id="nadend_apical_trunk" erev="50mV" ion="na"> 
+            <!-- TODO: make this work!!! ... -->
             <!--<variableParameter parameter="s_steadyState_no_inact" segmentGroup="apical_trunk_group">  
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="0.95 - (0.65/250)*p_apical_trunk"/>  
             </variableParameter>-->
@@ -29486,8 +29204,9 @@
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-50)*H(300-p_apical_trunk) * 7e-3"/> 
             </variableParameter>
         </channelDensityNonUniform>
+       
         <!-- nadend (H(p_apical_trunk-300)) with param: gmax = f(p) = H(p_apical_trunk-300) * 7e-3 S/cm2 -->
-        <channelDensityNonUniform ionChannel="nadenddist" id="nadenddist_apical_trunk" erev="50mV" ion="na"> 
+        <channelDensityNonUniform ionChannel="nadend_0_3" id="nadenddist_apical_trunk" erev="50mV" ion="na"> 
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * H(p_apical_trunk-300) * 7e-3"/> 
             </variableParameter>
@@ -29498,22 +29217,65 @@
             <variableParameter parameter="condDensity" segmentGroup="apical_trunk_group">   
                 <inhomogeneousValue inhomogeneousParameter="PathLengthOverApicalDendrites" value="1e4 * 1 / (200000 - (188000/(1 + exp((200-p_apical_trunk)/50))))"/> 
             </variableParameter>
-        </channelDensityNonUniform>      
+        </channelDensityNonUniform>  
         
         
         <!-- ********** APICAL NON TRUNK ********** -->
 
-        <channelDensity ionChannel="nadend" id="nadend_apical_non_trunk" condDensity="7mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="50mV" ion="na"/>
-        <channelDensity ionChannel="kdrdend" id="kdrdend_apical_non_trunk" condDensity="0.868mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="-77mV" ion="k"/>
-        <channelDensity ionChannel="leak_chan" id="leak_apical_non_trunk" condDensity="5e-3mS_per_cm2" segmentGroup="apical_non_trunk_group" erev="-70mV" ion="non_specific"/>
+        <!-- inserted to apical_non_trunk_group in NEURON (ar2 changed when inserting to oblique dendrites) -->
+        <channelDensity ionChannel="nadend_0_4335" id="nadend_apical_non_trunk_proximal" condDensity="7mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="50mV" ion="na"/>
+        <channelDensity ionChannel="kdrdend" id="kdrdend_apical_non_trunk_proximal" condDensity="0.868mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="-77mV" ion="k"/>       
+        <!-- inserted to apical_non_trunk_group in NEURON (but changed when inserting to oblique dendrites) -->       
+        <channelDensity ionChannel="leak_chan" id="leak_apical_non_trunk_proximal" condDensity="6.938e-3mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="-70mV" ion="non_specific"/>
+        <!-- inserted to oblique dendrites, which are further than 50 um from parent trunk, same values as apical_dendrite_46 in NEURON -->
+        <channelDensity ionChannel="kadist" id="kadist_apical_non_trunk_proximal" condDensity="27.2848mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="-77mV" ion="k"/> <!-- 1.25 * apical_dendrite_46 -->
+        <channelDensity ionChannel="hdend" id="hdend_apical_non_trunk_proximal" condDensity="3.05e-2mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="-10mV" ion="na"/>
+        <channelDensity ionChannel="cardend" id="cardend_apical_non_trunk_proximal" condDensity="0.03mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="140mV" ion="ca"/>
+        <channelDensity ionChannel="calH" id="calH_apical_non_trunk_proximal" condDensity="1.45521mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="140mV" ion="ca"/>
+        <!-- <channelDensityGHK2 ionChannel="cat" id="cat_apical_non_trunk_proximal" condDensity="0.17938mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" ion="ca"/> -->
+        <channelDensity ionChannel="kca" id="kca_apical_non_trunk_proximal" condDensity="5e-2mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="-77mV" ion="k"/>
+        <channelDensity ionChannel="cagk" id="cagk_apical_non_trunk_proximal" condDensity="18.15mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="-77mV" ion="k"/> <!-- not based on apical_dendrite_46 -->
+        <channelDensity ionChannel="km" id="km_apical_non_trunk_proximal" condDensity="120mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="-77mV" ion="k"/> <!-- 2 * apical_dendrite_46 -->
+        <channelDensity ionChannel="nap" id="nap_apical_non_trunk_proximal" condDensity="2.8e-3mS_per_cm2" segmentGroup="apical_non_trunk_proximal_group" erev="50mV" ion="na"/> <!-- not based on apical_dendrite_46 -->
         
+        <!-- some of the above values are changed if xdist is more than 300 -->
+        <!-- inserted to apical_non_trunk_group in NEURON (ar2 changed when inserting to oblique dendrites) -->
+        <channelDensity ionChannel="nadend_0_4335" id="nadend_apical_non_trunk_distal" condDensity="0.92876mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="50mV" ion="na"/> <!-- 1.07 * kdrdend apical_dendrite_46 -->
+        <channelDensity ionChannel="kdrdend" id="kdrdend_apical_non_trunk_distal" condDensity="0.868mS_per_cm2" segmentGroup="apical_non_trunkdistal_group" erev="-77mV" ion="k"/>       
+        <!-- inserted to apical_non_trunk_group in NEURON (but changed when inserting to oblique dendrites) -->       
+        <channelDensity ionChannel="leak_chan" id="leak_apical_non_trunk_distal" condDensity="6.938e-3mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="-70mV" ion="non_specific"/>
+        <!-- inserted to oblique dendrites, which are further than 300 um (xdist) -->
+        <channelDensity ionChannel="kadist" id="kadist_apical_non_trunk_distal" condDensity="53.9149mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="-77mV" ion="k"/> <!-- 2.469 * apical_dendrite_46 -->
+        <channelDensity ionChannel="hdend" id="hdend_apical_non_trunk_distal" condDensity="3.05e-2mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="-10mV" ion="na"/>
+        <channelDensity ionChannel="cardend" id="cardend_apical_non_trunk_distal" condDensity="0.39mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="140mV" ion="ca"/> <!-- 13 * apical_dendrite_46 -->
+        <channelDensity ionChannel="calH" id="calH_apical_non_trunk_distal" condDensity="20.37294mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="140mV" ion="ca"/> <!-- 14 * apical_dendrite_46 -->
+        <!-- <channelDensityGHK2 ionChannel="cat" id="cat_apical_non_trunk_distal" condDensity="0.17938mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" ion="ca"/> -->
+        <channelDensity ionChannel="kca" id="kca_apical_non_trunk_distal" condDensity="0.5mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="-77mV" ion="k"/> <!-- not based on apical_dendrite_46: soma -->
+        <channelDensity ionChannel="cagk" id="cagk_apical_non_trunk_distal" condDensity="18.15mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="-77mV" ion="k"/> <!-- not based on apical_dendrite_46 -->
+        <channelDensity ionChannel="km" id="km_apical_non_trunk_distal" condDensity="120mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="-77mV" ion="k"/> <!-- 2 * apical_dendrite_46 -->
+        <channelDensity ionChannel="nap" id="nap_apical_non_trunk_distal" condDensity="2.8e-3mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="50mV" ion="na"/> <!-- not based on apical_dendrite_46 -->
         
-        <!-- ********** APICAL OBLIQUE ********** -->
+        <!-- some of the above values are changed if xdist is more than 350 -->
+        <!-- inserted to apical_non_trunk_group in NEURON (ar2 changed) -->
+        <channelDensity ionChannel="nadend_0_95" id="nadend_apical_non_trunk_verydistal" condDensity="0.92876mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="50mV" ion="na"/> <!-- 1.07 * kdrdend apical_dendrite_46 -->
+        <channelDensity ionChannel="kdrdend" id="kdrdend_apical_non_trunk_verydistal" condDensity="0.868mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="-77mV" ion="k"/>       
+        <!-- inserted to apical_non_trunk_group in NEURON (but changed when inserting to oblique dendrites) -->       
+        <channelDensity ionChannel="leak_chan" id="leak_apical_non_trunk_verydistal" condDensity="6.938e-3mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="-70mV" ion="non_specific"/>
+        <!-- inserted to oblique dendrites, which are further than 350 um (xdist) -->
+        <channelDensity ionChannel="kadist" id="kadist_apical_non_trunk_verydistal" condDensity="53.9149mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="-77mV" ion="k"/> <!-- 2.469 * apical_dendrite_46 -->
+        <channelDensity ionChannel="hdend" id="hdend_apical_non_trunk_verydistal" condDensity="3.05e-2mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="-10mV" ion="na"/>
+        <channelDensity ionChannel="cardend" id="cardend_apical_non_trunk_verydistal" condDensity="0.39mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="140mV" ion="ca"/> <!-- 13 * apical_dendrite_46 -->
+        <channelDensity ionChannel="calH" id="calH_apical_non_trunk_verydistal" condDensity="21.82815mS_per_cm2" segmentGroup="apical_non_trunk_distal_group" erev="140mV" ion="ca"/> <!-- 15 * apical_dendrite_46 -->
+        <!-- <channelDensityGHK2 ionChannel="cat" id="cat_apical_non_trunk_verydistal" condDensity="0.17938mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" ion="ca"/> -->
+        <channelDensity ionChannel="kca" id="kca_apical_non_trunk_verydistal" condDensity="0.5mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="-77mV" ion="k"/> <!-- not based on apical_dendrite_46: soma -->
+        <channelDensity ionChannel="cagk" id="cagk_apical_non_trunk_verydistal" condDensity="18.15mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="-77mV" ion="k"/> <!-- not based on apical_dendrite_46 -->
+        <channelDensity ionChannel="km" id="km_apical_non_trunk_verydistal" condDensity="120mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="-77mV" ion="k"/> <!-- 2 * apical_dendrite_46 -->
+        <channelDensity ionChannel="nap" id="nap_apical_non_trunk_verydistal" condDensity="5.6e-3mS_per_cm2" segmentGroup="apical_non_trunk_verydistal_group" erev="50mV" ion="na"/> <!-- not based on apical_dendrite_46 -->
         
         
         <!-- ********** BASAL ********** -->
         
-        <channelDensity ionChannel="nadend" id="nadend_basal" condDensity="7mS_per_cm2" segmentGroup="basal_group" erev="60mV" ion="na"/>
+        <channelDensity ionChannel="nadend_1" id="nadend_basal" condDensity="7mS_per_cm2" segmentGroup="basal_group" erev="60mV" ion="na"/>
         <channelDensity ionChannel="kdrdend" id="kdrdend_basal" condDensity="0.868mS_per_cm2" segmentGroup="basal_group" erev="-77mV" ion="k"/>
         <!-- same values as in apical_dendrite_14 -->
         <channelDensity ionChannel="hdend" id="hdend_basal" condDensity="2.0287e-2mS_per_cm2" segmentGroup="basal_group" erev="-10mV" ion="na"/>
@@ -29535,10 +29297,11 @@
         
         <species id="ca" ion="ca" concentrationModel="capool" segmentGroup="soma_group"
                  initialConcentration="1e-4mM" initialExtConcentration="2mM"/>
-        <species id="ca" ion="ca" concentrationModel="capool" segmentGroup="apical_trunk_group"
+        <species id="ca" ion="ca" concentrationModel="capool" segmentGroup="apical_group"
                  initialConcentration="1e-4mM" initialExtConcentration="2mM"/>
             
-        <resistivity value="0.05kohm_cm"/>         
+        <resistivity value="0.05kohm_cm"/> 
+        <!-- TODO: resistivity of apical_trunk and basal dendrites is a sigmoid function (of distance) -->        
         
       </intracellularProperties>
 
