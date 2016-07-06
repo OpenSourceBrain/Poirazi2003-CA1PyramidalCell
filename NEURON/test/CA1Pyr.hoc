@@ -25,6 +25,7 @@ strdef sectype
 public rt_proximal, rt_medial, rt_distal, lm_thick, thin_radiatum, oriens_pro, oriens_dist, lm_thin, addendum_tips, soma, dendrite, apical_dendrite, choose_secs_branchwise, choose_secs, soma_list, apical_trunk_list, SLM, RT, apical_tip_list, apical_tip_list_addendum, apical_trunk_list, peri_trunk_list
 
 proc init() {
+
 	create soma[5]
 	create dendrite[59]
 	create apical_dendrite[119]
@@ -32,16 +33,16 @@ proc init() {
 	xopen("../morphology/n123/cell.hoc")            
 
 	adjustment = 41.1 // This adjustment factor is supplied to the vector distance function so that distance calculations are measured at the cell body.
-
 	cell_analysis() 
 	maximum_segment_length=75            
 	cut_sections(maximum_segment_length)
 	map_segments_to_3d()
 	layers2() 
 	cell_lists()
+
 	parameters()
 	cell_setup()
-	current_balance(v_init)
+	//current_balance(v_init)
 }
 
 
@@ -97,8 +98,10 @@ proc cell_analysis() {  // cell_analysis (econ)
 	// This function makes a list with all dendritic sections in the basal tree
 	// written by Yiota Poirazi, July 2001, poirazi@LNC.usc.edu
 
+    
 	basal_tree_list=new SectionList()
-
+    fill_basal_tree_list()
+    /*
 	forall {
 		if (issection("dendrite.*"))  {
 			skip=0
@@ -108,15 +111,9 @@ proc cell_analysis() {  // cell_analysis (econ)
 			} 
 		}
 	}
+    */
 
-	/* Make a shape graph showing all basal sections
 
-	   objref basal_tree_list_shape
-	   basal_tree_list_shape=new Shape()
-	   color_index=3
-	   basal_tree_list_shape.color_list(basal_tree_list,color_index)
-	   basal_tree_list_shape.printfile("basal-tree-list.eps")
-	 */
 
 
 	// This function makes a list with primary oblique dendrites
@@ -124,7 +121,6 @@ proc cell_analysis() {  // cell_analysis (econ)
 
 	apical_tip_list=new SectionList()
 	fill_apical_tip_list()
-
 
 	// List of obliques located at distances approximatelly less than 300 microns from the soma
 
@@ -203,10 +199,12 @@ proc cell_analysis() {  // cell_analysis (econ)
 
 }
 
+proc fill_opl_1() {
+
 // Make a set of lists, each containing the oblique sections
 // that form a continuous path: starting from the section attached 
 // to the trunk and ending at the apical tip section. 
-proc fill_opl_1() {
+
 		plcount=0
 		pl[plcount]=new SectionList()
 
@@ -982,7 +980,7 @@ proc fill_apical_tip_list_addendum() {
 
 
 proc fill_apical_trunk_list() {
-	apical_dendrite[0]  apical_trunk_list.append() // 13.40  microns from soma 
+	    apical_dendrite[0]  apical_trunk_list.append() // 13.40  microns from soma 
 		apical_dendrite[4]  apical_trunk_list.append() // 46.03 (vertical distance)
 		apical_dendrite[6]  apical_trunk_list.append() // 45.75
 		apical_dendrite[14] apical_trunk_list.append() // 52.53
@@ -1012,163 +1010,239 @@ proc fill_apical_trunk_list() {
 		apical_dendrite[104] apical_trunk_list.append() // 423.75
 }
 
+proc fill_basal_tree_list() {
+        dendrite[0]  basal_tree_list.append()
+        dendrite[1]  basal_tree_list.append()
+        dendrite[2]  basal_tree_list.append()
+        dendrite[3]  basal_tree_list.append()
+        dendrite[4]  basal_tree_list.append()
+        dendrite[5]  basal_tree_list.append()
+        dendrite[6]  basal_tree_list.append()
+        dendrite[7]  basal_tree_list.append()
+        dendrite[8]  basal_tree_list.append()
+        dendrite[9]  basal_tree_list.append()
+        dendrite[10]  basal_tree_list.append()
+        dendrite[11]  basal_tree_list.append()
+        dendrite[12]  basal_tree_list.append()
+        dendrite[13]  basal_tree_list.append()
+        dendrite[14]  basal_tree_list.append()
+        dendrite[15]  basal_tree_list.append()
+        dendrite[16]  basal_tree_list.append()
+        dendrite[17]  basal_tree_list.append()
+        dendrite[23]  basal_tree_list.append()
+        dendrite[24]  basal_tree_list.append()
+        dendrite[25]  basal_tree_list.append()
+        dendrite[26]  basal_tree_list.append()
+        dendrite[27]  basal_tree_list.append()
+        dendrite[28]  basal_tree_list.append()
+        dendrite[29]  basal_tree_list.append()
+        dendrite[35]  basal_tree_list.append()
+        dendrite[36]  basal_tree_list.append()
+        dendrite[37]  basal_tree_list.append()
+        dendrite[38]  basal_tree_list.append()
+        dendrite[39]  basal_tree_list.append()
+        dendrite[40]  basal_tree_list.append()
+        dendrite[41]  basal_tree_list.append()
+        dendrite[42]  basal_tree_list.append()
+        dendrite[43]  basal_tree_list.append()
+        dendrite[44]  basal_tree_list.append()
+        dendrite[45]  basal_tree_list.append()
+        dendrite[46]  basal_tree_list.append()
+        dendrite[47]  basal_tree_list.append()
+        dendrite[48]  basal_tree_list.append()
+        dendrite[49]  basal_tree_list.append()
+        dendrite[50]  basal_tree_list.append()
+        dendrite[51]  basal_tree_list.append()
+        dendrite[52]  basal_tree_list.append()
+        dendrite[53]  basal_tree_list.append()
+        dendrite[54]  basal_tree_list.append()
+        dendrite[55]  basal_tree_list.append()
+        dendrite[56]  basal_tree_list.append()
+        dendrite[57]  basal_tree_list.append()
+        dendrite[58]  basal_tree_list.append()
+
+}
 
 
+proc parameters() { 
+		Rm_default = 200000 // "Specific membrane resistance. 
+		Rm_trunk = Rm_default // Non-oblique dendritic specific membrane resistance.
+		Rm_non_trunk = Rm_default //"Apical oblique specific membrane resistance.
+		Rm_basal  = Rm_default //"Basal specific membrane resistance.
+		Rm_tip  = Rm_default // Tip specific membrane resistance.
+		Rm_soma = Rm_default // Somatic specific membrane resistance.
+		Rm_axon = Rm_default //Axonal specific membrane resistance. 
+		Ra_default = 50 //Specific axial resistance. 
+		Ra_basal = Ra_default //Basal specific axial resistance.")
+		Ra_trunk = Ra_default //Somatic specific axial resistance.")
+		Ra_non_trunk = Ra_default //Somatic specific axial resistance.")
+		Ra_soma = Ra_default //Somatic specific axial resistance.")
+		Ra_tip = Ra_default //Apical tip specific axial resistance.")
+		Ra_axon =Ra_default //Axonal specific axial resistance. ")
 
-proc cell_setup() {  // cell_setup(econ) 
+		Cm_default = 1 //Default specific capacitance.")
+		Cm_axon = Cm_default //Axonal specific capacitance. ")
+		Cm_soma = Cm_default //Somatic specific capacitance. ")
+		Cm_trunk = Cm_default //Trunk specific capacitance.")
+		Cm_non_trunk = Cm_default //Oblique specific capacitance.")
+		Cm_basal = Cm_default //Basal specific capacitance.")
+		Cm_tip= Cm_default //Apical tip specific capacitance.")
+
+		v_init = -70 // Initial voltage of sections.
+		celsius = 34 //Temperature of slice.
+
+		// Set HH Sodium - Potassium properties
+
+		gna_default = 0.007  // Default Na conductance.)
+		gna_trunk = gna_default  // Trunk Na conductance. )
+		trunk_non_trunk_ratio = 1.0  // Non-trunk Na conductance ratio)
+		gna_non_trunk = trunk_non_trunk_ratio*gna_default  // Non-trunk Na conductance)
+		gna_tip = gna_non_trunk  // Oblique Tip Na conductance.)
+		gna_basal = gna_default  // Basal Na conductance.)
+		gna_axon = 0.1  // Axonal Na conductance. )
+		gna_soma = gna_default  // Somatic Na conductance. )
+
+		// Set delayed rectifier properties as a percent of Na conductances
+
+		kdr_div = 10.0/1.24  // Default ratio of Na to kdr conductances)
+		kdr_div_soma = 10.0/2.0  //  Soma Na-kdr divider)
+		kdr_div_axon = kdr_div_soma  //  Axon Na-kdr divider
+		kdr_div_trunk = kdr_div //  Trunk Na-kdr divider
+		kdr_div_non_trunk = kdr_div  // Non-trunk Na-kdr divider
+		kdr_div_tip = kdr_div  // Oblique Tips Na-kdr divider
+		kdr_div_basal = kdr_div  // Basal Na-kdr divider
+
+		// Set delayed rectifie conductances
+
+		gkdrbar_default = gna_default/kdr_div  // Default KDR conductance. )
+		gkdrbar_axon = gna_axon/kdr_div_axon  // Axonal  KDR conductance. )
+		gkdrbar_soma = gna_soma/kdr_div_soma  // Somatic  KDR conductance. )
+		gkdrbar_trunk = gna_trunk/kdr_div_trunk  // Trunk KDR conductance. )
+		gkdrbar_non_trunk = gna_non_trunk/kdr_div_non_trunk  // Non-Trunk KDR conductance. )
+		gkdrbar_tip = gna_tip/kdr_div_tip  // Oblique Tip KDR conductance. )
+		gkdrbar_basal = gna_basal/kdr_div_basal  // Basal KDR conductance. )
+
+}
+
+
+proc cell_setup() { 
 
 	// Set initial conductance values 
 
-	soma_caN = 0.5*0.0002   //init
-	//   soma_caN = 10*0.5*0.0002
-	//   soma_caL =  1.2825*0.0003  //init
-	soma_caL =  1.08*1.2825*0.0003
-	soma_kca =  2.1*0.005   //init
-	// soma_kca =  2*2.1*0.005
-	soma_km = 10*0.00022
-	mykca_init =  0.0003    //init
-	// mykca_init = 100*20* 0.0003
-	// soma_caL = 0.014     //appeared in comm    
-	// soma_car = 0.0003              //initial
-	//soma_car = 0.55*0.0003
-	soma_car = 0.5*0.0003
-	gsomacar = 0*0.003 
-	// soma_caLH =1.4*0.000333 //initial
-	soma_caLH =1.07*0.000333 
-	soma_caT = 0.5*0.0001   //init
-	// soma_caT = 0.5*0.0001
-	// soma_kca = 0.0001         //appeared in comm          
-	// soma_km = 0.06            //appeared in comm 
-	//mykca_init = 1.1*0.015     //appeared in comm
-	//    soma_hbar = 1.872e-5       //init
-	//  soma_hbar = 1.872e-5
-	soma_hbar =1.872e-5
-	soma_kap = 0.0075 //init
-	//soma_kap = 0*1.2*0.0075
-	kad_init = 1.0*0.0072           //init
-	//  kad_init = 0*0.8*0.0072
-	soma_kdBG = 0.00012 //test
-	kdBG_init = 0.00035
+    soma_caL = 0.014     
+    soma_car = 0.0003
+    gsomacar = 0.003 
+    soma_caLH = 0.95*0.000333
+    soma_caT = 0.0001
+    soma_kca = 0.0001
+    soma_km = 0.06
+    mykca_init = 1.1*0.015
+    soma_hbar = 1.872e-5
+    soma_kap = 0.0075
+    kad_init = 1.04*0.0072
 
 	// Start inserting mechanisms in cell
+
 	sectype ="soma"
 	forsec "soma" {
-		print secname()
+		//print secname()
 
 		nseg = 5
-		//insert hha2    // HH mechanism with low threshold for Na spikes (-57 mV)
-		//	gnabar_hha2 = gna_soma
-		//	gkbar_hha2  = gkdrbar_soma
+
+        insert hha2    // HH mechanism with low threshold for Na spikes (-57 mV)
+            gnabar_hha2 = gna_soma
+            gkbar_hha2  = gkdrbar_soma
+            gl_hha2     = 0
+            el_hha2     = v_init
+            ena         = 50
 
 		insert pas    // leak conductance
 			g_pas =  1/Rm_soma
 			e_pas = v_init
 			Ra    = Ra_soma
 
-		insert h     // h current 
-			gbar_h  = soma_hbar
+		insert ch_h     // h current 
+			gbar_ch_h  = soma_hbar
 			K_h     = 8.8
 			vhalf_h = -82
 
 		insert kap  // proximal A current
 			gkabar_kap = soma_kap
+            ek         = -80
 
 		insert km  // m-type potassium current
 			gbar_km    = soma_km
+            ek         = -80 
 
+		insert cal // HVA Ca++-L type current
+            gcalbar_cal = soma_caL/2
+           
+        insert cat // LVA Ca++-T type current
+            gcatbar_cat = soma_caT/2
 
-		insert cal // HVAl Ca++-L type current
-		insert can
-		insert kca
-		insert mykca 
-		insert cad
-
-		//  gcalbar_cal(x) = soma_caL
-		//  gbar_kca(x) = 5*soma_kca
-		//  gcalbar_can(x) = soma_caN
-		//  gkbar_mykca(x) = 4*mykca_init
-
-
-		for (x) {
-				gcalbar_can = soma_caN/30
-				gkbar_mykca = mykca_init/30
-				gcalbar_cal = soma_caL/30
-				gbar_kca = soma_kca/30
-
-				if (x ==0.3) {
-
-					gcalbar_cal(x) = soma_caL
-					gbar_kca(x) = 5*soma_kca
-					gcalbar_can(x) = soma_caN/30
-					gkbar_mykca(x) = mykca_init/30
-
-				} 
-
-				if (x ==0.7) {	
-					gcalbar_can(x) = soma_caN
-					gkbar_mykca(x) = 4*mykca_init
-					gcalbar_cal(x) = soma_caL/30
-					gbar_kca(x) = soma_kca/30
-				}
-		}
-
-
-		insert cat // LVA Ca++-T type current
-			gcatbar_cat = soma_caT/2
-
-		insert somacar // HVAm Ca++-R type current
-			gcabar_somacar = 0.1*gsomacar
-
+        insert somacar // HVAm Ca++-R type current
+            gcabar_somacar = gsomacar
+            
+        insert kca   // K(Ca) sAHP potassium type current
+            gbar_kca = 5*soma_kca
+         
+        insert mykca // K(Ca) mAHP potassium type current
+	        gkbar_mykca = 5.5*mykca_init
+        
+        insert cad  // calcium pump/buffering mechanism
 
 	}
 
 	//  Configure Axon
 
 	sectype="axon"
-		forsec axon_sec_list {
+    forsec axon_sec_list {
 
-			insert hha2  // HH mechanism with low threshold for Na spikes (-57 mV)
-				gnabar_hha2 = gna_axon
-				gkbar_hha2  = gkdrbar_axon
+        insert hha2  // HH mechanism with low threshold for Na spikes (-57 mV)
+            gnabar_hha2 = gna_axon
+            gkbar_hha2  = gkdrbar_axon
+            gl_hha2     = 0
+            el_hha2     = v_init
+            ena         = 50
 
+		insert pas  // leak conductance
+			g_pas       = 1/Rm_axon
+			e_pas       = v_init
+			Ra          = Ra_axon
+			cm          = Cm_axon
 
-				insert pas  // leak conductance
-				g_pas       = 1/Rm_axon
-				e_pas       = v_init
-				Ra          = Ra_axon
-				cm          = Cm_axon
+		insert km  // m-type potassium current
+			gbar_km     = 0.5*soma_km
+            ek          = -80
 
-				insert km  // m-type potassium current
-				gbar_km     = 0.5*soma_km
-
-				//$o1.tmpo2.color(1)
 		}
 
 	//  Configure apical trunk
-	forsec apical_trunk_list {
 
-		apical_h_insert_sig()    // Inserting h-current
-			apical_caR_caLH_insert() // Inserting Ca++ R-type and Ca++ L-type currents
-			apical_caT_insert()      // Inserting Ca++ T-type current
-			apical_caL_caN_insert() // Inserting HVAl Ca++  L-type current
-			apical_kca_insert()      // Inserting K(Ca) sAHP and mAHP potassium currents
-			apical_km_insert()       // Inserting m-type potassium current
-			A_insert()               // Inserting A-current
+    forsec apical_trunk_list {
 
-			insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
-			gnabar_hha_old = gna_trunk
-			gkbar_hha_old  = gkdrbar_trunk
+        apical_h_insert_sig()    // Inserting h-current
+        apical_caR_caLH_insert() // Inserting Ca++ R-type and Ca++ L-type currents
+        apical_caT_insert()      // Inserting Ca++ T-type current
+        apical_kca_insert()      // Inserting K(Ca) sAHP and mAHP potassium currents
+        apical_km_insert()       // Inserting m-type potassium current
+        A_insert()               // Inserting A-current
+   
+        insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
+            gnabar_hha_old = gna_trunk
+            gkbar_hha_old  = gkdrbar_trunk
+            ena            = 50
+                    
+        insert pas // leak conductance
+            e_pas          = v_init
+            el_hha_old     = v_init
+            Ra             = Ra_trunk
+            cm             = Cm_trunk
 
+        Rm_sigmoid()   // configure Rm along apical trunk
+        Ra_sigmoid()   // configure Ra along apical trunk
 
-			insert pas // leak conductance
-			e_pas          = v_init
-			Ra             = Ra_trunk
-			cm             = Cm_trunk
-
-			Rm_sigmoid()   // configure Rm along apical trunk
-			Ra_sigmoid()   // configure Ra along apical trunk
-			//$o1.tmpo2.color(4)
-			// Set the Na+ spike attenuation variable (linearly decreasing from soma to 300 um)
+	// Set the Na+ spike attenuation variable (linearly decreasing from soma to 300 um)
 
 			max_ar2 = 0.95 // "Somatic value of ar2"
 			min_ar2 = 0.30 // "Minimum value of ar2"
@@ -1185,80 +1259,79 @@ proc cell_setup() {  // cell_setup(econ)
 						ar2_hha_old(x) = max_ar2 + m_ar2*xdist
 					}
 			}
-		//ar2_log("linear", "min_ar2*max_ar2*m_ar2*decay_start*decay_end",$o1)
 	}
-
 
 	// Configure the apical-non-trunk section: insert basic mechanisms  
 
 	sectype = "apical non-trunk"
+    forsec apical_non_trunk_list {
 
-		forsec apical_non_trunk_list {
-
-			insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
-				gnabar_hha_old = gna_non_trunk
-				gkbar_hha_old  = gkdrbar_non_trunk
+        insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
+	        gnabar_hha_old = gna_non_trunk
+			gkbar_hha_old  = gkdrbar_non_trunk
 
 
-				insert pas // passive properties
-				g_pas     = 1/Rm_non_trunk
-				e_pas     = v_init                     
-				Ra        = Ra_non_trunk
-				cm        = Cm_non_trunk
+			insert pas // passive properties
+			g_pas     = 1/Rm_non_trunk
+			e_pas     = v_init                     
+			Ra        = Ra_non_trunk
+			cm        = Cm_non_trunk
 
-				//$o1.tmpo2.color(3)
 		}
 
-	khoblique_peri_decay()  // Configure the apical oblique dendrites
+    // Configure the apical oblique dendrites
 
-		// Configure the basal dendrites
+	khoblique_peri_decay()  
 
-		sectype = "basal tree"
-		forsec basal_tree_list {
-			insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
-				gnabar_hha_old = gna_basal
-				gkbar_hha_old  = gkdrbar_basal
+	// Configure the basal dendrites
+
+	sectype = "basal tree"
+	forsec basal_tree_list {
+        insert hha_old // HH mechanism with high threshold for Na spikes (-50 mV)
+		    gnabar_hha_old = gna_basal
+			gkbar_hha_old  = gkdrbar_basal
 
 
-				insert pas // passive properties
-				g_pas          = 1/Rm_basal
-				e_pas          = v_init
-				Ra             = Ra_basal
-				cm             = Cm_basal
+			insert pas // passive properties
+			    g_pas          = 1/Rm_basal
+			    e_pas          = v_init
+			    Ra             = Ra_basal
+			    cm             = Cm_basal
 
-				insert kap // Insert proximal A current
-				gkabar_kap       = 2.5*soma_kap
+			insert kap // Insert proximal A current
+			    gkabar_kap       = 2.5*soma_kap
 
-				Ra_sigmoid() // configure Ra
-				//$o1.tmpo2.color(5)
+			Ra_sigmoid() // configure Ra
+
 		}
-	khbasal_fixed() // Configure basal dendrites         
+
+	khbasal_fixed()
+
+
+         
 	forsec "soma" { g_pas=1/Rm_soma } // force Rm at all soma sections
 
 	forall {
 
 		if (ismembrane("hha_old")) {  // zero out gl (leak conductance) since g_pass is taking its place
 			gl_hha_old = 0 
-				el_hha_old     = v_init  
-				ena            = 50
+			el_hha_old     = v_init  
+			ena            = 50
 		}
 		if (ismembrane("hha2")) {  // zero out gl (leak conductance) since g_pass is taking its place
 			gl_hha2 = 0
-				el_hha2 = v_init  
-				ena = 50  
+			el_hha2 = v_init  
+			ena = 50  
 		}
 
 		if (ismembrane("k_ion")) {  
-			ek         = -77 
+			ek    = -77 
 		}
 
 		if(ismembrane("ca_ion")) {
 			eca = 140
-				// cai0_ca_ion =  2.4e-4 // for pump  
-				// cao = 2
-				//ion_style("ca_ion",0,1,0,0,0)
-				ion_style("ca_ion",3,2,1,1,1)
-				vshift_ca = 0
+			ion_style("ca_ion",3,2,1,1,1)
+			vshift_ca = 0
 		}
 
 	}
@@ -1318,8 +1391,8 @@ proc apical_h_insert_sig() {
 
 	for (x) {  
 		xdist = find_vector_distance_precise(secname(),x)  //calc. perpedicular distance
-		insert h
-		gbar_h(x) = gh_soma + (gh_end - gh_soma)/(1.0 + exp((dhalf-xdist)/steep))
+		insert ch_h
+		gbar_ch_h(x) = gh_soma + (gh_end - gh_soma)/(1.0 + exp((dhalf-xdist)/steep))
 
 	}  
 }
@@ -1339,36 +1412,25 @@ proc A_insert() {
 	kad_distal_maxfactor = 6.5 // "maximum cond. factor in dendrites")
 	kad_distal_distance = 350  //  "distance in dendrites for maximum cond.")
 
-	for (x) {  
-		xdist=find_vector_distance_precise(secname(),x)
-		fr= xdist/kad_distal_distance
-		insert kap
-		insert kad
-		insert kdBG
-		//insert pump //i inserted this mechanism for checking the mail question      
+     for (x) {  
+       xdist=find_vector_distance_precise(secname(),x)
+       fr= xdist/kad_distal_distance
+       insert kap
+       insert kad 
+       ek = -80
+       if (xdist < kap_distal_distance ) {
+          gkabar_kad(x) = 0
+          gkabar_kap(x) = soma_kap
 
-			if (xdist < kap_distal_distance ) {
-				gkabar_kad(x) = 0
-					gkabar_kap(x) = soma_kap
-					gbar_kdBG(x) = soma_kdBG
-
-			} else if (xdist < kad_distal_distance ) {
-				gkabar_kap(x) = 0
-					gkabar_kad(x) = kad_distal_maxfactor*kad_init*fr
-					gbar_kdBG(x) = kdBG_init
-
-			} else {
-				gkabar_kap(x) = 0
-					gkabar_kad(x) = kad_distal_maxfactor*kad_init
-					gbar_kdBG(x) = kdBG_init
-					/*	if (x==0.3)  {
-						gkabar_kad(x) = 3* kad_distal_maxfactor*kad_init
-						if (x==0.7) {
-						gkabar_kad(x) = 0.5* kad_distal_maxfactor*kad_init
-						}
-						} */
-			}
-	}
+       } else if (xdist < kad_distal_distance ) {
+          gkabar_kap(x) = 0
+          gkabar_kad(x) = kad_distal_maxfactor*kad_init*fr
+          
+       } else {
+          gkabar_kap(x) = 0
+          gkabar_kad(x) = kad_distal_maxfactor*kad_init
+       }
+     }
 }
 
 
@@ -1402,35 +1464,23 @@ proc apical_kca_insert() {
 			insert cad    // calsium pump/buffering mechanism
 			insert kca    // slow AHP K++ current
 			insert mykca  // medium AHP K++ current
-			// insert kca2 
-
-			if (xdist < kca_distal_distance) { 
-
-				gkbar_mykca(x) = mykca_init/30
-					gbar_kca(x) = soma_kca/30 
-					//gbar_kca2(x) = 0
-
-					if (x == 0.3) {	           
-						gbar_kca(x) = 5*soma_kca
-							gkbar_mykca(x) = mykca_init/30
-					} 
-				if (x == 0.7) {	
-					gkbar_mykca(x) = 5*mykca_init*(kca_distal_distance - xdist)/kca_distal_distance
-						gbar_kca(x) = soma_kca/30    
-				}
-
-
-				//          gkbar_mykca(x) = 5*mykca_init*(kca_distal_distance - xdist)/kca_distal_distance
-				//          gbar_kca(x) = 5*soma_kca
-				//          gbar_kca2(x) = 0
-
-			} else {
-				//  gbar_kca2(x) = 0*soma_kca
-				gbar_kca(x) = 0*soma_kca/30
-					gkbar_mykca(x) = mykca_init
-			}
-
 	}
+
+    for (x) {  
+        xdist = find_vector_distance_precise(secname(),x)
+        fr = xdist/kca_distal_distance 
+        insert cad    // calsium pump/buffering mechanism
+        insert kca    // slow AHP K++ current
+        insert mykca  // medium AHP K++ current
+
+        if (xdist < kca_distal_distance && xdist > 50) {       
+            gbar_kca(x) = 5*soma_kca
+            gkbar_mykca = 2*mykca_init
+        } else {
+            gbar_kca(x) = 0.5*soma_kca
+            gkbar_mykca = 0.25*mykca_init
+        }
+    }
 }
 
 
@@ -1466,7 +1516,7 @@ proc apical_caR_caLH_insert() {
 	for (x) {  
 		xdist = find_vector_distance_precise(secname(),x)
 			insert car
-			gcabar_car(x) = soma_car
+			gcabar_car(x) = 0.1*soma_car
 
 			insert calH
 			if (xdist > 50) {            
@@ -1477,42 +1527,6 @@ proc apical_caR_caLH_insert() {
 	}
 }
 
-proc apical_caL_caN_insert() {
-	caL_distal_distance = 100 // "distance in dendrites for maximum cond."
-		nseg = 5
-		for (x) {  
-			xdist = find_vector_distance_precise(secname(),x)
-				fr = xdist/caL_distal_distance
-				insert cal
-				insert can
-				insert cad
-
-				if (xdist < caL_distal_distance) {
-
-					gcalbar_can(x) = soma_caN/30
-						gcalbar_cal(x) = soma_caL/30 
-
-						if (x == 0.3) {	           
-							gcalbar_cal(x) = soma_caL*(1-2.*fr/3.)
-								gcalbar_can(x) = soma_caN/30
-						}
-					if (x ==0.7) {	
-						gcalbar_can(x) = soma_caN*(1-2.*fr/3.)
-							gcalbar_cal(x) = soma_caL/30
-					}  
-
-					//  gcalbar_can(x) = soma_caN*(1-2.*fr/3.)
-					//  gcalbar_cal(x) = soma_caL*(1-2.*fr/3.)
-
-				} else {
-					//     gcalbar_cal(x) = soma_caL/6.
-					//gcalbar_can(x) = soma_caN/4.
-					gcalbar_cal(x) = soma_caL/10.
-						gcalbar_can(x) = soma_caN/10.
-
-				}
-		}
-}
 
 /* Seting conductances in all apical oblique dendrites so that the values of all dedrites after an initial section
    are the same (or a multiple) as the values in apical_dendrite[46]. The values in the initial section of 50 um from 
@@ -1526,7 +1540,7 @@ proc khoblique_peri_decay() { local i,x,d
 	khsection = "apical_dendrite[46]" // "Trunk section used for oblique conductance values"
 	peri_trunkl = 50.0 // "Length of the peri-trunk region")
 
-		// Holding the conductance values from apical_dendrite[46] 
+	// Holding the conductance values from apical_dendrite[46] 
 
 	apical_dendrite[46] { 
 		hold_cat=gcatbar_cat(1) 
@@ -1534,7 +1548,7 @@ proc khoblique_peri_decay() { local i,x,d
 		hold_calH=soma_caLH 
 		hold_nap=0.0004*gnabar_hha_old
 
-		hold_h=gbar_h(1) 
+		hold_h=gbar_ch_h(1) 
 		hold_ar2_hha_old=ar2_hha_old(1) 
 		hold_kdr=gkbar_hha_old(1) 
 
@@ -1543,117 +1557,106 @@ proc khoblique_peri_decay() { local i,x,d
 		hold_kap=gkabar_kap(1)
 		hold_kad=gkabar_kad(1) 
 
-		hold_kdBG = gbar_kdBG(1) 
 		hold_mykca=gkbar_mykca(1) 
 		hold_km=gbar_km(1)
 	}
 
-		for i=0,plcount {
-				// set the origin to the currently accessed section 
-				access opl[i].trunk_section.sec
-				xdist = find_vector_distance_precise(secname(),0)
-				distance(0,1)
+    for i=0,plcount {
+		// set the origin to the currently accessed section 
 
-				trunk_kap = gkabar_kap(1)  // holding the parent trunk values
-				trunk_kad = gkabar_kad(1)
-				trunk_kdBG =  gbar_kdBG(1)
-				trunk_h  = gbar_h(1)
-				trunk_pas = g_pas(1)
-				trunk_Ra = Ra 
-				trunk_car  = gcabar_car(1)
-				trunk_calH  = gcalbar_calH(1)
-				trunk_cat  = gcatbar_cat(1)
-				//trunk_kca2  = gbar_kca2(1)
-				trunk_mykca  = gkbar_mykca(1)
-				trunk_km  = gbar_km(1)
-				trunk_nap  = 0.2*hold_nap // No persistent I_Na at the trunk => hold a small persent of hold_nap value
-				trunk_ar2_hha_old  = ar2_hha_old(1) // spike attenuation variable
+		access opl[i].trunk_section.sec
+		xdist = find_vector_distance_precise(secname(),0)        
+		distance(0,1)
 
-				sec_count=0
+		trunk_kap = gkabar_kap(1)  // holding the parent trunk values
+		trunk_kad = gkabar_kad(1)
+		trunk_h  = gbar_ch_h(1)
+		trunk_pas = g_pas(1)
+		trunk_Ra = Ra 
+		trunk_car  = gcabar_car(1)
+		trunk_calH  = gcalbar_calH(1)
+		trunk_cat  = gcatbar_cat(1)
+	    trunk_mykca  = gkbar_mykca(1)
+		trunk_km  = gbar_km(1)
+		trunk_nap  = 0.2*hold_nap
+		trunk_ar2_hha_old  = ar2_hha_old(1)
 
-				forsec pl[i] {
-					//           printf("\t-- %s --\n", secname()) access all oblique paths from parent trunk to root oblique
+		sec_count=0
 
-					if (!sec_count) {              // skip all trunk sections
-						sec_count=sec_count+1
-							continue
-					}         
-					insert kap 
-						insert kad
-						insert kdBG
-						insert h     
-						insert pas         
-						insert car
-						insert calH
-						insert cat
-						//insert kca2
-						insert mykca
-						insert km
-						insert nap
-						insert cad
+		forsec pl[i] {
+		    if (!sec_count) {              // skip all trunk sections
+				sec_count=sec_count+1
+					continue
+			}         
+			insert kap 
+			insert kad
+			insert ch_h     
+			insert pas         
+			insert car
+			insert calH
+			insert cat
+            insert kca
+			insert mykca
+			insert km
+			insert nap
+			insert cad
 
-						e_pas = v_init
+			e_pas = v_init
 
-						for (x) {
-							if (x > 0 && x < 1) {
-								d = distance(1,x)
-									if (d < peri_trunkl) {   // for distances close to the parent trunk section keep trunk values
-										Ra = Ra_default  
-											gkabar_kap(x) = trunk_kap  
-											gkabar_kad(x) = trunk_kad  
-											gbar_kdBG(x) = trunk_kdBG
-											gbar_h(x) = trunk_h  
-											g_pas(x) = trunk_pas
-											gcabar_car(x) = trunk_car
-											gcalbar_calH(x) = trunk_calH
-											gcatbar_cat(x) = trunk_cat  
-											//gbar_kca2(x) = trunk_kca2  
-											gkbar_mykca = mykca_init 
-											gbar_km(x) = trunk_km
-											gnabar_nap(x) = trunk_nap
-											ar2_hha_old(x) = trunk_ar2_hha_old         
+            for (x) {
+				if (x > 0 && x < 1) {
+					d = distance(1,x)
+                    printf("i: %g, sec_count: %g, secname: %s, xdist: %g, distance(1,x): %g\n", i, sec_count, secname(), xdist, d)
+					if (d < peri_trunkl) {   // for distances close to the parent trunk section keep trunk values
+					    Ra = Ra_default  
+						gkabar_kap(x) = trunk_kap  
+						gkabar_kad(x) = trunk_kad  
+						gbar_ch_h(x) = trunk_h  
+						g_pas(x) = trunk_pas
+						gcabar_car(x) = trunk_car
+						gcalbar_calH(x) = trunk_calH
+						gcatbar_cat(x) = trunk_cat  
+						gkbar_mykca = mykca_init 
+						gbar_km(x) = trunk_km
+						gnabar_nap(x) = trunk_nap
+						ar2_hha_old(x) = trunk_ar2_hha_old         
 
-									} else {          // for further distances set conductances to apical_dendrite[46] values (or a multiple)            
-										gkabar_kap(x) = hold_kap  
-											//gkabar_kad(x) = 1.25*hold_kad
-											gkabar_kad(x) = 1.25*hold_kad
-											gbar_kdBG(x) = hold_kdBG   
-											gbar_h(x) = hold_h  
-											g_pas(x) = hold_g_pas
-											//g_pas(x) = 10*hold_g_pas
+					} else {          // for further distances set conductances to apical_dendrite[46] values (or a multiple)            
+						gkabar_kap(x) = hold_kap  
+						gkabar_kad(x) = 1.25*hold_kad  
+						gbar_ch_h(x) = hold_h  
+						g_pas(x) = hold_g_pas
+						Ra = Ra_default
+						gcabar_car(x) = hold_car
+						gcalbar_calH(x) = hold_calH 
+						gcatbar_cat(x) = hold_cat  
+						ar2_hha_old(x) = 0.8*hold_ar2_hha_old 
+						gkbar_mykca = mykca_init 
+						gnabar_nap(x) = hold_nap  
+						gbar_km(x) = 2*hold_km
 
-											Ra = Ra_default
-											gcabar_car(x) = hold_car
-											gcalbar_calH(x) = hold_calH 
-											gcatbar_cat(x) = hold_cat  
-											ar2_hha_old(x) = 0.8*hold_ar2_hha_old  // set to 80% of dend. 46 value  
-											//gbar_kca2(x) = hold_kca2
-											gkbar_mykca = mykca_init 
-											gnabar_nap(x) = hold_nap  
-											gbar_km(x) = hold_km             // set to 2 times the dend 46 value
-
-											if (xdist > 300 ) {                // for xdist > 300 um increase:
-												gkabar_kad(x) = 2.65*hold_kad      // A-current,
-													gcabar_car(x) = 13*hold_car       // Ca++-R current,  original
-														gcalbar_calH(x) = 13*hold_calH     // Ca++-L current,
-													gkbar_hha_old(x) = 1.1*hold_kdr // delayed rectifier
-														gkbar_mykca = 0.35*mykca_init 
-
-											}
-
-										if (xdist > 350) {               // for xdist > 350 um increase even more:
-											gcalbar_calH(x)=15*hold_calH  // Ca++-L current,   
-												ar2_hha_old(x) = 0.9         // less spike attenuation 
-												gnabar_nap(x)=3*hold_nap      // Na+ persistent                   
-
-										}                           
-									} 
-							}
+						if (xdist > 300 ) {                // for xdist > 300 um increase:
+							gkabar_kad(x) = 1.3*1.9*hold_kad      // A-current,
+						    gcabar_car(x) = 13*hold_car       // Ca++-R current,  original
+							gcalbar_calH(x) = 14*hold_calH     // Ca++-L current,
+                            gbar_kca(x) = 5*soma_kca         // slow AHP current 
+							gkbar_hha_old(x) = 1.07*hold_kdr // delayed rectifier
 						}
 
-					sec_count=sec_count+1
+						if (xdist > 350) {               // for xdist > 350 um increase even more:
+                           gcalbar_calH(x) = 15*hold_calH  // Ca++-L current,
+			               ar2_hha_old(x) = 0.95         // less spike attenuation 
+                           gnabar_nap(x) = 2*hold_nap      // Na+ persistent                    
+
+						}                           
+					} 
 				}
-		}
+            }
+
+			sec_count=sec_count+1
+
+        }
+	}
 }
 
 
@@ -1669,26 +1672,25 @@ proc khbasal_fixed() { local i,x,d
 		hold_g_pas=g_pas(1)
 		hold_kap=gkabar_kap(1)
 		hold_kad=gkabar_kad(1) 
-		hold_h=gbar_h(1)
+		hold_h=gbar_ch_h(1)
 	}
 
+	forsec basal_tree_list {
 
-		forsec basal_tree_list {
+        insert kap 
+		insert kad
+		insert ch_h                
+		insert pas
 
-			insert kap 
-				insert kad
-				insert h                
-				insert pas
-
-				for (x) {
-					gkabar_kap(x) = 1.6*hold_kap
-						gkabar_kad(x) = 1.6*hold_kad
-						gbar_h(x) = soma_hbar
-						g_pas(x) =  hold_g_pas
-						Ra = Ra_default
-						e_pas = v_init
-				}
+		for (x) {
+		    gkabar_kap(x) = 1.6*hold_kap
+			gkabar_kad(x) = 1.6*hold_kad
+			gbar_ch_h(x) = soma_hbar
+			g_pas(x) =  hold_g_pas
+			Ra = Ra_default
+			e_pas = v_init
 		}
+	}
 }
 
 /* The Na channels developed Mel and modified by Brannon,
@@ -1718,40 +1720,32 @@ decay_start=0 /* The distance at which decay starts.
 decay_end=0
 
 strdef ar24_tmp_str
-	objref  strobj, ar24_f
+objref  strobj, ar24_f
 strobj=new StringFunctions()
-	ar2_firsttime=1
+ar2_firsttime=1
 
-	proc ar2_log() {
+proc ar2_log() {
 
-		if (!ar2_firsttime) { return }
+    if (!ar2_firsttime) { return }
 
 		ar24_f=new File() 
-			sprint($o3.tmp_str3, "%s/ar2_log", $o3.generic_dir)
-			ar24_f.wopen($o3.tmp_str3)
-			ar24_f.printf("%s:",$s1)
+		sprint($o3.tmp_str3, "%s/ar2_log", $o3.generic_dir)
+		ar24_f.wopen($o3.tmp_str3)
+		ar24_f.printf("%s:",$s1)
 
-			while (strobj.substr($s2, "*") > -1) {
-				//printf("substr:%d\n", strobj.substr($s2, "*"))
-
-				index=strobj.head($s2, "\\*", ar24_tmp_str)
-					//printf("index:%d\n", index)
-
-					strobj.right($s2, 1+index)
-					//printf("%s ... %s \n", ar24_tmp_str, $s2)
-
-					$o3.create_variable("ar24_val", ar24_tmp_str)
-					ar24_f.printf("%s:%g:", ar24_tmp_str, ar24_val)
-					//printf("%s:%g", ar24_tmp_str, ar24_val)
+		while (strobj.substr($s2, "*") > -1) {
+			index=strobj.head($s2, "\\*", ar24_tmp_str)
+			strobj.right($s2, 1+index)
+			$o3.create_variable("ar24_val", ar24_tmp_str)
+		    ar24_f.printf("%s:%g:", ar24_tmp_str, ar24_val)
 			}
 
 		$o3.create_variable("ar24_val", $s2)
-			ar24_f.printf("%s:%g\n", $s2, ar24_val)
-			//printf("%s:%g\n", $s2, ar24_val)
+		ar24_f.printf("%s:%g\n", $s2, ar24_val)
 
-			ar24_f.close()
-			ar2_firsttime=0
-	}
+		ar24_f.close()
+		ar2_firsttime=0
+}
 
 
 proc layers2() {
@@ -1997,66 +1991,6 @@ func find_vector_distance_precise() {
 }
 
 
-
-proc parameters() { 
-		Rm_default = 200000 // "Specific membrane resistance. 
-		Rm_trunk = Rm_default // Non-oblique dendritic specific membrane resistance.
-		Rm_non_trunk = Rm_default //"Apical oblique specific membrane resistance.
-		Rm_basal  = Rm_default //"Basal specific membrane resistance.
-		Rm_tip  = Rm_default // Tip specific membrane resistance.
-		Rm_soma = Rm_default // Somatic specific membrane resistance.
-		Rm_axon = Rm_default //Axonal specific membrane resistance. 
-		Ra_default = 50 //Specific axial resistance. 
-		Ra_basal = Ra_default //Basal specific axial resistance.")
-		Ra_trunk = Ra_default //Somatic specific axial resistance.")
-		Ra_non_trunk = Ra_default //Somatic specific axial resistance.")
-		Ra_soma = Ra_default //Somatic specific axial resistance.")
-		Ra_tip = Ra_default //Apical tip specific axial resistance.")
-		Ra_axon =Ra_default //Axonal specific axial resistance. ")
-		Cm_default = 1 //Default specific capacitance.")
-		Cm_axon = Cm_default //Axonal specific capacitance. ")
-		Cm_soma = Cm_default //Somatic specific capacitance. ")
-		Cm_trunk = Cm_default //Trunk specific capacitance.")
-		Cm_non_trunk = Cm_default //Oblique specific capacitance.")
-		Cm_basal = Cm_default //Basal specific capacitance.")
-		Cm_tip= Cm_default //Apical tip specific capacitance.")
-
-		v_init = -70 // Initial voltage of sections.
-		celsius = 34 //Temperature of slice.
-
-		// Set HH Sodium - Potassium properties
-
-		gna_default = 0.007  // Default Na conductance.)
-		gna_trunk = gna_default  // Trunk Na conductance. )
-		trunk_non_trunk_ratio = 1.0  // Non-trunk Na conductance ratio)
-		gna_non_trunk = trunk_non_trunk_ratio*gna_default  // Non-trunk Na conductance)
-		gna_tip = gna_non_trunk  // Oblique Tip Na conductance.)
-		gna_basal = gna_default  // Basal Na conductance.)
-		gna_axon = 0.1  // Axonal Na conductance. )
-		gna_soma = gna_default  // Somatic Na conductance. )
-
-		// Set delayed rectifier properties as a percent of Na conductances
-
-		kdr_div = 10.0/1.24  // Default ratio of Na to kdr conductances)
-		kdr_div_soma = 10.0/2.0  //  Soma Na-kdr divider)
-		kdr_div_axon = kdr_div_soma  //  Axon Na-kdr divider
-		kdr_div_trunk = kdr_div //  Trunk Na-kdr divider
-		kdr_div_non_trunk = kdr_div  // Non-trunk Na-kdr divider
-		kdr_div_tip = kdr_div  // Oblique Tips Na-kdr divider
-		kdr_div_basal = kdr_div  // Basal Na-kdr divider
-
-		// Set delayed rectifie conductances
-
-		gkdrbar_default = gna_default/kdr_div  // Default KDR conductance. )
-		gkdrbar_axon = gna_axon/kdr_div_axon  // Axonal  KDR conductance. )
-		gkdrbar_basal = gna_basal/kdr_div_basal  // Basal  KDR conductance. )
-		gkdrbar_soma = gna_soma/kdr_div_soma  // Somatic  KDR conductance. )
-		gkdrbar_trunk = gna_trunk/kdr_div_trunk  // Trunk KDR conductance. )
-		gkdrbar_non_trunk = gna_non_trunk/kdr_div_non_trunk  // Non-Trunk KDR conductance. )
-		gkdrbar_tip = gna_tip/kdr_div_tip  // Oblique Tip KDR conductance. )
-		gkdrbar_basal = gna_basal/kdr_div_basal  // Basal KDR conductance. )
-
-}
 
 proc current_balance() { // current_balance(v_init)
   finitialize($1)
