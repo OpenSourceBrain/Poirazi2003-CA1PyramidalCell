@@ -5,9 +5,6 @@ TITLE HH channel that includes both a sodium and a delayed rectifier channel
 : Yiota Poirazi-modified Kdr and Na threshold and time constants
 : to make it more stable, 2000, poirazi@LNC.usc.edu
 : Used in all BUT somatic and axon sections. The spike threshold is about -50 mV
-:
-: Modified to use CVode --Carl Gold 08/12/03
-:  Updated by Maria Markaki  12/05/03
 
 NEURON {
 	SUFFIX hha_old
@@ -16,8 +13,10 @@ NEURON {
 	NONSPECIFIC_CURRENT il
 	RANGE gnabar, gkbar, gl, el
 	RANGE ar2, vhalfs
-	GLOBAL inf, tau, taumin
+	RANGE inf, fac, tau
+	RANGE taus
 	RANGE W
+	GLOBAL taumin
 }
 
 UNITS {
@@ -25,19 +24,19 @@ UNITS {
 	(mV) = (millivolt)
 }
 
+INDEPENDENT {t FROM 0 TO 1 WITH 1 (ms)}
+
 PARAMETER {   : parameters that can be entered when function is called in cell-setup
-        a0r = 0.0003 (/ms)
-        b0r = 0.0003 (/ms)
+        a0r = 0.0003 (ms)
+        b0r = 0.0003 (ms)
         zetar = 12    
 	zetas = 12   
         gmr = 0.2   
 	ar2 = 1.0               :initialized parameter for location-dependent
                                 :Na-conductance attenuation, "s", (ar=1 -> zero attenuation)
-:	taumin = 10   (ms)       :min activation time for "s" attenuation system
 	taumin = 3   (ms)       :min activation time for "s" attenuation system
         vvs  = 2     (mV)       :slope for "s" attenuation system
         vhalfr = -60 (mV)       :half potential for "s" attenuation system
-        vvh=-58		(mV) 
 	W = 0.016    (/mV)      :this 1/61.5 mV
 :	gnabar = 0.2 (mho/cm2)  :suggested conductance values
 :	gkbar = 0.12 (mho/cm2)
@@ -45,7 +44,12 @@ PARAMETER {   : parameters that can be entered when function is called in cell-s
         gnabar = 0   (mho/cm2)  :initialized conductances
 	gkbar = 0    (mho/cm2)  :actual values set in cell-setup.hoc
 	gl = 0       (mho/cm2)
+	ena = 60     (mV)       :Na reversal potential (also reset in
+	ek = -77     (mV)       :K reversal potential  cell-setup.hoc)
 	el = -70.0   (mV)       :steady state 
+	celsius = 34 (degC)
+	v            (mV)
+        dt           (ms)
 }
 
 STATE {                         : the unknown parameters to be solved in the DEs
@@ -53,99 +57,101 @@ STATE {                         : the unknown parameters to be solved in the DEs
 }
 
 ASSIGNED {			: parameters needed to solve DE
-	celsius      (degC)
-	v            (mV)
-	ena          (mV)       :Na reversal potential (also reset in
-	ek           (mV)       :K reversal potential  cell-setup.hoc)
 	ina (mA/cm2)
 	ik (mA/cm2)
 	il (mA/cm2)
 	inf[4]
-	tau[4]		(ms)
+	fac[4]
+	tau[4]
 }
 
 BREAKPOINT {
-	SOLVE states METHOD cnexp
+	SOLVE states
 	ina = gnabar*m*m*h*s*(v - ena) :Sodium current
 	ik = gkbar*n*n*(v - ek)        :Potassium current
 	il = gl*(v - el)               :leak current
 }
 
 INITIAL {                       : initialize the following parameter using states()
-	rates(v,ar2)
-	m = inf[0]
-	h = inf[1]
-	n = inf[2]
-	s = inf[3]
+	states()
+	s=1
+	ina = gnabar*m*m*h*s*(v - ena)
+	ik = gkbar*n*n*(v - ek)
+	il = gl*(v - el)
 }
 
-DERIVATIVE states {
-	rates(v,ar2)
-	m' = (inf[0]-m)/tau[0]
-	h' = (inf[1]-h)/tau[1]
-	n' = (inf[2]-n)/tau[2]
-	s' = (inf[3]-s)/tau[3]
+PROCEDURE calcg() {
+	mhn(v*1(/mV))
+	m = m + fac[0]*(inf[0] - m)   :Na activation variable
+	h = h + fac[1]*(inf[1] - h)   :Na inactivation variable
+	n = n + fac[2]*(inf[2] - n)   :K activation variable
+	s = s + fac[3]*(inf[3] - s)   :Na attenuation variable
+}	
+
+PROCEDURE states() {	: exact when v held constant
+	calcg()
+	VERBATIM
+	return 0;
+	ENDVERBATIM
 }
 
 
-PROCEDURE rates(v(mV),a2) {
-	LOCAL tmp, c
-	FROM i=0 TO 2 {
-		tau[i] = vartau(v,i)
-		inf[i] = varss(v,i)
-	}
-	tau[3] = betr(v)/(a0r*(1+alpr(v))) 
-	if (tau[3]<taumin) {tau[3]=taumin} :s activation tau
-	c = alpv(v)
-	inf[3] = c+a2*(1-c) 
-}
-
-FUNCTION varss(v(mV), i) { :steady state values
+FUNCTION varss(v, i) { :steady state values
 	if (i==0) {
-	 	varss = 1 / (1 + exp((v + 40)/(-3(mV)))) :initial Na activation
-	:	varss = 1 / (1 + exp((v + 44)/(-3(mV)))) :somatic value
+		varss = 1 / (1 + exp((v + 40)/(-3))) :Na activation
 	}
 	else if (i==1) {
-		varss = 1 / (1 + exp((v + 45)/(3(mV))))  :Na inactivation
-	:	varss = 1 / (1 + exp((v + 45)/(3(mV))))  :initial value 
-	:	varss = 1 / (1 + exp((v + 49)/(3.5(mV))))  :somatic Na inactivation
+		varss = 1 / (1 + exp((v + 45)/(3)))  :Na inactivation
 	}
 	else if (i==2) {	
-		varss = 1 / (1 + exp((v + 42)/(-2(mV)))) :K activation
+		varss = 1 / (1 + exp((v + 42)/(-2))) :K activation
 
-	} 
+	} else {
+                :"s" activation system for spike attenuation - Migliore 96 model
+		varss = alpv(v,vhalfr)
+       }
 }
 
 
-FUNCTION alpv(v(mV)) {
-         alpv = 1/(1+exp((v-vvh)/vvs))
+FUNCTION alpv(v(mV),vh) {    :used in "s" activation system infinity calculation
+  alpv = (1+ar2*exp((v-vh)/vvs))/(1+exp((v-vh)/vvs))
 }
 
 FUNCTION alpr(v(mV)) {       :used in "s" activation system tau
-UNITSOFF
   alpr = exp(1.e-3*zetar*(v-vhalfr)*9.648e4/(8.315*(273.16+celsius))) 
-UNITSON
 }
 
 FUNCTION betr(v(mV)) {       :used in "s" activation system tau
-UNITSOFF
   betr = exp(1.e-3*zetar*gmr*(v-vhalfr)*9.648e4/(8.315*(273.16+celsius))) 
-UNITSON
 }
 
-FUNCTION vartau(v(mV), i) (ms){ :estimate tau values
+FUNCTION vartau(v, i) { :estimate tau values
 	LOCAL tmp
 	if (i==0) {
-	   vartau = 0.05(ms)      :Na activation tau
+	   vartau = 0.05      :Na activation tau
 	}
 	else if (i==1) {
-           vartau = 0.5(ms)       :Na inactivation tau
+           vartau = 0.5       :Na inactivation tau
         }
 	else if (i==2) {
-            vartau = 2.2(ms)      :K activation tau
-       	} 
+            vartau = 2.2      :K activation tau
+       	} else {
+	     tmp = betr(v)/(a0r+b0r*alpr(v)) 
+	     if (tmp<taumin) {tmp=taumin}
+	VERBATIM
+	ENDVERBATIM
+	     vartau = tmp      :s activation tau
+       }
 }	
 
+PROCEDURE mhn(v) {
+:       TABLE infinity, tau, fac DEPEND dt, celsius FROM -100 TO 100 WITH 200
+	FROM i=0 TO 3 {
+		tau[i] = vartau(v,i)
+		inf[i] = varss(v,i)
+		fac[i] = (1 - exp(-dt/tau[i]))
+	}
+}
 
 
 
